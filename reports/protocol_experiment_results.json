@@ -1,0 +1,132 @@
+{
+  "A": {
+    "resolution": "10-min",
+    "horizon_steps": 1,
+    "split": "random",
+    "horizon_human": "10 minutes",
+    "zones": {
+      "Zone 1": {
+        "model": 0.7457426408494044,
+        "persistence": 1.3526594739158984,
+        "seasonal_naive": 4.599299503984037,
+        "n_test": 10282
+      },
+      "Zone 2": {
+        "model": 0.8746771837792482,
+        "persistence": 1.4170737158653244,
+        "seasonal_naive": 6.1305563289397735,
+        "n_test": 10282
+      },
+      "Zone 3": {
+        "model": 0.9238322977946275,
+        "persistence": 1.583538602834559,
+        "seasonal_naive": 7.432941283724484,
+        "n_test": 10282
+      }
+    }
+  },
+  "B": {
+    "resolution": "10-min",
+    "horizon_steps": 1,
+    "split": "chrono",
+    "horizon_human": "10 minutes",
+    "zones": {
+      "Zone 1": {
+        "model": 1.2222086113919526,
+        "persistence": 1.2704916061847653,
+        "seasonal_naive": 3.8490011475234627,
+        "n_test": 10282
+      },
+      "Zone 2": {
+        "model": 0.9585688396793832,
+        "persistence": 1.3486801823082635,
+        "seasonal_naive": 4.852587621061511,
+        "n_test": 10282
+      },
+      "Zone 3": {
+        "model": 2.792421611560174,
+        "persistence": 1.7231149593188912,
+        "seasonal_naive": 9.926894964798908,
+        "n_test": 10282
+      }
+    }
+  },
+  "C": {
+    "resolution": "hourly",
+    "horizon_steps": 1,
+    "split": "chrono",
+    "horizon_human": "1 hour",
+    "zones": {
+      "Zone 1": {
+        "model": 5.834584653295673,
+        "persistence": 6.065697209782429,
+        "seasonal_naive": 3.721718115704943,
+        "n_test": 1714
+      },
+      "Zone 2": {
+        "model": 3.4129177902056993,
+        "persistence": 6.5170313803797395,
+        "seasonal_naive": 4.728409344179331,
+        "n_test": 1714
+      },
+      "Zone 3": {
+        "model": 7.999722938406424,
+        "persistence": 7.539226202417004,
+        "seasonal_naive": 9.749177835809421,
+        "n_test": 1714
+      }
+    }
+  },
+  "D": {
+    "resolution": "hourly",
+    "horizon_steps": 24,
+    "split": "chrono",
+    "horizon_human": "24 hours",
+    "zones": {
+      "Zone 1": {
+        "model": 5.116424312601069,
+        "persistence": 3.3473229999237493,
+        "seasonal_naive": 3.7288756813359747,
+        "n_test": 1709
+      },
+      "Zone 2": {
+        "model": 4.150763952849515,
+        "persistence": 5.285400944649028,
+        "seasonal_naive": 4.740634848844621,
+        "n_test": 1709
+      },
+      "Zone 3": {
+        "model": 9.683835637922709,
+        "persistence": 5.259238755031639,
+        "seasonal_naive": 9.755028592232927,
+        "n_test": 1709
+      }
+    }
+  },
+  "E": {
+    "resolution": "hourly",
+    "horizon_steps": 168,
+    "split": "chrono",
+    "horizon_human": "168 hours",
+    "zones": {
+      "Zone 1": {
+        "model": 7.833410960407974,
+        "persistence": 3.7401144111687357,
+        "seasonal_naive": 3.7401144111687357,
+        "n_test": 1680
+      },
+      "Zone 2": {
+        "model": 7.263274269417673,
+        "persistence": 4.800277401164313,
+        "seasonal_naive": 4.800277401164313,
+        "n_test": 1680
+      },
+      "Zone 3": {
+        "model": 12.895826440180475,
+        "persistence": 9.851663335112306,
+        "seasonal_naive": 9.851663335112306,
+        "n_test": 1680
+      }
+    }
+  }
+}

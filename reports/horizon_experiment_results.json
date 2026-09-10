@@ -1,0 +1,152 @@
+[
+  {
+    "horizon_h": 1,
+    "zone": "Zone 1",
+    "model": 3.0998272204127715,
+    "seasonal_naive": 2.771005887690399,
+    "persistence": 6.0003716002135015,
+    "gap_pp": 0.32882133272237235,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 1,
+    "zone": "Zone 2",
+    "model": 3.8214607750346152,
+    "seasonal_naive": 4.055768199515986,
+    "persistence": 6.468925047098888,
+    "gap_pp": -0.2343074244813712,
+    "model_wins": true,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 1,
+    "zone": "Zone 3",
+    "model": 9.442937199984858,
+    "seasonal_naive": 10.081103017006905,
+    "persistence": 7.454966769091478,
+    "gap_pp": -0.6381658170220472,
+    "model_wins": true,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 6,
+    "zone": "Zone 1",
+    "model": 3.833983798673393,
+    "seasonal_naive": 2.7773140395811673,
+    "persistence": 18.026359103948053,
+    "gap_pp": 1.0566697590922258,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 6,
+    "zone": "Zone 2",
+    "model": 4.6392908441684595,
+    "seasonal_naive": 4.066240946464206,
+    "persistence": 20.249994168074235,
+    "gap_pp": 0.5730498977042533,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 6,
+    "zone": "Zone 3",
+    "model": 13.852449615012821,
+    "seasonal_naive": 10.110917485929354,
+    "persistence": 20.60196199675073,
+    "gap_pp": 3.741532129083467,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 24,
+    "zone": "Zone 1",
+    "model": 4.925253318188968,
+    "seasonal_naive": 2.7813567349161863,
+    "persistence": 24.628972092256234,
+    "gap_pp": 2.143896583272782,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 24,
+    "zone": "Zone 2",
+    "model": 5.668775057160429,
+    "seasonal_naive": 4.105672006661186,
+    "persistence": 27.95707298314009,
+    "gap_pp": 1.5631030504992438,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 24,
+    "zone": "Zone 3",
+    "model": 17.153050127454414,
+    "seasonal_naive": 10.034180456704362,
+    "persistence": 27.822752785799583,
+    "gap_pp": 7.118869670750051,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 72,
+    "zone": "Zone 1",
+    "model": 5.476040617107413,
+    "seasonal_naive": 2.815509488668762,
+    "persistence": 24.752647538720517,
+    "gap_pp": 2.6605311284386515,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 72,
+    "zone": "Zone 2",
+    "model": 9.116869955658077,
+    "seasonal_naive": 4.168937303876574,
+    "persistence": 28.43091733171966,
+    "gap_pp": 4.947932651781502,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 72,
+    "zone": "Zone 3",
+    "model": 18.934790547861564,
+    "seasonal_naive": 9.684593443025467,
+    "persistence": 28.038946221689436,
+    "gap_pp": 9.250197104836097,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 168,
+    "zone": "Zone 1",
+    "model": 5.983105540874993,
+    "seasonal_naive": 2.8616596541140256,
+    "persistence": 24.72130488651232,
+    "gap_pp": 3.1214458867609673,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 168,
+    "zone": "Zone 2",
+    "model": 11.03297731516984,
+    "seasonal_naive": 4.2648705118949914,
+    "persistence": 28.604863958075597,
+    "gap_pp": 6.768106803274848,
+    "model_wins": false,
+    "effective_n": 1007
+  },
+  {
+    "horizon_h": 168,
+    "zone": "Zone 3",
+    "model": 13.84547684282702,
+    "seasonal_naive": 8.729347968328415,
+    "persistence": 28.353676799944605,
+    "gap_pp": 5.116128874498605,
+    "model_wins": false,
+    "effective_n": 1007
+  }
+]

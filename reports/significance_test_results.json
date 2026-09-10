@@ -1,0 +1,95 @@
+[
+  {
+    "zone": "Zone 1",
+    "effective_n": 1007,
+    "MAPE_seasonal_naive": 2.771005868911743,
+    "MAPE_model": 3.1827753484761745,
+    "MAPE_blend": 2.756489537957442,
+    "blend_vs_naive": {
+      "mean_diff_pp": -0.014516349546070657,
+      "ci95": [
+        -0.09339914279794977,
+        0.06290964854556826
+      ],
+      "dm_stat": -0.21762507669187853,
+      "dm_p": 0.827721244369112,
+      "nw_lag": 6,
+      "significant_at_05": false,
+      "ci_excludes_zero": false
+    },
+    "model_vs_naive": {
+      "mean_diff_pp": 0.411769460972662,
+      "ci95": [
+        0.2700770598320452,
+        0.5499925681825168
+      ],
+      "dm_stat": 3.3575693982764037,
+      "dm_p": 0.000786310020172154,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "ci_excludes_zero": true
+    }
+  },
+  {
+    "zone": "Zone 2",
+    "effective_n": 1007,
+    "MAPE_seasonal_naive": 4.055768013000488,
+    "MAPE_model": 4.510323852898538,
+    "MAPE_blend": 4.035407764351802,
+    "blend_vs_naive": {
+      "mean_diff_pp": -0.020360440764256606,
+      "ci95": [
+        -0.1273334776693809,
+        0.08589394379540048
+      ],
+      "dm_stat": -0.19924302279743372,
+      "dm_p": 0.8420726466912745,
+      "nw_lag": 6,
+      "significant_at_05": false,
+      "ci_excludes_zero": false
+    },
+    "model_vs_naive": {
+      "mean_diff_pp": 0.45455564778248003,
+      "ci95": [
+        0.24859238697987202,
+        0.6541602343903968
+      ],
+      "dm_stat": 2.2607778287355393,
+      "dm_p": 0.023773018191102224,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "ci_excludes_zero": true
+    }
+  },
+  {
+    "zone": "Zone 3",
+    "effective_n": 1007,
+    "MAPE_seasonal_naive": 10.08110237121582,
+    "MAPE_model": 24.706832631133626,
+    "MAPE_blend": 15.91586903562051,
+    "blend_vs_naive": {
+      "mean_diff_pp": 5.834766020029352,
+      "ci95": [
+        5.1713246957649215,
+        6.496005341895861
+      ],
+      "dm_stat": 7.868482427518666,
+      "dm_p": 3.552713678800501e-15,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "ci_excludes_zero": true
+    },
+    "model_vs_naive": {
+      "mean_diff_pp": 14.625729615542465,
+      "ci95": [
+        13.271296518656161,
+        16.00087242012167
+      ],
+      "dm_stat": 9.71560102316602,
+      "dm_p": 0.0,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "ci_excludes_zero": true
+    }
+  }
+]

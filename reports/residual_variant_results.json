@@ -1,0 +1,44 @@
+[
+  {
+    "zone": "Zone 1",
+    "val_direct": 7.5928079039917105,
+    "val_residual": 7.076267181934087,
+    "val_seasonal_naive": 4.749666689586597,
+    "chosen_on_validation": "residual",
+    "test_direct": 3.2578530889323254,
+    "test_residual": 3.525051414826709,
+    "test_chosen": 3.525051414826709,
+    "test_seasonal_naive": 2.8616596541140256,
+    "test_persistence": 24.72130488651232,
+    "chosen_beats_naive": false,
+    "effective_n": 1007
+  },
+  {
+    "zone": "Zone 2",
+    "val_direct": 9.195966605515018,
+    "val_residual": 9.515623970627885,
+    "val_seasonal_naive": 5.201180708007107,
+    "chosen_on_validation": "direct",
+    "test_direct": 4.530282793094531,
+    "test_residual": 4.861168612885274,
+    "test_chosen": 4.530282793094531,
+    "test_seasonal_naive": 4.2648705118949914,
+    "test_persistence": 28.604863958075597,
+    "chosen_beats_naive": false,
+    "effective_n": 1007
+  },
+  {
+    "zone": "Zone 3",
+    "val_direct": 8.776859891997615,
+    "val_residual": 8.865400245996419,
+    "val_seasonal_naive": 7.629806555462963,
+    "chosen_on_validation": "direct",
+    "test_direct": 24.96177114604286,
+    "test_residual": 21.446002064429777,
+    "test_chosen": 24.96177114604286,
+    "test_seasonal_naive": 8.729347968328415,
+    "test_persistence": 28.353676799944605,
+    "chosen_beats_naive": false,
+    "effective_n": 1007
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "zone": "Zone 1",
+    "seasonal_naive": 2.8616596541140256,
+    "A base": 3.4274789207727863,
+    "A base gap_pp": 0.5658192666587607,
+    "B +level shift": 3.438743208039309,
+    "B +level shift gap_pp": 0.5770835539252834,
+    "C +oracle weather": 3.494947555524202,
+    "C +oracle weather gap_pp": 0.6332879014101764
+  },
+  {
+    "zone": "Zone 2",
+    "seasonal_naive": 4.2648705118949914,
+    "A base": 4.460839195108221,
+    "A base gap_pp": 0.1959686832132297,
+    "B +level shift": 4.461913865880682,
+    "B +level shift gap_pp": 0.1970433539856904,
+    "C +oracle weather": 4.6851213710598225,
+    "C +oracle weather gap_pp": 0.42025085916483107
+  },
+  {
+    "zone": "Zone 3",
+    "seasonal_naive": 8.729347968328415,
+    "A base": 25.314999770082174,
+    "A base gap_pp": 16.58565180175376,
+    "B +level shift": 23.411214705826243,
+    "B +level shift gap_pp": 14.681866737497828,
+    "C +oracle weather": 25.235870933548572,
+    "C +oracle weather gap_pp": 16.506522965220157
+  }
+]
