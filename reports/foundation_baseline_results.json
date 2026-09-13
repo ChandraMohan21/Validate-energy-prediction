@@ -1,0 +1,212 @@
+[
+  {
+    "zone": "Zone 1",
+    "model_id": "amazon/chronos-bolt-base",
+    "context_length": 2048,
+    "zero_shot": true,
+    "n_origins": 840,
+    "rows": 141120,
+    "effective_n": 1007,
+    "chronos": {
+      "MAPE": 2.4462567765868517,
+      "MAE": 695.7089221911095,
+      "RMSE": 973.8175555352047
+    },
+    "seasonal_naive": {
+      "MAPE": 2.8616596541140256,
+      "MAE": 813.9552641507449,
+      "RMSE": 1139.7594225313326
+    },
+    "persistence": {
+      "MAPE": 24.72130488651232,
+      "MAE": 6926.190383281405,
+      "RMSE": 8560.495232270194
+    },
+    "trained_ml_model": {
+      "family": "rf",
+      "MAPE": 4.203478845054058
+    },
+    "by_day_ahead": {
+      "1": {
+        "chronos_MAPE": 2.1260582699323196,
+        "seasonal_naive_MAPE": 2.93998232084726
+      },
+      "2": {
+        "chronos_MAPE": 2.4039354169398517,
+        "seasonal_naive_MAPE": 2.9359066721683926
+      },
+      "3": {
+        "chronos_MAPE": 2.509829268629988,
+        "seasonal_naive_MAPE": 2.914393374436051
+      },
+      "4": {
+        "chronos_MAPE": 2.4759730796030053,
+        "seasonal_naive_MAPE": 2.887958631660863
+      },
+      "5": {
+        "chronos_MAPE": 2.462102875741511,
+        "seasonal_naive_MAPE": 2.798030771209716
+      },
+      "6": {
+        "chronos_MAPE": 2.5750062876884456,
+        "seasonal_naive_MAPE": 2.77364683956553
+      },
+      "7": {
+        "chronos_MAPE": 2.5708922375728394,
+        "seasonal_naive_MAPE": 2.7816989689103706
+      }
+    },
+    "chronos_vs_seasonal_naive": {
+      "mean_diff_pp": -0.39469361797117564,
+      "ci95": [
+        -0.5216178046999307,
+        -0.26927602162133574
+      ],
+      "dm_stat": -3.291553561791393,
+      "dm_p": 0.0009963564138122383,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "chronos_wins": true
+    }
+  },
+  {
+    "zone": "Zone 2",
+    "model_id": "amazon/chronos-bolt-base",
+    "context_length": 2048,
+    "zero_shot": true,
+    "n_origins": 840,
+    "rows": 141120,
+    "effective_n": 1007,
+    "chronos": {
+      "MAPE": 3.355183677733839,
+      "MAE": 756.0251384224752,
+      "RMSE": 1105.8236675399132
+    },
+    "seasonal_naive": {
+      "MAPE": 4.2648705118949914,
+      "MAE": 974.643103691672,
+      "RMSE": 1434.3910171609673
+    },
+    "persistence": {
+      "MAPE": 28.604863958075597,
+      "MAE": 6435.65314032107,
+      "RMSE": 7949.304279397416
+    },
+    "trained_ml_model": {
+      "family": "rf",
+      "MAPE": 4.81019627095796
+    },
+    "by_day_ahead": {
+      "1": {
+        "chronos_MAPE": 2.713024644768681,
+        "seasonal_naive_MAPE": 4.387069493123228
+      },
+      "2": {
+        "chronos_MAPE": 3.368217038895941,
+        "seasonal_naive_MAPE": 4.368360851425095
+      },
+      "3": {
+        "chronos_MAPE": 3.4368608061028865,
+        "seasonal_naive_MAPE": 4.329686219722969
+      },
+      "4": {
+        "chronos_MAPE": 3.407797598182389,
+        "seasonal_naive_MAPE": 4.286924048034556
+      },
+      "5": {
+        "chronos_MAPE": 3.435207875713546,
+        "seasonal_naive_MAPE": 4.201730974091767
+      },
+      "6": {
+        "chronos_MAPE": 3.5613542486424445,
+        "seasonal_naive_MAPE": 4.21308693623366
+      },
+      "7": {
+        "chronos_MAPE": 3.5638235318309786,
+        "seasonal_naive_MAPE": 4.0672350606336645
+      }
+    },
+    "chronos_vs_seasonal_naive": {
+      "mean_diff_pp": -0.7208304946937866,
+      "ci95": [
+        -0.9342404425212518,
+        -0.5131955022384115
+      ],
+      "dm_stat": -2.9138709793918105,
+      "dm_p": 0.003569774084674515,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "chronos_wins": true
+    }
+  },
+  {
+    "zone": "Zone 3",
+    "model_id": "amazon/chronos-bolt-base",
+    "context_length": 2048,
+    "zero_shot": true,
+    "n_origins": 840,
+    "rows": 141120,
+    "effective_n": 1007,
+    "chronos": {
+      "MAPE": 5.170964775332033,
+      "MAE": 543.9156340203318,
+      "RMSE": 828.0244795749683
+    },
+    "seasonal_naive": {
+      "MAPE": 8.729347968328415,
+      "MAE": 921.0498472633275,
+      "RMSE": 1605.4052601741396
+    },
+    "persistence": {
+      "MAPE": 28.353676799944605,
+      "MAE": 3087.201931122587,
+      "RMSE": 4008.7380288426602
+    },
+    "trained_ml_model": {
+      "family": "xgboost",
+      "MAPE": 20.641537450510107
+    },
+    "by_day_ahead": {
+      "1": {
+        "chronos_MAPE": 3.978186037742183,
+        "seasonal_naive_MAPE": 10.959739768852899
+      },
+      "2": {
+        "chronos_MAPE": 4.711415823779701,
+        "seasonal_naive_MAPE": 10.252691845138735
+      },
+      "3": {
+        "chronos_MAPE": 5.146691776871692,
+        "seasonal_naive_MAPE": 9.448883409491424
+      },
+      "4": {
+        "chronos_MAPE": 5.21379581264305,
+        "seasonal_naive_MAPE": 8.858072939418934
+      },
+      "5": {
+        "chronos_MAPE": 5.596099563299989,
+        "seasonal_naive_MAPE": 8.258574978874837
+      },
+      "6": {
+        "chronos_MAPE": 5.735795313554348,
+        "seasonal_naive_MAPE": 7.302712434099501
+      },
+      "7": {
+        "chronos_MAPE": 5.814769099433272,
+        "seasonal_naive_MAPE": 6.024760402422583
+      }
+    },
+    "chronos_vs_seasonal_naive": {
+      "mean_diff_pp": -4.209194097198109,
+      "ci95": [
+        -4.892412924662958,
+        -3.5499713921016816
+      ],
+      "dm_stat": -5.11460142633783,
+      "dm_p": 3.144041176295076e-07,
+      "nw_lag": 6,
+      "significant_at_05": true,
+      "chronos_wins": true
+    }
+  }
+]

@@ -3,7 +3,9 @@
 Code: `src/forecasting.py` (features, splits, baselines), `src/run_pipeline.py` (AutoML, training, walk-forward), `src/residual_variant.py`, `src/make_figures.py`, `src/validate_project.py`.
 Results: `reports/results_corrected.json`, `reports/residual_variant_results.json`.
 
-**Headline finding: a tuned gradient-boosted model does not beat a seasonal-naive baseline on this dataset at a 168-hour horizon.** Details and caveats below.
+**Headline finding: at a 168-hour horizon, the models trained on this data do not beat a seasonal-naive baseline, but a zero-shot foundation model does, significantly, in all three zones.** Tuned tree ensembles lose to "same hour last week." Chronos-Bolt, never trained on this series, beats it. Details and caveats below.
+
+Code for the foundation model: `src/foundation_baseline.py`. Its results: `reports/foundation_baseline_results.json`.
 
 ## Dataset
 
@@ -77,7 +79,7 @@ Neither framing beats the baseline. Worth recording honestly: for Zone 1 and Zon
 
 These three series are strongly repeatable week to week. Copying last week reproduces the exact shape of the previous week including its ramps and peaks. A model that predicts the level has to reconstruct the weekly shape from calendar features, and averaging many weeks smooths it, which costs more than the model's other advantages gain.
 
-Per-hour error on Zone 1 makes this concrete. The model loses at 22 of the 24 hours, winning only at 01:00 and 14:00 and tying at 13:00. The widest gaps are in the small hours and late evening: 04:00 (6.33% versus 2.09%), 03:00 (5.90% versus 2.21%), 23:00 (5.61% versus 1.83%) and 19:00 (5.32% versus 1.86%). Those are the most repeatable hours of the week, which is precisely where copying last week is hardest to improve on. The model comes closest during daytime hours, where week-to-week variation is larger and calendar structure carries more information. This is the signature of a model reproducing an average weekly profile rather than tracking recent conditions.
+Per-hour error on Zone 1 makes this concrete. The model loses at 22 of the 24 hours, winning only at 01:00 and 14:00 and tying at 13:00. The widest gaps are in the small hours and late evening: 04:00 (6.33% versus 2.09%), 03:00 (5.90% versus 2.21%), 23:00 (5.61% versus 1.83%) and 19:00 (5.32% versus 1.86%). Those are the most repeatable hours of the week, which is precisely where copying last week is hardest to improve on. The model comes closest during daytime hours, where week-to-week variation is larger and calendar structure carries more information. This is the signature of a model reproducing an average weekly profile rather than tracking recent conditions. The zero-shot foundation model section below shows the baseline can be beaten by a model that does track recent conditions.
 
 ## Is the 168-hour horizon the cause?
 
@@ -161,6 +163,44 @@ Note also why the row-level and collapsed figures differ. Zone 2's blend looked 
 
 Blending produced a real effect, moving a significantly worse forecast to parity, but not a win. No further configuration was tried, because continuing would amount to searching for a variant that happens to win on this particular test window.
 
+## Zero-shot foundation model (`src/foundation_baseline.py`)
+
+Every model above was trained on Tetouan data alone. Chronos-Bolt (base size, from Amazon) is pretrained on a large public corpus that does not include this dataset. Here it is applied with no training, no features and no tuning. It sees up to 2,048 hours of history ending at the forecast origin and returns a 168-hour forecast. The median is used as the point forecast. It uses the same 840 test origins, the same targets and the same baselines as every experiment above. The run was done on Google Colab with `notebooks/02_foundation_baseline_colab.ipynb`, and results are in `reports/foundation_baseline_results.json`.
+
+| Zone | Seasonal naive | Trained model | Chronos-Bolt, zero-shot | Chronos minus naive | 95% CI | Diebold-Mariano p |
+|---|---|---|---|---|---|---|
+| Zone 1 | 2.86% | 4.20% | **2.45%** | -0.40 pp | [-0.52, -0.27] | 0.0010 |
+| Zone 2 | 4.26% | 4.81% | **3.36%** | -0.72 pp | [-0.93, -0.51] | 0.0036 |
+| Zone 3 | 8.73% | 20.64% | **5.17%** | -4.21 pp | [-4.89, -3.55] | < 0.0001 |
+
+Significance uses the same collapsed series of 1,007 target hours as the tests above.
+
+Gap to the seasonal naive by day ahead, in percentage points. Negative means Chronos is more accurate.
+
+| Day ahead | Zone 1 | Zone 2 | Zone 3 |
+|---|---|---|---|
+| 1 | -0.81 | -1.67 | -6.98 |
+| 2 | -0.53 | -1.00 | -5.54 |
+| 3 | -0.40 | -0.89 | -4.30 |
+| 4 | -0.41 | -0.88 | -3.64 |
+| 5 | -0.34 | -0.77 | -2.66 |
+| 6 | -0.20 | -0.65 | -1.57 |
+| 7 | -0.21 | -0.50 | -0.21 |
+
+What this shows:
+
+- **The ordering is the same in all three zones.** The trained model is worst, the seasonal naive is next, and the zero-shot foundation model is best.
+- **The advantage is largest one day ahead and narrows toward day 7.** At a week ahead the forecast converges toward the weekly pattern that the seasonal naive copies directly. Chronos is still ahead at day 7 in every zone.
+- **Zone 3 gains the most.** Its level moves over the test window. The seasonal naive carries last week's level forward, and tree ensembles cannot extrapolate beyond the range seen in training. Chronos conditions directly on the most recent weeks. This explanation is consistent with the day-by-day pattern but has not been tested directly.
+- **The gap in the earlier sections belongs to the trained models, not to the series.** A seasonal naive is beatable at a 168-hour horizon on this data. The trained models in this study did not beat it.
+
+Caveats:
+
+- The result covers one test window, the final six weeks of 2017. The walk-forward windows have not been run for Chronos.
+- Only one foundation model at one size was tested. TimesFM and Moirai were not tested.
+- Contamination was checked against the published Chronos dataset list only.
+- Chronos-Bolt's native prediction length is shorter than 168 hours. The library extends longer horizons autoregressively.
+
 ## Corrections applied 2026-09
 
 This report replaces an earlier version whose numbers were invalid. An audit found:
@@ -177,7 +217,7 @@ A symptom was visible and misread at the time: test error was flat at 3.60 to 3.
 
 ## Limitations
 
-- The model does not beat a seasonal naive at this horizon. Reported as the result, not worked around.
+- The trained models do not beat a seasonal naive at this horizon. Reported as the result, not worked around. A zero-shot foundation model does beat it, but so far only on one test window; see its caveats above.
 - Zone 3 is unstable: 20.64% on test against an 8.73% baseline, and 22.10% and 18.11% on two of three walk-forward windows.
 - Single year of data, so seasonal effects are observed once and not confirmed as recurring.
 - Hyperparameters come from a 300-second AutoML budget per zone. A longer search might narrow the gap; it was not run.
@@ -191,7 +231,8 @@ python src/data_cleaning.py
 python src/run_pipeline.py 300
 python src/residual_variant.py
 python src/make_figures.py
+python src/foundation_baseline.py   # needs several GB free, or run notebooks/02_foundation_baseline_colab.ipynb
 python src/validate_project.py
 ```
 
-`validate_project.py` asserts feature observability, embargo integrity, baseline definitions, effective sample size, that saved models reproduce the recorded metrics, and that every figure referenced by a report exists. It currently reports 40 passed, 0 failed.
+`validate_project.py` asserts feature observability, embargo integrity, baseline definitions, effective sample size, that saved models reproduce the recorded metrics, and that every figure referenced by a report exists. It also checks that the foundation model run used the canonical test origins, a context window ending at the origin, and the same test set. It currently reports 48 passed, 0 failed.

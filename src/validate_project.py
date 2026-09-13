@@ -11,6 +11,8 @@ Checks, in order of severity:
   SAMPLING    effective sample size is reported, not the inflated row count
   MODELS      saved models load, expose the expected feature count, and reproduce
               the numbers recorded in reports/results_corrected.json
+  FOUNDATION  the Chronos run used the canonical test origins, a context window
+              ending at the origin, and scored the same test set
   ARTEFACTS   every figure referenced by a report exists on disk
   PROVENANCE  no stale campus/block labels anywhere in the repo
 
@@ -122,6 +124,38 @@ def main():
             check(f"{label}: reproduces recorded test MAPE", abs(got - rec) < 0.01,
                   f"recorded {rec:.2f}%, recomputed {got:.2f}%")
             del dd, tt, m
+
+    print("\n=== FOUNDATION MODEL ===")
+    fb_path = ROOT / "reports/foundation_baseline_results.json"
+    if not fb_path.exists():
+        check("foundation_baseline_results.json exists", False,
+              "run notebooks/02_foundation_baseline_colab.ipynb")
+    else:
+        # imported from the script itself, so these checks test the code that produced the result
+        from foundation_baseline import test_origin_indices, context_slice
+        fb = {r["zone"]: r for r in json.loads(fb_path.read_text(encoding="utf-8"))}
+        t_orig = test_origin_indices(hdf.index, len(hdf))
+        ctx_last = np.array([context_slice(o).stop - 1 for o in t_orig])
+        check("foundation context ends at the origin, before every target",
+              bool((ctx_last == t_orig).all()))
+        check("foundation test origins match split()",
+              len(t_orig) == te["origin_time"].nunique()
+              and hdf.index[t_orig[0]] == te["origin_time"].min()
+              and hdf.index[t_orig[-1]] == te["origin_time"].max(),
+              f"{len(t_orig)} origins")
+        for col, label in ZONES.items():
+            r = fb.get(label)
+            if not check(f"{label}: foundation result recorded", r is not None):
+                continue
+            dd = build_supervised_table(hdf, col)
+            _, _, tt = split(dd)
+            sn_canon = metrics(tt["y"], tt["seasonal_naive"])["MAPE"]
+            check(f"{label}: foundation run scored the canonical test set",
+                  r["n_origins"] == len(t_orig) and r["effective_n"] == effective_n(tt)
+                  and abs(r["seasonal_naive"]["MAPE"] - sn_canon) < 0.01,
+                  f"seasonal naive recorded {r['seasonal_naive']['MAPE']:.2f}%, "
+                  f"canonical {sn_canon:.2f}%")
+            del dd, tt
 
     print("\n=== ARTEFACTS ===")
     for rp in sorted(ROOT.glob("reports/*.md")):

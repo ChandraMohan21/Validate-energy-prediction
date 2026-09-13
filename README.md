@@ -2,52 +2,71 @@
 
 When does machine learning actually beat a classical baseline for electricity load forecasting, and when does it only appear to?
 
-This project answers that question for the three urban distribution networks of Tetouan, Morocco, using a 168-hour horizon, five controlled experiments, formal significance testing, and a 40-assertion correctness suite. It ships with a Streamlit dashboard and a fully reproducible pipeline.
+This project answers that question for the three urban distribution networks of Tetouan, Morocco, at a 168-hour horizon. It compares models trained on the series, a seasonal naive baseline, and a zero-shot time series foundation model, using six controlled experiments, formal significance testing, and a 48-assertion correctness suite. It ships with a Streamlit dashboard and a fully reproducible pipeline.
 
 ## What this project establishes
 
-**1. A quantified boundary for where learned models help.** Holding the model, features and protocol constant and varying only the horizon, a gradient-boosted model's advantage over a seasonal naive exists at one hour ahead and disappears beyond six. At the standard 24-hour day-ahead horizon the baseline is already ahead.
+**1. A zero-shot foundation model beats the seasonal naive where trained models could not.** Chronos-Bolt, never trained on this data, beats "same hour last week" in all three zones: 2.45 against 2.86, 3.36 against 4.26, and 5.17 against 8.73 percent MAPE. Every difference is significant on the honest effective sample, with p = 0.001, 0.004 and below 0.0001.
 
-**2. Why, with the obvious explanations ruled out.** An oracle experiment granting the model perfect future weather, information unavailable at forecast time, makes accuracy slightly *worse*. The limitation is not missing weather forecasts. For a weekly-periodic series, last week's value at the target hour is nearly independent of forecast distance, so extending the horizon penalises the model without penalising the baseline.
+**2. Tuned models trained on the series lose to that same baseline.** The Random Forest and XGBoost models chosen by AutoML are significantly behind the seasonal naive in every zone. Holding model, features and protocol fixed and varying only the horizon, their advantage exists at one hour ahead and disappears beyond six.
 
-**3. That small apparent wins on this data are noise.** Blending model and baseline produced gains of 0.03 and 0.13 percentage points. Collapsing errors to one per distinct target hour, the honest effective sample of 1,007 rather than 141,120 rows, a Diebold-Mariano test returns p = 0.83 and 0.84. Not distinguishable from zero.
+**3. Why the trained models fall short, with the obvious explanation ruled out.** An oracle experiment granting perfect future weather, information unavailable at forecast time, makes accuracy slightly *worse*. The limitation is not missing weather forecasts.
 
-**4. How a plausible-looking result can be entirely an artifact.** An earlier version of this project reported beating the baseline in 9 of 9 windows by 47 to 85 percent. A self-audit found four defects that produced that number. All are documented below and now guarded by automated assertions.
+**4. That small apparent wins on this data are noise.** Blending a trained model with the baseline produced gains of 0.03 and 0.13 percentage points. Collapsing errors to one per distinct target hour, the honest effective sample of 1,007 rather than 141,120 rows, a Diebold-Mariano test returns p = 0.83 and 0.84.
+
+**5. How a plausible-looking result can be entirely an artifact.** An earlier version of this project reported beating the baseline in 9 of 9 windows by 47 to 85 percent. A self-audit found four defects that produced that number. All are documented below and now guarded by automated assertions.
 
 ## Results
 
-Chronological train/validation/test split with a 168-hour embargo. Model family and hyperparameters chosen by FLAML AutoML on validation only, refit on train plus validation, scored once on test.
+Chronological train/validation/test split with a 168-hour embargo. Trained models were chosen by FLAML AutoML on validation only, refit on train plus validation, and scored once on test. Chronos is applied zero-shot to the same test origins, seeing only history up to each origin.
 
-| Zone | Model | Test MAPE | Seasonal naive | Persistence |
-|---|---|---|---|---|
-| Zone 1 | Random Forest | 4.20% | 2.86% | 24.72% |
-| Zone 2 | Random Forest | 4.81% | 4.26% | 28.60% |
-| Zone 3 | XGBoost | 20.64% | 8.73% | 28.35% |
+| Zone | Trained model | Trained MAPE | Seasonal naive | Chronos-Bolt, zero-shot | Persistence |
+|---|---|---|---|---|---|
+| Zone 1 | Random Forest | 4.20% | 2.86% | **2.45%** | 24.72% |
+| Zone 2 | Random Forest | 4.81% | 4.26% | **3.36%** | 28.60% |
+| Zone 3 | XGBoost | 20.64% | 8.73% | **5.17%** | 28.35% |
 
-Significance, errors collapsed to one per target hour, Diebold-Mariano with Newey-West variance plus a 10,000-sample bootstrap:
+Significance, with errors collapsed to one per target hour, using Diebold-Mariano with Newey-West variance plus a 10,000-sample bootstrap. Negative means more accurate than the seasonal naive.
 
 | Comparison | Zone 1 | Zone 2 | Zone 3 |
 |---|---|---|---|
-| Model vs seasonal naive | +0.41pp, p=0.0008 | +0.46pp, p=0.024 | +14.6pp, p<0.0001 |
+| Chronos-Bolt vs seasonal naive | -0.40pp, p=0.0010 | -0.72pp, p=0.0036 | -4.21pp, p<0.0001 |
+| Trained LightGBM vs seasonal naive | +0.41pp, p=0.0008 | +0.46pp, p=0.024 | +14.6pp, p<0.0001 |
 | Blend vs seasonal naive | -0.015pp, p=0.83 | -0.020pp, p=0.84 | +5.83pp, p<0.0001 |
 
-**The finding: on these series a seasonal naive is the stronger forecaster at a 168-hour horizon.** The learned model is significantly behind it; blending the two reaches statistical parity but does not surpass it. The model does beat persistence by a wide margin everywhere, but persistence is the wrong benchmark for a weekly-periodic series, and mistaking one for the other is precisely what produced the original erroneous result.
+**The finding: at a 168-hour horizon on these series, the seasonal naive is stronger than every model trained on the series, and a zero-shot foundation model is stronger than the seasonal naive.** The trained models do beat persistence by a wide margin, but persistence is the wrong benchmark for a weekly-periodic series. Mistaking one for the other is precisely what produced the original erroneous result.
 
 Full methodology: [reports/05_modeling_report.md](reports/05_modeling_report.md).
 
-## The five experiments
+## The six experiments
 
 | Experiment | Question | Answer |
 |---|---|---|
 | [`protocol_experiment.py`](src/protocol_experiment.py) | How much of a reported score comes from evaluation choices? | A great deal. 10-minute-ahead prediction with a random split gives under 1% MAPE while trivial persistence already achieves 1.4%. Switching to a chronological split moves Zone 3 from 0.92% to 2.79%. |
-| [`horizon_experiment.py`](src/horizon_experiment.py) | Is the 168-hour horizon the cause? | Partly. The model wins 2 of 15 horizon-zone combinations, both at one hour ahead. |
-| [`ceiling_experiment.py`](src/ceiling_experiment.py) | Would better features close the gap? | No. Legal level-shift features change nothing; an oracle weather forecast makes it worse. |
+| [`horizon_experiment.py`](src/horizon_experiment.py) | Is the 168-hour horizon the cause? | Partly. The trained model wins 2 of 15 horizon-zone combinations, both at one hour ahead. |
+| [`ceiling_experiment.py`](src/ceiling_experiment.py) | Would better features close the gap? | No. Legal level-shift features change nothing, and an oracle weather forecast makes it worse. |
 | [`combination_experiment.py`](src/combination_experiment.py) | Does blending beat both? | Apparent small gains on two zones. |
 | [`significance_test.py`](src/significance_test.py) | Are those gains real? | No. p = 0.83 and 0.84. |
+| [`foundation_baseline.py`](src/foundation_baseline.py) | Can a pretrained model with no training beat the baseline? | Yes, in all three zones, significantly. |
+
+### Zero-shot foundation model by day ahead
+
+Chronos-Bolt MAPE minus seasonal-naive MAPE, in percentage points. Negative means Chronos wins.
+
+| Day ahead | Zone 1 | Zone 2 | Zone 3 |
+|---|---|---|---|
+| 1 | -0.81 | -1.67 | -6.98 |
+| 3 | -0.40 | -0.89 | -4.30 |
+| 5 | -0.34 | -0.77 | -2.66 |
+| 7 | -0.21 | -0.50 | -0.21 |
+
+The advantage is largest one day ahead and narrows toward a week, where the forecast converges on the weekly pattern the seasonal naive copies. It stays ahead at day 7 in every zone. Zone 3 gains most. Its level moves over the test window, which a copy of last week cannot follow and a tree ensemble cannot extrapolate.
+
+Scope of this result: one test window, the final six weeks of 2017; one foundation model at one size; and a contamination check against the published Chronos pretraining dataset list. Confirming it across the earlier walk-forward windows is the next step.
 
 ### Horizon sensitivity
 
-Model MAPE minus seasonal-naive MAPE, in percentage points. Negative means the model wins.
+Trained model MAPE minus seasonal-naive MAPE, in percentage points. Negative means the model wins.
 
 | Horizon | Zone 1 | Zone 2 | Zone 3 |
 |---|---|---|---|
@@ -57,7 +76,7 @@ Model MAPE minus seasonal-naive MAPE, in percentage points. Negative means the m
 | 72 hours | +2.66 | +4.95 | +9.25 |
 | 168 hours | +3.12 | +6.77 | +5.12 |
 
-Persistence degrades from about 6% at one hour to about 25% at a week, exactly as expected. The seasonal naive barely moves at all: Zone 1 records 2.77, 2.78, 2.78, 2.82, 2.86 percent across the entire range. That asymmetry is the mechanism.
+Persistence degrades from about 6% at one hour to about 25% at a week, exactly as expected. The seasonal naive barely moves at all: Zone 1 records 2.77, 2.78, 2.78, 2.82 and 2.86 percent across the entire range. That asymmetry is the mechanism.
 
 ### Feature ceiling
 
@@ -85,10 +104,10 @@ All four are fixed and each is now guarded by an automated assertion.
 ## Correctness suite
 
 ```bash
-python src/validate_project.py     # 40 passed, 0 failed
+python src/validate_project.py     # 48 passed, 0 failed
 ```
 
-Asserts data integrity against the pristine UCI source, feature observability at the forecast origin, embargo integrity across every split boundary, baseline definitions, effective sample size, that saved models reproduce their recorded metrics, that every figure referenced by a report exists, and that no stale labels survive anywhere in the repository.
+Asserts data integrity against the pristine UCI source, feature observability at the forecast origin, embargo integrity across every split boundary, baseline definitions, effective sample size, that saved models reproduce their recorded metrics, that the foundation model run used the canonical test origins with a context window ending at each origin, that every figure referenced by a report exists, and that no stale labels survive anywhere in the repository.
 
 ## Dataset
 
@@ -114,12 +133,15 @@ python src/horizon_experiment.py       # horizon sensitivity
 python src/ceiling_experiment.py       # feature ceiling, incl. oracle upper bound
 python src/combination_experiment.py   # model plus baseline blending
 python src/significance_test.py        # Diebold-Mariano and bootstrap
+python src/foundation_baseline.py      # Chronos-Bolt zero-shot, needs torch and several GB free
 python src/make_deployment_forecast.py # full-year retrain and 7-day forecast
 python src/make_figures.py             # modeling figures
 python src/validate_project.py         # correctness suite
 
 streamlit run app/streamlit_app.py     # dashboard at localhost:8501
 ```
+
+The foundation model step needs PyTorch and `chronos-forecasting`. Without a few GB of free memory, open [notebooks/02_foundation_baseline_colab.ipynb](notebooks/02_foundation_baseline_colab.ipynb) in Google Colab instead. It clones this repository and runs the same script on a free GPU.
 
 ## Repository layout
 
@@ -130,9 +152,9 @@ electricity-prediction/
 │   ├── raw/              UCI original CSV
 │   └── processed/        cleaned data, detected outliers, deployment forecast
 ├── models/               saved models, zone_1 / zone_2 / zone_3 variants
-├── notebooks/            01_modeling.ipynb, narrative walkthrough
+├── notebooks/            01_modeling.ipynb walkthrough, 02_foundation_baseline_colab.ipynb
 ├── paper/                research paper drafts
-├── reports/              4 markdown reports, 1 workbook, 7 result JSONs, figures/
+├── reports/              4 markdown reports, 1 workbook, 8 result JSONs, figures/
 └── src/
     ├── forecasting.py            features, splits, baselines, metrics (single source of truth)
     ├── data_cleaning.py          cleaning pipeline
@@ -146,6 +168,7 @@ electricity-prediction/
     ├── ceiling_experiment.py     feature ceiling, incl. oracle upper bound
     ├── combination_experiment.py model plus baseline blending
     ├── significance_test.py      Diebold-Mariano and paired bootstrap
+    ├── foundation_baseline.py    Chronos-Bolt zero-shot baseline
     ├── make_deployment_forecast.py  full-year retrain and 7-day forecast
     ├── make_figures.py           modeling figures
     └── validate_project.py       correctness assertions
@@ -153,6 +176,6 @@ electricity-prediction/
 
 ## Practical implication
 
-For an operator forecasting these networks a week ahead, the recommendation is to use the seasonal naive. It is more accurate, costs nothing to run, requires no weather feed, and needs no retraining. A learned model is worth deploying at short horizons, where this study measured its advantage, or on non-stationary series once the extrapolation problem visible in Zone 3 is addressed.
+For an operator forecasting these networks a week ahead, a zero-shot foundation model was the most accurate option tested. It needs no training, no feature engineering and no weather feed. The seasonal naive is the strongest cheap fallback and beat every model trained here. Training a bespoke tree ensemble does not pay at this horizon on these series.
 
-Knowing which of those situations you are in is the point of the exercise.
+Before relying on the foundation model operationally, confirm its advantage holds across more than one test window. Knowing which result generalises and which is a single window is the point of the exercise.
