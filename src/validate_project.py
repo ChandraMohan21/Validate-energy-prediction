@@ -12,7 +12,8 @@ Checks, in order of severity:
   MODELS      saved models load, expose the expected feature count, and reproduce
               the numbers recorded in reports/results_corrected.json
   FOUNDATION  the Chronos run used the canonical test origins, a context window
-              ending at the origin, and scored the same test set
+              ending at the origin, and scored the same test set; walk-forward
+              runs match the recorded windows and reproduce the test run
   ARTEFACTS   every figure referenced by a report exists on disk
   PROVENANCE  no stale campus/block labels anywhere in the repo
 
@@ -156,6 +157,37 @@ def main():
                   f"seasonal naive recorded {r['seasonal_naive']['MAPE']:.2f}%, "
                   f"canonical {sn_canon:.2f}%")
             del dd, tt
+
+    wf_path = ROOT / "reports/foundation_walkforward_results.json"
+    if not wf_path.exists():
+        print("  [SKIP] foundation walk-forward not run yet "
+              "(notebooks/02_foundation_baseline_colab.ipynb)")
+    elif not RESULTS.exists():
+        check("walk-forward reference results exist", False, "run src/run_pipeline.py")
+    else:
+        rec = {(r["zone"], r["window"]): r
+               for r in json.loads(RESULTS.read_text(encoding="utf-8"))["multi_window"]}
+        wf = json.loads(wf_path.read_text(encoding="utf-8"))
+        check("foundation walk-forward covers every recorded window",
+              {(r["zone"], r["window"]) for r in wf} == set(rec),
+              f"{len(wf)} of {len(rec)} zone-windows")
+        for r in wf:
+            ref = rec.get((r["zone"], r["window"]))
+            if ref is None:
+                continue
+            check(f"{r['zone']} W{r['window']}: foundation walk-forward scored the recorded window",
+                  r["effective_n"] == ref["effective_n"]
+                  and abs(r["seasonal_naive"]["MAPE"] - ref["seasonal_naive_MAPE"]) < 0.01,
+                  f"seasonal naive {r['seasonal_naive']['MAPE']:.2f}%, "
+                  f"recorded {ref['seasonal_naive_MAPE']:.2f}%")
+        if fb_path.exists():
+            single = {r["zone"]: r["chronos"]["MAPE"]
+                      for r in json.loads(fb_path.read_text(encoding="utf-8"))}
+            for r in wf:
+                if r["window"] == 1 and r["zone"] in single:
+                    check(f"{r['zone']}: walk-forward window 1 reproduces the single-window Chronos run",
+                          abs(r["chronos"]["MAPE"] - single[r["zone"]]) < 0.05,
+                          f"{r['chronos']['MAPE']:.2f}% vs {single[r['zone']]:.2f}%")
 
     print("\n=== ARTEFACTS ===")
     for rp in sorted(ROOT.glob("reports/*.md")):

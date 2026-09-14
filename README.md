@@ -2,11 +2,11 @@
 
 When does machine learning actually beat a classical baseline for electricity load forecasting, and when does it only appear to?
 
-This project answers that question for the three urban distribution networks of Tetouan, Morocco, at a 168-hour horizon. It compares models trained on the series, a seasonal naive baseline, and a zero-shot time series foundation model, using six controlled experiments, formal significance testing, and a 48-assertion correctness suite. It ships with a Streamlit dashboard and a fully reproducible pipeline.
+This project answers that question for the three urban distribution networks of Tetouan, Morocco, at a 168-hour horizon. It compares models trained on the series, a seasonal naive baseline, and a zero-shot time series foundation model, using six controlled experiments, formal significance testing, and a 61-assertion correctness suite. It ships with a Streamlit dashboard and a fully reproducible pipeline.
 
 ## What this project establishes
 
-**1. A zero-shot foundation model beats the seasonal naive where trained models could not.** Chronos-Bolt, never trained on this data, beats "same hour last week" in all three zones: 2.45 against 2.86, 3.36 against 4.26, and 5.17 against 8.73 percent MAPE. Every difference is significant on the honest effective sample, with p = 0.001, 0.004 and below 0.0001.
+**1. A zero-shot foundation model beats the seasonal naive where trained models could not.** Chronos-Bolt, never trained on this data, beats "same hour last week" in all three zones: 2.45 against 2.86, 3.36 against 4.26, and 5.17 against 8.73 percent MAPE. Every difference is significant on the honest effective sample, with p = 0.001, 0.004 and below 0.0001. It holds across the walk-forward check as well: Chronos wins all 9 zone-window combinations, every one significant, while the trained models win 1 of 9.
 
 **2. Tuned models trained on the series lose to that same baseline.** The Random Forest and XGBoost models chosen by AutoML are significantly behind the seasonal naive in every zone. Holding model, features and protocol fixed and varying only the horizon, their advantage exists at one hour ahead and disappears beyond six.
 
@@ -47,7 +47,7 @@ Full methodology: [reports/05_modeling_report.md](reports/05_modeling_report.md)
 | [`ceiling_experiment.py`](src/ceiling_experiment.py) | Would better features close the gap? | No. Legal level-shift features change nothing, and an oracle weather forecast makes it worse. |
 | [`combination_experiment.py`](src/combination_experiment.py) | Does blending beat both? | Apparent small gains on two zones. |
 | [`significance_test.py`](src/significance_test.py) | Are those gains real? | No. p = 0.83 and 0.84. |
-| [`foundation_baseline.py`](src/foundation_baseline.py) | Can a pretrained model with no training beat the baseline? | Yes, in all three zones, significantly. |
+| [`foundation_baseline.py`](src/foundation_baseline.py) | Can a pretrained model with no training beat the baseline? | Yes. In all three zones on the test window, and in 9 of 9 walk-forward zone-windows, every one significant. |
 
 ### Zero-shot foundation model by day ahead
 
@@ -60,9 +60,19 @@ Chronos-Bolt MAPE minus seasonal-naive MAPE, in percentage points. Negative mean
 | 5 | -0.34 | -0.77 | -2.66 |
 | 7 | -0.21 | -0.50 | -0.21 |
 
-The advantage is largest one day ahead and narrows toward a week, where the forecast converges on the weekly pattern the seasonal naive copies. It stays ahead at day 7 in every zone. Zone 3 gains most. Its level moves over the test window, which a copy of last week cannot follow and a tree ensemble cannot extrapolate.
+The advantage is largest one day ahead and narrows toward a week, where the forecast converges on the weekly pattern the seasonal naive copies. On the test window it stays ahead at day 7 in every zone. Zone 3 gains most. Its level moves over the test window, which a copy of last week cannot follow and a tree ensemble cannot extrapolate.
 
-Scope of this result: one test window, the final six weeks of 2017; one foundation model at one size; and a contamination check against the published Chronos pretraining dataset list. Confirming it across the earlier walk-forward windows is the next step.
+Across the same three walk-forward windows the trained models were checked on, Chronos MAPE against seasonal-naive MAPE:
+
+| Zone | W1, 18 Nov to 30 Dec | W2, 7 Oct to 18 Nov | W3, 26 Aug to 7 Oct |
+|---|---|---|---|
+| Zone 1 | **2.45** vs 2.86 | **3.41** vs 4.39 | **4.39** vs 5.64 |
+| Zone 2 | **3.36** vs 4.26 | **4.55** vs 5.06 | **7.32** vs 9.11 |
+| Zone 3 | **5.17** vs 8.73 | **8.30** vs 10.08 | **7.13** vs 10.92 |
+
+Chronos wins all nine, each with a Diebold-Mariano p of 0.0036 or below. The trained models won one of nine, in the window they were tuned on. Chronos has no tuning step, so every window is out of sample for it.
+
+Scope of this result: one year of data, one foundation model at one size, and a contamination check against the published Chronos pretraining dataset list. In Zone 2 the advantage fades by days 6 and 7 in two of the three windows.
 
 ### Horizon sensitivity
 
@@ -104,10 +114,10 @@ All four are fixed and each is now guarded by an automated assertion.
 ## Correctness suite
 
 ```bash
-python src/validate_project.py     # 48 passed, 0 failed
+python src/validate_project.py     # 61 passed, 0 failed
 ```
 
-Asserts data integrity against the pristine UCI source, feature observability at the forecast origin, embargo integrity across every split boundary, baseline definitions, effective sample size, that saved models reproduce their recorded metrics, that the foundation model run used the canonical test origins with a context window ending at each origin, that every figure referenced by a report exists, and that no stale labels survive anywhere in the repository.
+Asserts data integrity against the pristine UCI source, feature observability at the forecast origin, embargo integrity across every split boundary, baseline definitions, effective sample size, that saved models reproduce their recorded metrics, that the foundation model runs used the canonical test origins and the recorded walk-forward windows with a context window ending at each origin, that every figure referenced by a report exists, and that no stale labels survive anywhere in the repository.
 
 ## Dataset
 
@@ -134,6 +144,7 @@ python src/ceiling_experiment.py       # feature ceiling, incl. oracle upper bou
 python src/combination_experiment.py   # model plus baseline blending
 python src/significance_test.py        # Diebold-Mariano and bootstrap
 python src/foundation_baseline.py      # Chronos-Bolt zero-shot, needs torch and several GB free
+python src/foundation_baseline.py --walkforward  # same, across the three walk-forward windows
 python src/make_deployment_forecast.py # full-year retrain and 7-day forecast
 python src/make_figures.py             # modeling figures
 python src/validate_project.py         # correctness suite
@@ -154,7 +165,7 @@ electricity-prediction/
 ├── models/               saved models, zone_1 / zone_2 / zone_3 variants
 ├── notebooks/            01_modeling.ipynb walkthrough, 02_foundation_baseline_colab.ipynb
 ├── paper/                research paper drafts
-├── reports/              4 markdown reports, 1 workbook, 8 result JSONs, figures/
+├── reports/              4 markdown reports, 1 workbook, 9 result JSONs, figures/
 └── src/
     ├── forecasting.py            features, splits, baselines, metrics (single source of truth)
     ├── data_cleaning.py          cleaning pipeline
@@ -178,4 +189,4 @@ electricity-prediction/
 
 For an operator forecasting these networks a week ahead, a zero-shot foundation model was the most accurate option tested. It needs no training, no feature engineering and no weather feed. The seasonal naive is the strongest cheap fallback and beat every model trained here. Training a bespoke tree ensemble does not pay at this horizon on these series.
 
-Before relying on the foundation model operationally, confirm its advantage holds across more than one test window. Knowing which result generalises and which is a single window is the point of the exercise.
+Its advantage held in every walk-forward window tested. The open question before operational use is whether it holds in other years and on other networks. Knowing which result generalises is the point of the exercise.

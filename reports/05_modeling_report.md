@@ -3,9 +3,9 @@
 Code: `src/forecasting.py` (features, splits, baselines), `src/run_pipeline.py` (AutoML, training, walk-forward), `src/residual_variant.py`, `src/make_figures.py`, `src/validate_project.py`.
 Results: `reports/results_corrected.json`, `reports/residual_variant_results.json`.
 
-**Headline finding: at a 168-hour horizon, the models trained on this data do not beat a seasonal-naive baseline, but a zero-shot foundation model does, significantly, in all three zones.** Tuned tree ensembles lose to "same hour last week." Chronos-Bolt, never trained on this series, beats it. Details and caveats below.
+**Headline finding: at a 168-hour horizon, the models trained on this data do not beat a seasonal-naive baseline, but a zero-shot foundation model does, significantly, in all three zones and in 9 of 9 walk-forward zone-windows.** Tuned tree ensembles lose to "same hour last week." Chronos-Bolt, never trained on this series, beats it. Details and caveats below.
 
-Code for the foundation model: `src/foundation_baseline.py`. Its results: `reports/foundation_baseline_results.json`.
+Code for the foundation model: `src/foundation_baseline.py`. Its results: `reports/foundation_baseline_results.json` and `reports/foundation_walkforward_results.json`.
 
 ## Dataset
 
@@ -190,13 +190,33 @@ Gap to the seasonal naive by day ahead, in percentage points. Negative means Chr
 What this shows:
 
 - **The ordering is the same in all three zones.** The trained model is worst, the seasonal naive is next, and the zero-shot foundation model is best.
-- **The advantage is largest one day ahead and narrows toward day 7.** At a week ahead the forecast converges toward the weekly pattern that the seasonal naive copies directly. Chronos is still ahead at day 7 in every zone.
+- **The advantage is largest one day ahead and narrows toward day 7.** At a week ahead the forecast converges toward the weekly pattern that the seasonal naive copies directly. On this test window Chronos is still ahead at day 7 in every zone.
 - **Zone 3 gains the most.** Its level moves over the test window. The seasonal naive carries last week's level forward, and tree ensembles cannot extrapolate beyond the range seen in training. Chronos conditions directly on the most recent weeks. This explanation is consistent with the day-by-day pattern but has not been tested directly.
 - **The gap in the earlier sections belongs to the trained models, not to the series.** A seasonal naive is beatable at a 168-hour horizon on this data. The trained models in this study did not beat it.
 
+### Across the walk-forward windows
+
+These are the same three 42-day windows the trained models were checked on. Chronos has no training or tuning step, so every window is out of sample for it. That includes window 2, where the tree models' hyperparameters were chosen. Window 1 is the test window above and reproduces it.
+
+| Zone | Window | Period | Seasonal naive | Trained model | Chronos-Bolt | Diebold-Mariano p |
+|---|---|---|---|---|---|---|
+| Zone 1 | 1 | 18 Nov to 30 Dec | 2.86% | 4.52% | **2.45%** | 0.0010 |
+| Zone 1 | 2 | 7 Oct to 18 Nov | 4.39% | 6.19% | **3.41%** | < 0.0001 |
+| Zone 1 | 3 | 26 Aug to 7 Oct | 5.64% | 6.32% | **4.39%** | < 0.0001 |
+| Zone 2 | 1 | 18 Nov to 30 Dec | 4.26% | 4.79% | **3.36%** | 0.0036 |
+| Zone 2 | 2 | 7 Oct to 18 Nov | 5.06% | 5.53% | **4.55%** | 0.0001 |
+| Zone 2 | 3 | 26 Aug to 7 Oct | 9.11% | 9.36% | **7.32%** | < 0.0001 |
+| Zone 3 | 1 | 18 Nov to 30 Dec | 8.73% | 22.10% | **5.17%** | < 0.0001 |
+| Zone 3 | 2 | 7 Oct to 18 Nov | 10.08% | 9.09% | **8.30%** | < 0.0001 |
+| Zone 3 | 3 | 26 Aug to 7 Oct | 10.92% | 18.11% | **7.13%** | < 0.0001 |
+
+**Chronos beats the seasonal naive in 9 of 9 zone-window combinations, every one significant at 0.05.** The trained models beat it in 1 of 9, and that one is the window they were tuned on.
+
+The advantage is again largest in the first days of the forecast. In two of the nine combinations it disappears by the end of the week. Zone 2 window 2 is behind by 0.31 and 0.34 points on days 6 and 7, and Zone 2 window 3 by 0.05 points on day 7. Zone 3 window 2 goes the other way, with a gap of 1.4 to 2.6 points on every one of the seven days.
+
 Caveats:
 
-- The result covers one test window, the final six weeks of 2017. The walk-forward windows have not been run for Chronos.
+- All windows fall in the second half of a single year of data.
 - Only one foundation model at one size was tested. TimesFM and Moirai were not tested.
 - Contamination was checked against the published Chronos dataset list only.
 - Chronos-Bolt's native prediction length is shorter than 168 hours. The library extends longer horizons autoregressively.
@@ -217,7 +237,7 @@ A symptom was visible and misread at the time: test error was flat at 3.60 to 3.
 
 ## Limitations
 
-- The trained models do not beat a seasonal naive at this horizon. Reported as the result, not worked around. A zero-shot foundation model does beat it, but so far only on one test window; see its caveats above.
+- The trained models do not beat a seasonal naive at this horizon. Reported as the result, not worked around. A zero-shot foundation model does beat it, in all nine zone-window combinations; see its caveats above.
 - Zone 3 is unstable: 20.64% on test against an 8.73% baseline, and 22.10% and 18.11% on two of three walk-forward windows.
 - Single year of data, so seasonal effects are observed once and not confirmed as recurring.
 - Hyperparameters come from a 300-second AutoML budget per zone. A longer search might narrow the gap; it was not run.
@@ -232,7 +252,8 @@ python src/run_pipeline.py 300
 python src/residual_variant.py
 python src/make_figures.py
 python src/foundation_baseline.py   # needs several GB free, or run notebooks/02_foundation_baseline_colab.ipynb
+python src/foundation_baseline.py --walkforward
 python src/validate_project.py
 ```
 
-`validate_project.py` asserts feature observability, embargo integrity, baseline definitions, effective sample size, that saved models reproduce the recorded metrics, and that every figure referenced by a report exists. It also checks that the foundation model run used the canonical test origins, a context window ending at the origin, and the same test set. It currently reports 48 passed, 0 failed.
+`validate_project.py` asserts feature observability, embargo integrity, baseline definitions, effective sample size, that saved models reproduce the recorded metrics, and that every figure referenced by a report exists. It also checks that the foundation model run used the canonical test origins, a context window ending at the origin, and the same test set, and that the walk-forward runs match the recorded windows. It currently reports 61 passed, 0 failed.
