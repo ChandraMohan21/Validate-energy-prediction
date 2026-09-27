@@ -117,7 +117,7 @@ Adds information in stages to see how far each closes the gap. Stage C deliberat
 | Zone 2 | **4.26** | 4.46 | 4.46 | 4.69 |
 | Zone 3 | **8.73** | 25.31 | 23.41 | 25.24 |
 
-Legal level-shift features (how far the series is currently running above or below the same point last week, plus a third seasonal lag) change nothing on Zones 1 and 2 and help Zone 3 only slightly. Perfect knowledge of future weather makes every zone marginally worse, which is what happens when added inputs carry no usable signal and only add variance.
+Legal level-shift features (how far the series is currently running above or below the same point last week, plus a third seasonal lag) leave Zones 1 and 2 unchanged and cut Zone 3 from 25.31 to 23.41 percent, a real improvement that still leaves Zone 3 far above the seasonal naive's 8.73. Perfect knowledge of future weather makes every zone marginally worse, which is what happens when added inputs carry no usable signal and only add variance.
 
 This rules out the most plausible explanation, that the deployed design was handicapped by using lagged rather than forecast weather. It was not.
 

@@ -44,7 +44,7 @@ Full methodology: [reports/05_modeling_report.md](reports/05_modeling_report.md)
 |---|---|---|
 | [`protocol_experiment.py`](src/protocol_experiment.py) | How much of a reported score comes from evaluation choices? | A great deal. 10-minute-ahead prediction with a random split gives under 1% MAPE while trivial persistence already achieves 1.4%. Switching to a chronological split moves Zone 3 from 0.92% to 2.79%. |
 | [`horizon_experiment.py`](src/horizon_experiment.py) | Is the 168-hour horizon the cause? | Partly. The trained model wins 2 of 15 horizon-zone combinations, both at one hour ahead. |
-| [`ceiling_experiment.py`](src/ceiling_experiment.py) | Would better features close the gap? | No. Legal level-shift features change nothing, and an oracle weather forecast makes it worse. |
+| [`ceiling_experiment.py`](src/ceiling_experiment.py) | Would better features close the gap? | No. Legal level-shift features leave Zones 1 and 2 unchanged and cut Zone 3 from 25.31 to 23.41 percent, still far above the naive's 8.73. An oracle weather forecast makes every zone worse. |
 | [`combination_experiment.py`](src/combination_experiment.py) | Does blending beat both? | Apparent small gains on two zones. |
 | [`significance_test.py`](src/significance_test.py) | Are those gains real? | No. p = 0.83 and 0.84. |
 | [`foundation_baseline.py`](src/foundation_baseline.py) | Can a pretrained model with no training beat the baseline? | Yes. In all three zones on the test window, and in 9 of 9 walk-forward zone-windows, every one significant. |
