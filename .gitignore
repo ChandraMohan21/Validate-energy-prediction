@@ -4,3 +4,8 @@ __pycache__/
 .DS_Store
 .venv/
 venv/
+
+# Seasonal baseline pilot: re-downloadable raw sources (see reports/baseline_pilot/protocol.json)
+data/raw/baseline_pilot/
+# Colab download, contents kept in reports/chronos_colab/results/
+chronos_pilot_results.zip

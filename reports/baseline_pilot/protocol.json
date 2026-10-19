@@ -1,0 +1,49 @@
+{
+  "protocol_version": 1,
+  "created_date": "2026-10-19",
+  "purpose": "Feasibility pilot of simple seasonal references, not a novelty or significance claim",
+  "primary_horizon_hours": 168,
+  "horizons_hours": [24, 168],
+  "history_hours": 336,
+  "selection_metric": "MAE",
+  "origin_stride_hours": 1,
+  "validation_calendar_days": 42,
+  "test_calendar_days": 42,
+  "embargo_hours": 168,
+  "blend_daily_weights": [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0],
+  "selection_tie_order": ["daily", "weekly", "hybrid", "blend"],
+  "years": {"tetouan": 2017, "portugal": 2014, "household": 2009, "victoria": 2014},
+  "portugal_series_selection": "First three records in the published archive, before inspecting errors",
+  "missing_data_policy": "Require all source samples in an hourly bin; skip origins with missing values in the previous 336 hours or next 168 hours. No interpolation.",
+  "hybrid_policy": "Weekly for target Saturday/Sunday/Monday, daily otherwise. When a daily lookup is after the origin, recursively use the earlier hybrid prediction.",
+  "aggregation_policy": "Report per-series errors and relative error; do not average raw MAE across different units or count related meters as independent datasets.",
+  "sources": {
+    "household": {
+      "title": "UCI Individual Household Electric Power Consumption",
+      "page": "https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption",
+      "url": "https://archive.ics.uci.edu/static/public/235/individual+household+electric+power+consumption.zip",
+      "filename": "household.zip",
+      "unit": "kW",
+      "license": "CC BY 4.0, UCI publisher"
+    },
+    "portugal": {
+      "title": "Monash Electricity Hourly Dataset, version 3, derived from UCI ElectricityLoadDiagrams20112014",
+      "page": "https://zenodo.org/records/4656140",
+      "url": "https://zenodo.org/records/4656140/files/electricity_hourly_dataset.zip?download=1",
+      "filename": "electricity_hourly.zip",
+      "md5": "18096614662b02640d265ad2a6a416bd",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "license": "Original UCI CC BY 4.0; retain Monash attribution and version"
+    },
+    "victoria": {
+      "title": "Monash Elecdemand Dataset, version 2, from fpp2/AEMO",
+      "page": "https://zenodo.org/records/4656069",
+      "url": "https://zenodo.org/records/4656069/files/elecdemand_dataset.zip?download=1",
+      "filename": "elecdemand.zip",
+      "md5": "e5422d937e3d3d2885ed8d7a11f1e600",
+      "unit": "GW",
+      "license": "Public Monash/fpp2 redistribution; preserve source attribution; Zenodo license field not stated in fetched page",
+      "unit_source": "https://pkg.robjhyndman.com/fpp2/reference/elecdemand.html"
+    }
+  }
+}

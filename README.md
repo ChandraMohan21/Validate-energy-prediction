@@ -129,6 +129,18 @@ This project began from a modified copy of the dataset in which the zones had be
 
 ## Running it
 
+### Seasonal baseline pilot
+
+`python src/baseline_pilot.py --download` runs a separate baseline-only pilot on
+Tetouan and three public load datasets. It compares daily, weekly, a weekday-based
+hybrid, and a validation-tuned daily/weekly blend at 24- and 168-hour horizons.
+Later runs can omit `--download`. This step requires numpy and pandas.
+
+The fixed protocol, source attribution, results, limitations, and prediction
+archives are in [reports/baseline_pilot/README.md](reports/baseline_pilot/README.md).
+Run `python -m unittest discover -s tests -p test_baseline_pilot.py` for its protocol
+checks. This experiment does not train models or run Chronos.
+
 ```bash
 cd electricity-prediction
 pip install -r app/requirements.txt
@@ -184,6 +196,16 @@ electricity-prediction/
     ├── make_figures.py           modeling figures
     └── validate_project.py       correctness assertions
 ```
+
+## Multi-dataset Chronos pilot
+
+The completed seasonal-baseline pilot has a separate Colab runner for eight series across four datasets.
+Open `notebooks/03_chronos_pilot_colab.ipynb` in Colab, select a T4 GPU and upload
+`reports/chronos_colab/chronos_pilot_inputs.zip` when prompted. Instructions are in
+`reports/chronos_colab/README.md`. This evaluates 24-hour and 168-hour forecasts on the
+saved pilot origins and retains every prediction. Results of the first run, which used a 336-hour
+context, are in [reports/chronos_colab/results/README.md](reports/chronos_colab/results/README.md).
+Rebuild the portable inputs with `python src/prepare_chronos_colab.py`.
 
 ## Practical implication
 
