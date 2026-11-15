@@ -1,0 +1,14 @@
+{
+  "protocol_sha256": "f057934a2ea30367db76a87e4a2cda1e4579df34182165979966f0dcc7f1a146",
+  "runner_sha256": "d60be4efbd6c39e2b2d7e001ecbb19f4a36039c7f78098af357a77fddec73b35",
+  "training_module_sha256": "c20eece0cb705232851251f8d3e96b06dae52d35aeca051b6e0b8a612a50626c",
+  "v1_results_sha256": "5d55ca17bc4958485f9291cdb9c2f58fcd46526e89844a2383806ff87c84d460",
+  "v1_scores_sha256": "71062f592f60a14c08afc3336708f0b4ce713b43825cef5f9106a179986e490e",
+  "chronos_zip_sha256": "17288f277fc8326dba2c02fad171d66669a60f850149969a5b14db2ef0747c67",
+  "versions": {
+    "numpy": "1.26.3",
+    "pandas": "2.2.0",
+    "scikit-learn": "1.4.0",
+    "lightgbm": "4.6.0"
+  }
+}

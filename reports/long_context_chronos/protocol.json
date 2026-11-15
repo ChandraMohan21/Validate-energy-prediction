@@ -1,0 +1,12 @@
+{
+  "status": "Written on 2026-10-20 before any 2048-hour forecast was run. The 336-hour results were already seen, so this is a planned follow-up, not an untouched confirmation.",
+  "question": "Do the 336-hour conclusions hold when Chronos-Bolt gets up to its standard 2048-hour history, in particular the cases where the validation-selected baseline turns a clear Chronos win into an unclear result?",
+  "change": "History length 336 -> up to 2048 hours. Model commit, cases, test origins, baselines, blend weights, 0.5 quantile and bootstrap settings are unchanged.",
+  "model_revision": "5d9f166d69f47aef3401367a7b842e78fe97b121",
+  "context_policy": "Up to 2048 hours ending at the origin; all available history when the series starts later (Q1); missing hours passed as NaN, which Chronos-Bolt masks.",
+  "clear_result": "Paired circular-block bootstrap from src/chronos_uncertainty.py (5,000 resamples, 168- and 336-hour blocks, same seeds). Clear means both 95% intervals favour the same method; otherwise unclear; household windows with too few blocks are limited.",
+  "claim_change": "Chronos clearly beats weekly naive but not the validation-selected baseline, or the reverse.",
+  "meaningful_improvement": "A clear Chronos win with an MAE gain of at least 5% against the comparator. 2% and 10% are reported as sensitivity checks.",
+  "sanity_check": "Q4 Tetouan at 168 hours should be close to the earlier 2048-hour run on the same test window: MAE about 696, 756 and 544 for zones 1 to 3.",
+  "reporting": "Report both history lengths side by side and keep the 336-hour results. Report Q1 separately because its history is shorter than 2048 hours. Q4 repeats the original test period and is not new evidence. No multiple-comparison correction; exploratory."
+}

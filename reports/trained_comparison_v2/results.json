@@ -1,0 +1,4598 @@
+{
+  "identity": {
+    "protocol_sha256": "f057934a2ea30367db76a87e4a2cda1e4579df34182165979966f0dcc7f1a146",
+    "runner_sha256": "d60be4efbd6c39e2b2d7e001ecbb19f4a36039c7f78098af357a77fddec73b35",
+    "training_module_sha256": "c20eece0cb705232851251f8d3e96b06dae52d35aeca051b6e0b8a612a50626c",
+    "v1_results_sha256": "5d55ca17bc4958485f9291cdb9c2f58fcd46526e89844a2383806ff87c84d460",
+    "v1_scores_sha256": "71062f592f60a14c08afc3336708f0b4ce713b43825cef5f9106a179986e490e",
+    "chronos_zip_sha256": "17288f277fc8326dba2c02fad171d66669a60f850149969a5b14db2ef0747c67",
+    "versions": {
+      "numpy": "1.26.3",
+      "pandas": "2.2.0",
+      "scikit-learn": "1.4.0",
+      "lightgbm": "4.6.0"
+    }
+  },
+  "protocol": {
+    "created_date": "2026-10-20",
+    "study_status": "Diagnostic follow-up after inspecting v1 test errors; test periods are not untouched",
+    "models": {
+      "ridge": [
+        1.0,
+        100.0
+      ],
+      "lightgbm": [
+        15,
+        31
+      ]
+    },
+    "ridge_grid_parameter": "alpha",
+    "lightgbm_grid_parameter": "num_leaves",
+    "training_origin_stride_hours": 1,
+    "minimum_training_origins": 168,
+    "test_and_validation_origins": "Exact frozen hourly origins from expanded Chronos cases",
+    "history_hours": 336,
+    "horizons_hours": [
+      24,
+      168
+    ],
+    "training_boundary": "All targets through 168h end by train_cutoff, before validation origins",
+    "refit_boundary": "All eligible hourly origins with targets through 168h ending by validation_cutoff, before first test origin",
+    "target": "Residual from target-aligned weekly naive; add weekly prediction back at inference",
+    "features": "Origin load lags and 24/168/336h statistics, daily/weekly/prior-week target-aligned loads, differences, horizon, cyclic hour/weekday/year and weekend",
+    "selection": "Validation MAE only; Ridge scaler fitted only on training; newly fitted on refit data",
+    "training_budget": "All eligible hourly origins; duplicate target hours across forecast horizons are training rows, not independent statistical evidence",
+    "fixed_lightgbm": {
+      "n_estimators": 200,
+      "learning_rate": 0.05,
+      "min_child_samples": 30,
+      "objective": "regression_l1",
+      "reg_lambda": 1.0,
+      "random_state": 42
+    },
+    "missing_data": "No filling; require complete 336h history and 168h future during training; report excluded cases",
+    "caveats": [
+      "Q1 has no earlier fitting data under frozen split; do not move its boundaries",
+      "Later windows may train on earlier test-period observations once those observations are historical",
+      "Not an exhaustive model search or proof about all trained models",
+      "Trained-model uncertainty not calculated by this script",
+      "Corrects origin-hour coverage but does not resolve all model specification or extrapolation limitations"
+    ],
+    "version": 2,
+    "change_from_v1": "Use every eligible hourly training/refit origin instead of midnight-only daily origins; features, model settings grids, test cases and MAE selection remain unchanged"
+  },
+  "complete": true,
+  "completed_cases": 46,
+  "exclusions": [
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training under frozen split"
+    }
+  ],
+  "cases": [
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1504.5703261095143,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1612.9818097288958
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1504.5703261095143
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1001.9026426653916,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1001.9026426653916
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1027.6766155728176
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2017-04-07 23:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 23:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1285.06464807725,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1289.294319270131
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1285.06464807725
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1086.9458431096639,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1101.2315938463996
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1086.9458431096639
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2017-04-07 23:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 23:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1334.0693018108586,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1357.245664679601
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1334.0693018108586
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1007.8687272968781,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1026.4610590177977
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1007.8687272968781
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2017-04-07 23:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 23:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 2375.883816150579,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 2386.500745445084
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 2375.883816150579
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1209.351037413333,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1209.351037413333
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1223.646663048238
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2017-04-07 23:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 23:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1702.237508303068,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1744.2240567066478
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1702.237508303068
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 508.0245070836262,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 508.0245070836262
+            },
+            {
+              "config": 31,
+              "validation_MAE": 512.6261713920937
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2017-04-07 23:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 23:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1638.118891559393,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1641.5706509374065
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1638.118891559393
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1591.682378031048,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1912.62857403029
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1591.682378031048
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2017-04-07 23:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 23:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 11.078879312732191,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 11.392319767009864
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 11.078879312732191
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 10.097308476483397,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 10.097308476483397
+            },
+            {
+              "config": 31,
+              "validation_MAE": 10.178096186841929
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 12.955615844033435,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 12.968932235679818
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 12.955615844033435
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 11.463313438495486,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 11.463313438495486
+            },
+            {
+              "config": 31,
+              "validation_MAE": 11.675506686594574
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 9.317845028055277,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 9.591771491070864
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 9.317845028055277
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 9.298784134865574,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 9.380887082926572
+            },
+            {
+              "config": 31,
+              "validation_MAE": 9.298784134865574
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 8.955235579001625,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 8.973766369283906
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 8.955235579001625
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 9.372269044955697,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 9.372269044955697
+            },
+            {
+              "config": 31,
+              "validation_MAE": 9.887719136310674
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.2038473065891426,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.20867857230803247
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.2038473065891426
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.15151220637862042,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.15342862206732963
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.15151220637862042
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.5049907239285713,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.6712885791986656
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.5049907239285713
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.2585246323963252,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.27009086643967745
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.2585246323963252
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.5568869232685804,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.5727054519637224
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.5568869232685804
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.2752897061814707,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.275475417809592
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.2752897061814707
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 1824,
+      "refit_origins": 2832,
+      "train_origin_hour_counts": {
+        "0": 76,
+        "1": 76,
+        "2": 76,
+        "3": 76,
+        "4": 76,
+        "5": 76,
+        "6": 76,
+        "7": 76,
+        "8": 76,
+        "9": 76,
+        "10": 76,
+        "11": 76,
+        "12": 76,
+        "13": 76,
+        "14": 76,
+        "15": 76,
+        "16": 76,
+        "17": 76,
+        "18": 76,
+        "19": 76,
+        "20": 76,
+        "21": 76,
+        "22": 76,
+        "23": 76
+      },
+      "refit_origin_hour_counts": {
+        "0": 118,
+        "1": 118,
+        "2": 118,
+        "3": 118,
+        "4": 118,
+        "5": 118,
+        "6": 118,
+        "7": 118,
+        "8": 118,
+        "9": 118,
+        "10": 118,
+        "11": 118,
+        "12": 118,
+        "13": 118,
+        "14": 118,
+        "15": 118,
+        "16": 118,
+        "17": 118,
+        "18": 118,
+        "19": 118,
+        "20": 118,
+        "21": 118,
+        "22": 118,
+        "23": 118
+      },
+      "train_last_target": "2014-04-07 23:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 23:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1134.8695596576638,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1136.0421397391744
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1134.8695596576638
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 3324.8057282955674,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 3821.1229092313383
+            },
+            {
+              "config": 31,
+              "validation_MAE": 3324.8057282955674
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2017-07-08 23:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 23:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1397.2057538311758,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1397.7943054060709
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1397.2057538311758
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 2176.729008577167,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 2179.892075924593
+            },
+            {
+              "config": 31,
+              "validation_MAE": 2176.729008577167
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2017-07-08 23:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 23:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 967.8253234461733,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 970.0759823958861
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 967.8253234461733
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 2119.175338083473,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 2119.175338083473
+            },
+            {
+              "config": 31,
+              "validation_MAE": 2416.5761980572656
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2017-07-08 23:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 23:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1643.8206439750252,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1644.2947469947542
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1643.8206439750252
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1253.0164211844983,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1253.0164211844983
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1394.140405570096
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2017-07-08 23:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 23:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1045.1292362253598,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1082.3332701566999
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1045.1292362253598
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1297.174575445286,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1297.174575445286
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1320.0616902925594
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2017-07-08 23:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 23:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1844.0247699876402,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1851.2847305357693
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1844.0247699876402
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1787.063109911262,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1787.063109911262
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1806.9461056756068
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2017-07-08 23:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 23:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 15.45657612689419,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 15.45657612689419
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 15.495666401836292
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 18.21902295536421,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 19.758882427712347
+            },
+            {
+              "config": 31,
+              "validation_MAE": 18.21902295536421
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 21.50514596035809,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 21.50514596035809
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 21.51200741909245
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 22.22030285401168,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 22.22030285401168
+            },
+            {
+              "config": 31,
+              "validation_MAE": 23.250936749339747
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 5.752021561168682,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 5.757707091909351
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 5.752021561168682
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 6.23524440935856,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 6.23524440935856
+            },
+            {
+              "config": 31,
+              "validation_MAE": 7.441721606498592
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 6.11354848081658,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 6.114199265548364
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 6.11354848081658
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 8.764397122851085,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 8.764397122851085
+            },
+            {
+              "config": 31,
+              "validation_MAE": 9.662870759252227
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 0.02914179931315219,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.02914179931315219
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.02950606513470337
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 0.027993127896790662,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.027993127896790662
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.028019990939550488
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.3188119234510733,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.3204387245706905
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.3188119234510733
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.18826183290593856,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.18826183290593856
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.1910266746305678
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.419018777450122,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.419393544919058
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.419018777450122
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.22372410637406862,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.22743182515920982
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.22372410637406862
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 4032,
+      "refit_origins": 5040,
+      "train_origin_hour_counts": {
+        "0": 168,
+        "1": 168,
+        "2": 168,
+        "3": 168,
+        "4": 168,
+        "5": 168,
+        "6": 168,
+        "7": 168,
+        "8": 168,
+        "9": 168,
+        "10": 168,
+        "11": 168,
+        "12": 168,
+        "13": 168,
+        "14": 168,
+        "15": 168,
+        "16": 168,
+        "17": 168,
+        "18": 168,
+        "19": 168,
+        "20": 168,
+        "21": 168,
+        "22": 168,
+        "23": 168
+      },
+      "refit_origin_hour_counts": {
+        "0": 210,
+        "1": 210,
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210
+      },
+      "train_last_target": "2014-07-08 23:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 23:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 0.27879701966068116,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.27879701966068116
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.3654033013522898
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.4088955338915844,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.41300222472785614
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.4088955338915844
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 374,
+      "refit_origins": 715,
+      "train_origin_hour_counts": {
+        "0": 15,
+        "1": 15,
+        "2": 15,
+        "3": 15,
+        "4": 15,
+        "5": 15,
+        "6": 15,
+        "7": 16,
+        "8": 16,
+        "9": 16,
+        "10": 16,
+        "11": 16,
+        "12": 16,
+        "13": 16,
+        "14": 16,
+        "15": 16,
+        "16": 16,
+        "17": 16,
+        "18": 15,
+        "19": 15,
+        "20": 15,
+        "21": 16,
+        "22": 16,
+        "23": 16
+      },
+      "refit_origin_hour_counts": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 29,
+        "6": 29,
+        "7": 30,
+        "8": 30,
+        "9": 30,
+        "10": 30,
+        "11": 30,
+        "12": 30,
+        "13": 30,
+        "14": 30,
+        "15": 30,
+        "16": 30,
+        "17": 30,
+        "18": 29,
+        "19": 29,
+        "20": 29,
+        "21": 30,
+        "22": 30,
+        "23": 30
+      },
+      "train_last_target": "2009-07-08 23:00:00",
+      "validation_first_origin": "2009-07-24 22:00:00",
+      "refit_last_target": "2009-08-13 04:00:00",
+      "test_first_origin": "2009-08-27 19:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.6349958506235708,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.7061653661941124
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.6349958506235708
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.288414217622895,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.288414217622895
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.3036037972206658
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 374,
+      "refit_origins": 715,
+      "train_origin_hour_counts": {
+        "0": 15,
+        "1": 15,
+        "2": 15,
+        "3": 15,
+        "4": 15,
+        "5": 15,
+        "6": 15,
+        "7": 16,
+        "8": 16,
+        "9": 16,
+        "10": 16,
+        "11": 16,
+        "12": 16,
+        "13": 16,
+        "14": 16,
+        "15": 16,
+        "16": 16,
+        "17": 16,
+        "18": 15,
+        "19": 15,
+        "20": 15,
+        "21": 16,
+        "22": 16,
+        "23": 16
+      },
+      "refit_origin_hour_counts": {
+        "0": 30,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 29,
+        "6": 29,
+        "7": 30,
+        "8": 30,
+        "9": 30,
+        "10": 30,
+        "11": 30,
+        "12": 30,
+        "13": 30,
+        "14": 30,
+        "15": 30,
+        "16": 30,
+        "17": 30,
+        "18": 29,
+        "19": 29,
+        "20": 29,
+        "21": 30,
+        "22": 30,
+        "23": 30
+      },
+      "train_last_target": "2009-07-08 23:00:00",
+      "validation_first_origin": "2009-07-24 22:00:00",
+      "refit_last_target": "2009-08-13 04:00:00",
+      "test_first_origin": "2009-08-27 19:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 937.2911196445962,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 937.2911196445962
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 939.5180198774091
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1129.4548757647767,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1129.4548757647767
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1200.767138704022
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6216,
+      "refit_origins": 7224,
+      "train_origin_hour_counts": {
+        "0": 259,
+        "1": 259,
+        "2": 259,
+        "3": 259,
+        "4": 259,
+        "5": 259,
+        "6": 259,
+        "7": 259,
+        "8": 259,
+        "9": 259,
+        "10": 259,
+        "11": 259,
+        "12": 259,
+        "13": 259,
+        "14": 259,
+        "15": 259,
+        "16": 259,
+        "17": 259,
+        "18": 259,
+        "19": 259,
+        "20": 259,
+        "21": 259,
+        "22": 259,
+        "23": 259
+      },
+      "refit_origin_hour_counts": {
+        "0": 301,
+        "1": 301,
+        "2": 301,
+        "3": 301,
+        "4": 301,
+        "5": 301,
+        "6": 301,
+        "7": 301,
+        "8": 301,
+        "9": 301,
+        "10": 301,
+        "11": 301,
+        "12": 301,
+        "13": 301,
+        "14": 301,
+        "15": 301,
+        "16": 301,
+        "17": 301,
+        "18": 301,
+        "19": 301,
+        "20": 301,
+        "21": 301,
+        "22": 301,
+        "23": 301
+      },
+      "train_last_target": "2017-10-07 23:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 23:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 1572.4668871089002,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1572.4668871089002
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1572.7332676151136
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1490.9356791231507,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1490.9356791231507
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1569.845595634122
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6216,
+      "refit_origins": 7224,
+      "train_origin_hour_counts": {
+        "0": 259,
+        "1": 259,
+        "2": 259,
+        "3": 259,
+        "4": 259,
+        "5": 259,
+        "6": 259,
+        "7": 259,
+        "8": 259,
+        "9": 259,
+        "10": 259,
+        "11": 259,
+        "12": 259,
+        "13": 259,
+        "14": 259,
+        "15": 259,
+        "16": 259,
+        "17": 259,
+        "18": 259,
+        "19": 259,
+        "20": 259,
+        "21": 259,
+        "22": 259,
+        "23": 259
+      },
+      "refit_origin_hour_counts": {
+        "0": 301,
+        "1": 301,
+        "2": 301,
+        "3": 301,
+        "4": 301,
+        "5": 301,
+        "6": 301,
+        "7": 301,
+        "8": 301,
+        "9": 301,
+        "10": 301,
+        "11": 301,
+        "12": 301,
+        "13": 301,
+        "14": 301,
+        "15": 301,
+        "16": 301,
+        "17": 301,
+        "18": 301,
+        "19": 301,
+        "20": 301,
+        "21": 301,
+        "22": 301,
+        "23": 301
+      },
+      "train_last_target": "2017-10-07 23:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 23:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 861.083265346989,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 861.2493282067468
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 861.083265346989
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 996.5111858321201,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1066.3225593986035
+            },
+            {
+              "config": 31,
+              "validation_MAE": 996.5111858321201
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6216,
+      "refit_origins": 7224,
+      "train_origin_hour_counts": {
+        "0": 259,
+        "1": 259,
+        "2": 259,
+        "3": 259,
+        "4": 259,
+        "5": 259,
+        "6": 259,
+        "7": 259,
+        "8": 259,
+        "9": 259,
+        "10": 259,
+        "11": 259,
+        "12": 259,
+        "13": 259,
+        "14": 259,
+        "15": 259,
+        "16": 259,
+        "17": 259,
+        "18": 259,
+        "19": 259,
+        "20": 259,
+        "21": 259,
+        "22": 259,
+        "23": 259
+      },
+      "refit_origin_hour_counts": {
+        "0": 301,
+        "1": 301,
+        "2": 301,
+        "3": 301,
+        "4": 301,
+        "5": 301,
+        "6": 301,
+        "7": 301,
+        "8": 301,
+        "9": 301,
+        "10": 301,
+        "11": 301,
+        "12": 301,
+        "13": 301,
+        "14": 301,
+        "15": 301,
+        "16": 301,
+        "17": 301,
+        "18": 301,
+        "19": 301,
+        "20": 301,
+        "21": 301,
+        "22": 301,
+        "23": 301
+      },
+      "train_last_target": "2017-10-07 23:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 23:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1247.1355297228893,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1247.299165343391
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1247.1355297228893
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1756.4861188403595,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1792.827861633771
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1756.4861188403595
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6216,
+      "refit_origins": 7224,
+      "train_origin_hour_counts": {
+        "0": 259,
+        "1": 259,
+        "2": 259,
+        "3": 259,
+        "4": 259,
+        "5": 259,
+        "6": 259,
+        "7": 259,
+        "8": 259,
+        "9": 259,
+        "10": 259,
+        "11": 259,
+        "12": 259,
+        "13": 259,
+        "14": 259,
+        "15": 259,
+        "16": 259,
+        "17": 259,
+        "18": 259,
+        "19": 259,
+        "20": 259,
+        "21": 259,
+        "22": 259,
+        "23": 259
+      },
+      "refit_origin_hour_counts": {
+        "0": 301,
+        "1": 301,
+        "2": 301,
+        "3": 301,
+        "4": 301,
+        "5": 301,
+        "6": 301,
+        "7": 301,
+        "8": 301,
+        "9": 301,
+        "10": 301,
+        "11": 301,
+        "12": 301,
+        "13": 301,
+        "14": 301,
+        "15": 301,
+        "16": 301,
+        "17": 301,
+        "18": 301,
+        "19": 301,
+        "20": 301,
+        "21": 301,
+        "22": 301,
+        "23": 301
+      },
+      "train_last_target": "2017-10-07 23:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 23:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 564.4598691584481,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 564.4598691584481
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 566.3364262512144
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 750.578793966833,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 750.578793966833
+            },
+            {
+              "config": 31,
+              "validation_MAE": 783.273667366726
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6216,
+      "refit_origins": 7224,
+      "train_origin_hour_counts": {
+        "0": 259,
+        "1": 259,
+        "2": 259,
+        "3": 259,
+        "4": 259,
+        "5": 259,
+        "6": 259,
+        "7": 259,
+        "8": 259,
+        "9": 259,
+        "10": 259,
+        "11": 259,
+        "12": 259,
+        "13": 259,
+        "14": 259,
+        "15": 259,
+        "16": 259,
+        "17": 259,
+        "18": 259,
+        "19": 259,
+        "20": 259,
+        "21": 259,
+        "22": 259,
+        "23": 259
+      },
+      "refit_origin_hour_counts": {
+        "0": 301,
+        "1": 301,
+        "2": 301,
+        "3": 301,
+        "4": 301,
+        "5": 301,
+        "6": 301,
+        "7": 301,
+        "8": 301,
+        "9": 301,
+        "10": 301,
+        "11": 301,
+        "12": 301,
+        "13": 301,
+        "14": 301,
+        "15": 301,
+        "16": 301,
+        "17": 301,
+        "18": 301,
+        "19": 301,
+        "20": 301,
+        "21": 301,
+        "22": 301,
+        "23": 301
+      },
+      "train_last_target": "2017-10-07 23:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 23:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 900.1296933661322,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 901.583040790922
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 900.1296933661322
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 839.2988204263461,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 932.1269650329023
+            },
+            {
+              "config": 31,
+              "validation_MAE": 839.2988204263461
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6216,
+      "refit_origins": 7224,
+      "train_origin_hour_counts": {
+        "0": 259,
+        "1": 259,
+        "2": 259,
+        "3": 259,
+        "4": 259,
+        "5": 259,
+        "6": 259,
+        "7": 259,
+        "8": 259,
+        "9": 259,
+        "10": 259,
+        "11": 259,
+        "12": 259,
+        "13": 259,
+        "14": 259,
+        "15": 259,
+        "16": 259,
+        "17": 259,
+        "18": 259,
+        "19": 259,
+        "20": 259,
+        "21": 259,
+        "22": 259,
+        "23": 259
+      },
+      "refit_origin_hour_counts": {
+        "0": 301,
+        "1": 301,
+        "2": 301,
+        "3": 301,
+        "4": 301,
+        "5": 301,
+        "6": 301,
+        "7": 301,
+        "8": 301,
+        "9": 301,
+        "10": 301,
+        "11": 301,
+        "12": 301,
+        "13": 301,
+        "14": 301,
+        "15": 301,
+        "16": 301,
+        "17": 301,
+        "18": 301,
+        "19": 301,
+        "20": 301,
+        "21": 301,
+        "22": 301,
+        "23": 301
+      },
+      "train_last_target": "2017-10-07 23:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 23:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 3.006201750326985,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 3.01024331696416
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 3.006201750326985
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 7.494470130593739,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 7.494470130593739
+            },
+            {
+              "config": 31,
+              "validation_MAE": 9.942955293820534
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 4.835189760364783,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 4.841384903351244
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 4.835189760364783
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 23.495181999568533,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 23.495181999568533
+            },
+            {
+              "config": 31,
+              "validation_MAE": 25.357809954613852
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 4.063750477368539,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 4.064364039508094
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 4.063750477368539
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 3.5936483351640502,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 3.5936483351640502
+            },
+            {
+              "config": 31,
+              "validation_MAE": 3.879389412400265
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 4.667083781883531,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 4.667808404947899
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 4.667083781883531
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 4.48861350198008,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 4.529709534086245
+            },
+            {
+              "config": 31,
+              "validation_MAE": 4.48861350198008
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.027565352933411898,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.027944513659991805
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.027565352933411898
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.025849646216538288,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.025894257478535968
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.025849646216538288
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.18305906484215023,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.18326894748995268
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.18305906484215023
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.18685548470531724,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.18685548470531724
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.1944300694986304
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 0.22423695688692086,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.22423695688692086
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.22425696276593932
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.2105091437886357,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.21840201001985898
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.2105091437886357
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 6240,
+      "refit_origins": 7248,
+      "train_origin_hour_counts": {
+        "0": 260,
+        "1": 260,
+        "2": 260,
+        "3": 260,
+        "4": 260,
+        "5": 260,
+        "6": 260,
+        "7": 260,
+        "8": 260,
+        "9": 260,
+        "10": 260,
+        "11": 260,
+        "12": 260,
+        "13": 260,
+        "14": 260,
+        "15": 260,
+        "16": 260,
+        "17": 260,
+        "18": 260,
+        "19": 260,
+        "20": 260,
+        "21": 260,
+        "22": 260,
+        "23": 260
+      },
+      "refit_origin_hour_counts": {
+        "0": 302,
+        "1": 302,
+        "2": 302,
+        "3": 302,
+        "4": 302,
+        "5": 302,
+        "6": 302,
+        "7": 302,
+        "8": 302,
+        "9": 302,
+        "10": 302,
+        "11": 302,
+        "12": 302,
+        "13": 302,
+        "14": 302,
+        "15": 302,
+        "16": 302,
+        "17": 302,
+        "18": 302,
+        "19": 302,
+        "20": 302,
+        "21": 302,
+        "22": 302,
+        "23": 302
+      },
+      "train_last_target": "2014-10-08 23:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 23:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.6999934915162536,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.7637684064794238
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.6999934915162536
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.5386954320766483,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.5386954320766483
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.5624309540209791
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 954,
+      "refit_origins": 1149,
+      "train_origin_hour_counts": {
+        "0": 40,
+        "1": 40,
+        "2": 40,
+        "3": 40,
+        "4": 40,
+        "5": 39,
+        "6": 39,
+        "7": 40,
+        "8": 40,
+        "9": 40,
+        "10": 40,
+        "11": 40,
+        "12": 40,
+        "13": 40,
+        "14": 40,
+        "15": 40,
+        "16": 40,
+        "17": 40,
+        "18": 38,
+        "19": 39,
+        "20": 39,
+        "21": 40,
+        "22": 40,
+        "23": 40
+      },
+      "refit_origin_hour_counts": {
+        "0": 48,
+        "1": 48,
+        "2": 48,
+        "3": 48,
+        "4": 48,
+        "5": 47,
+        "6": 47,
+        "7": 48,
+        "8": 48,
+        "9": 48,
+        "10": 48,
+        "11": 48,
+        "12": 48,
+        "13": 48,
+        "14": 48,
+        "15": 48,
+        "16": 48,
+        "17": 49,
+        "18": 47,
+        "19": 48,
+        "20": 47,
+        "21": 48,
+        "22": 48,
+        "23": 48
+      },
+      "train_last_target": "2009-09-13 17:00:00",
+      "validation_first_origin": "2009-10-25 17:00:00",
+      "refit_last_target": "2009-11-09 19:00:00",
+      "test_first_origin": "2009-11-23 20:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "fingerprint": "09c6884f90a1299e8e5de194908b7f45c0c37bf8a788ffa93887c146005d2e18",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.6767380002803978,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.6825587421216751
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.6767380002803978
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.5612484672631075,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.5671286958473992
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.5612484672631075
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 954,
+      "refit_origins": 1149,
+      "train_origin_hour_counts": {
+        "0": 40,
+        "1": 40,
+        "2": 40,
+        "3": 40,
+        "4": 40,
+        "5": 39,
+        "6": 39,
+        "7": 40,
+        "8": 40,
+        "9": 40,
+        "10": 40,
+        "11": 40,
+        "12": 40,
+        "13": 40,
+        "14": 40,
+        "15": 40,
+        "16": 40,
+        "17": 40,
+        "18": 38,
+        "19": 39,
+        "20": 39,
+        "21": 40,
+        "22": 40,
+        "23": 40
+      },
+      "refit_origin_hour_counts": {
+        "0": 48,
+        "1": 48,
+        "2": 48,
+        "3": 48,
+        "4": 48,
+        "5": 47,
+        "6": 47,
+        "7": 48,
+        "8": 48,
+        "9": 48,
+        "10": 48,
+        "11": 48,
+        "12": 48,
+        "13": 48,
+        "14": 48,
+        "15": 48,
+        "16": 48,
+        "17": 49,
+        "18": 47,
+        "19": 48,
+        "20": 47,
+        "21": 48,
+        "22": 48,
+        "23": 48
+      },
+      "train_last_target": "2009-09-13 17:00:00",
+      "validation_first_origin": "2009-10-25 17:00:00",
+      "refit_last_target": "2009-11-09 19:00:00",
+      "test_first_origin": "2009-11-23 20:00:00"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "chronos2_h24": {
+    "cases": 30,
+    "clear_vs_weekly": 23,
+    "meaningful2_vs_weekly": 23,
+    "meaningful5_vs_weekly": 23,
+    "meaningful10_vs_weekly": 23,
+    "clear_vs_selected": 24,
+    "meaningful2_vs_selected": 24,
+    "meaningful5_vs_selected": 24,
+    "meaningful10_vs_selected": 24,
+    "weakened": [],
+    "strengthened": [
+      [
+        "Q1",
+        "victoria",
+        "regional_demand",
+        24
+      ]
+    ]
+  },
+  "chronos2_h168": {
+    "cases": 30,
+    "clear_vs_weekly": 18,
+    "meaningful2_vs_weekly": 18,
+    "meaningful5_vs_weekly": 18,
+    "meaningful10_vs_weekly": 17,
+    "clear_vs_selected": 15,
+    "meaningful2_vs_selected": 15,
+    "meaningful5_vs_selected": 15,
+    "meaningful10_vs_selected": 15,
+    "weakened": [
+      [
+        "Q1",
+        "tetouan",
+        "zone_2",
+        168
+      ],
+      [
+        "Q2",
+        "tetouan",
+        "zone_1",
+        168
+      ],
+      [
+        "Q2",
+        "tetouan",
+        "zone_3",
+        168
+      ],
+      [
+        "Q3",
+        "tetouan",
+        "zone_3",
+        168
+      ],
+      [
+        "Q4",
+        "tetouan",
+        "zone_3",
+        168
+      ]
+    ],
+    "strengthened": [
+      [
+        "Q1",
+        "victoria",
+        "regional_demand",
+        168
+      ],
+      [
+        "Q3",
+        "portugal",
+        "T2",
+        168
+      ]
+    ]
+  },
+  "chronos_bolt_2048_h24": {
+    "cases": 30,
+    "clear_vs_weekly": 23,
+    "meaningful2_vs_weekly": 23,
+    "meaningful5_vs_weekly": 23,
+    "meaningful10_vs_weekly": 23,
+    "clear_vs_selected": 22,
+    "meaningful2_vs_selected": 22,
+    "meaningful5_vs_selected": 22,
+    "meaningful10_vs_selected": 21,
+    "weakened": [
+      [
+        "Q2",
+        "tetouan",
+        "zone_3",
+        24
+      ],
+      [
+        "Q3",
+        "tetouan",
+        "zone_1",
+        24
+      ]
+    ],
+    "strengthened": [
+      [
+        "Q1",
+        "victoria",
+        "regional_demand",
+        24
+      ]
+    ]
+  },
+  "chronos_bolt_2048_h168": {
+    "cases": 30,
+    "clear_vs_weekly": 21,
+    "meaningful2_vs_weekly": 21,
+    "meaningful5_vs_weekly": 21,
+    "meaningful10_vs_weekly": 20,
+    "clear_vs_selected": 14,
+    "meaningful2_vs_selected": 14,
+    "meaningful5_vs_selected": 14,
+    "meaningful10_vs_selected": 12,
+    "weakened": [
+      [
+        "Q1",
+        "tetouan",
+        "zone_2",
+        168
+      ],
+      [
+        "Q2",
+        "tetouan",
+        "zone_1",
+        168
+      ],
+      [
+        "Q2",
+        "tetouan",
+        "zone_3",
+        168
+      ],
+      [
+        "Q3",
+        "portugal",
+        "T1",
+        168
+      ],
+      [
+        "Q3",
+        "tetouan",
+        "zone_1",
+        168
+      ],
+      [
+        "Q3",
+        "tetouan",
+        "zone_3",
+        168
+      ],
+      [
+        "Q3",
+        "victoria",
+        "regional_demand",
+        168
+      ],
+      [
+        "Q4",
+        "victoria",
+        "regional_demand",
+        168
+      ]
+    ],
+    "strengthened": [
+      [
+        "Q1",
+        "victoria",
+        "regional_demand",
+        168
+      ]
+    ]
+  }
+}

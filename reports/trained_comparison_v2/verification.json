@@ -1,0 +1,10 @@
+{
+  "verified_cases": 46,
+  "verified_score_rows": 276,
+  "v1_hashes_preserved": true,
+  "all_origin_hours_present": true,
+  "time_boundaries": "passed",
+  "selection": "validation only",
+  "original_chronos_and_baseline_arrays": "exact match",
+  "score_recalculation": "passed"
+}

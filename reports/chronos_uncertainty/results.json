@@ -1,0 +1,5564 @@
+{
+  "protocol": {
+    "method": "Paired circular block bootstrap, percentile intervals",
+    "repetitions": 5000,
+    "seed": 20261019,
+    "block_hours": [
+      168,
+      336
+    ],
+    "primary_block_hours": 168,
+    "loss": "Mean absolute error over horizon per forecast origin",
+    "difference": "baseline MAE minus Chronos MAE; positive favors Chronos",
+    "calendar_gaps": "Retain invalid origins as missing hourly positions; resample common missingness mask",
+    "selection": "Conditional on original validation-selected rule and weight; not refitted within bootstrap",
+    "interpretation": "Exploratory per-comparison 95% intervals; no multiplicity correction or population-generalization claim",
+    "sensitivity": "Report both lengths without selecting the more favorable interval",
+    "sparse_guard": "Flag intervals with fewer than two blocks worth of valid origins; do not call those supported",
+    "limitations": [
+      "Only about five 168-hour blocks or 2.5 336-hour blocks per complete window",
+      "Circular wrapping joins end and start; assumes approximately stationary paired loss process within each window",
+      "Missingness-mask resampling is exploratory, not proof gaps are ignorable",
+      "Does not quantify pretraining overlap, model/selection uncertainty or future-year performance",
+      "Q4 repeats original pilot; windows and related meters are not independent replications"
+    ],
+    "reference": "https://bashtage.github.io/arch/bootstrap/timeseries-bootstraps.html",
+    "results_zip_sha256": "17288f277fc8326dba2c02fad171d66669a60f850149969a5b14db2ef0747c67",
+    "inputs_zip_sha256": "a64b6240507cb5e4ac8349e8265ab87e50c598d225400f15bbbc4e298cd74b58"
+  },
+  "finished_utc": "2026-10-19T17:41:06.835706+00:00",
+  "results": [
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.8882566315178977,
+      "baseline_MAE": 4.500240929705219,
+      "difference": 0.6119842981873216,
+      "gain_pct": 13.598922985383554,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.4870709749603464,
+            0.7581620235293339
+          ],
+          "gain_pct_ci95": [
+            10.874374381441214,
+            17.574089628386638
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.48552919844776915,
+            0.7570474423458805
+          ],
+          "gain_pct_ci95": [
+            11.574451333192734,
+            16.455627169285556
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.8882566315178977,
+      "baseline_MAE": 4.347913123582762,
+      "difference": 0.45965649206486425,
+      "gain_pct": 10.571887684961345,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.34984560274389925,
+            0.5961704508281063
+          ],
+          "gain_pct_ci95": [
+            7.727173670085125,
+            14.139894835276984
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.3595997227430137,
+            0.567374931574452
+          ],
+          "gain_pct_ci95": [
+            8.697203185965279,
+            12.98376696086608
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.6288495284224322,
+      "baseline_MAE": 4.464087301587302,
+      "difference": 0.8352377731648697,
+      "gain_pct": 18.710157681456696,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.574981721009881,
+            1.14238668431306
+          ],
+          "gain_pct_ci95": [
+            13.948725434189914,
+            25.176056255656487
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.5792097243134461,
+            1.1248311920818794
+          ],
+          "gain_pct_ci95": [
+            14.769747950321737,
+            23.502435258593604
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.6288495284224322,
+      "baseline_MAE": 4.00891369047619,
+      "difference": 0.3800641620537575,
+      "gain_pct": 9.480477540752752,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.09485790919737454,
+            0.6890375250368572
+          ],
+          "gain_pct_ci95": [
+            3.0693040017965454,
+            13.57346301389957
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.13828852267113673,
+            0.6475639912805341
+          ],
+          "gain_pct_ci95": [
+            4.248829887139854,
+            13.347059123643888
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 4.258397190451894,
+      "baseline_MAE": 5.788619614512482,
+      "difference": 1.5302224240605886,
+      "gain_pct": 26.43501432058537,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.6881371841145432,
+            2.6840483625635323
+          ],
+          "gain_pct_ci95": [
+            13.967511593411759,
+            37.84025600962127
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.7504500930791824,
+            2.474863186720555
+          ],
+          "gain_pct_ci95": [
+            14.832148230574932,
+            35.88701149123401
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 4.258397190451894,
+      "baseline_MAE": 6.286309523809534,
+      "difference": 2.02791233335764,
+      "gain_pct": 32.25918681981659,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.684845491067895,
+            3.898172749302554
+          ],
+          "gain_pct_ci95": [
+            13.779825570874312,
+            47.650675052091614
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.7098460219121263,
+            3.6974030217474265
+          ],
+          "gain_pct_ci95": [
+            14.067625091407486,
+            45.57259693852528
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.318304341369207,
+      "baseline_MAE": 6.493055555555551,
+      "difference": 3.174751214186344,
+      "gain_pct": 48.89456415431378,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.2672183975719264,
+            5.964177780458847
+          ],
+          "gain_pct_ci95": [
+            26.671289943393358,
+            65.71853344311543
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.4681625522744082,
+            5.4940668483669715
+          ],
+          "gain_pct_ci95": [
+            30.224552077481043,
+            63.403841177568225
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.318304341369207,
+      "baseline_MAE": 6.026959325396822,
+      "difference": 2.708654984027615,
+      "gain_pct": 44.94231398930627,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.970263510824193,
+            5.20986112846174
+          ],
+          "gain_pct_ci95": [
+            21.677914798372452,
+            62.64777607432859
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.1807306590269455,
+            4.782083759168788
+          ],
+          "gain_pct_ci95": [
+            25.885655941508077,
+            60.00859219533197
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.4448948028305224,
+      "baseline_MAE": 0.007936507936507943,
+      "difference": -0.43695829489401444,
+      "gain_pct": -5505.6745156645775,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4422727135134669,
+            -0.4263294576551104
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1126,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4422727135134669,
+            -0.4281053722519729
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1129,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.4448948028305224,
+      "baseline_MAE": 0.007936507936507943,
+      "difference": -0.43695829489401444,
+      "gain_pct": -5505.6745156645775,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4422727135134669,
+            -0.4263294576551104
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1126,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4422727135134669,
+            -0.4281053722519729
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1129,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.41786848931085496,
+      "baseline_MAE": 0.0,
+      "difference": -0.41786848931085496,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4178684893108553,
+            -0.4178684893108546
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4178684893108553,
+            -0.41786848931085463
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.41786848931085496,
+      "baseline_MAE": 0.0,
+      "difference": -0.41786848931085496,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4178684893108553,
+            -0.4178684893108546
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4178684893108553,
+            -0.41786848931085463
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 922.0063265944544,
+      "baseline_MAE": 1011.7506899315705,
+      "difference": 89.74436333711606,
+      "gain_pct": 8.870205301583322,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            3.606216117070662,
+            179.8727810812308
+          ],
+          "gain_pct_ci95": [
+            0.4249860795764934,
+            15.633990301880663
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -1.6889631150402105,
+            185.47432724958634
+          ],
+          "gain_pct_ci95": [
+            -0.20042694794706528,
+            15.692154177464731
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 922.0063265944544,
+      "baseline_MAE": 970.4511400655059,
+      "difference": 48.444813471051475,
+      "gain_pct": 4.991988928755486,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.6905132676339237,
+            103.70706416122037
+          ],
+          "gain_pct_ci95": [
+            0.07754237157058502,
+            9.450441560696463
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            13.490364171516708,
+            90.13537416041457
+          ],
+          "gain_pct_ci95": [
+            1.4999642949175254,
+            8.336911891944828
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 797.9011716423092,
+      "baseline_MAE": 1015.4765766692298,
+      "difference": 217.57540502692052,
+      "gain_pct": 21.42594029500605,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            69.74595885424294,
+            371.05020903666576
+          ],
+          "gain_pct_ci95": [
+            7.937975439100673,
+            33.15722530489922
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            78.35328472717542,
+            356.29102294671577
+          ],
+          "gain_pct_ci95": [
+            9.231924192721403,
+            30.251739762425228
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 797.9011716423092,
+      "baseline_MAE": 881.1494596946098,
+      "difference": 83.24828805230061,
+      "gain_pct": 9.447692118105921,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            18.536141898669477,
+            134.53833756412345
+          ],
+          "gain_pct_ci95": [
+            2.297233235156237,
+            15.130460187261964
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            34.95195283921658,
+            124.93298997671707
+          ],
+          "gain_pct_ci95": [
+            4.2116322491928155,
+            14.058993217121891
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 692.5181107588623,
+      "baseline_MAE": 810.9754678834921,
+      "difference": 118.45735712462977,
+      "gain_pct": 14.606774411288093,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            58.28382379806646,
+            181.23208778588193
+          ],
+          "gain_pct_ci95": [
+            8.11558926989615,
+            20.281611794478327
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            73.73942945287006,
+            168.61808023058154
+          ],
+          "gain_pct_ci95": [
+            10.384182231165338,
+            18.386343968364617
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 692.5181107588623,
+      "baseline_MAE": 716.4544813399475,
+      "difference": 23.936370581085157,
+      "gain_pct": 3.340947848678144,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -22.607737084138954,
+            82.65470806994878
+          ],
+          "gain_pct_ci95": [
+            -3.5576442691214374,
+            9.947434579503332
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -12.958387087408465,
+            69.96797710431575
+          ],
+          "gain_pct_ci95": [
+            -2.081579346878467,
+            8.432580986895633
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 618.7669300899995,
+      "baseline_MAE": 781.6628083967927,
+      "difference": 162.89587830679318,
+      "gain_pct": 20.839660855925345,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            38.113576061703846,
+            296.08373948068066
+          ],
+          "gain_pct_ci95": [
+            5.679614844408972,
+            33.00624255316685
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            73.07143341521913,
+            266.34419994519965
+          ],
+          "gain_pct_ci95": [
+            10.60638797090107,
+            29.50021373582677
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 618.7669300899995,
+      "baseline_MAE": 677.9917550495694,
+      "difference": 59.2248249595699,
+      "gain_pct": 8.73533114797832,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -3.9494749500986774,
+            121.9732340417615
+          ],
+          "gain_pct_ci95": [
+            -0.6953323890929262,
+            15.915171368800433
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            18.74441664493852,
+            99.90014758444295
+          ],
+          "gain_pct_ci95": [
+            3.0127618635599447,
+            13.857202545501071
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 564.0347527229172,
+      "baseline_MAE": 636.9070249142491,
+      "difference": 72.87227219133183,
+      "gain_pct": 11.441587129792307,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            24.5054557690122,
+            121.5841553774494
+          ],
+          "gain_pct_ci95": [
+            4.077840405773848,
+            18.157409712801574
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            38.052246708383436,
+            111.88539693255929
+          ],
+          "gain_pct_ci95": [
+            6.479909761299749,
+            16.136927719288998
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 564.0347527229172,
+      "baseline_MAE": 572.3287727110492,
+      "difference": 8.294019988131936,
+      "gain_pct": 1.4491705438544056,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -8.505648470398562,
+            25.827943071057025
+          ],
+          "gain_pct_ci95": [
+            -1.7157308067584691,
+            4.132828844425727
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -8.59072747692052,
+            25.559796478836788
+          ],
+          "gain_pct_ci95": [
+            -1.7099651935752358,
+            4.129478187058439
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 449.14845556375747,
+      "baseline_MAE": 638.2285428596722,
+      "difference": 189.08008729591472,
+      "gain_pct": 29.625764847293567,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            94.2034185750156,
+            282.39359507468384
+          ],
+          "gain_pct_ci95": [
+            16.315175864806672,
+            40.40970432044041
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            121.67174927966701,
+            266.0103939590907
+          ],
+          "gain_pct_ci95": [
+            20.640697278144277,
+            37.67930562368402
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 449.14845556375747,
+      "baseline_MAE": 492.86486213756365,
+      "difference": 43.71640657380618,
+      "gain_pct": 8.869856614287198,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            14.722733494330834,
+            74.60070264919533
+          ],
+          "gain_pct_ci95": [
+            3.2389981810389314,
+            14.582514361628935
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            16.83129183192063,
+            74.69218070737735
+          ],
+          "gain_pct_ci95": [
+            3.9162964994735874,
+            13.584841207899592
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.19719825707702093,
+      "baseline_MAE": 0.21736305961552574,
+      "difference": 0.020164802538504806,
+      "gain_pct": 9.277014490950087,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.01351229322380036,
+            0.04983646810351011
+          ],
+          "gain_pct_ci95": [
+            -7.13623226395354,
+            19.986966046124362
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.009238893259139893,
+            0.04544783648866902
+          ],
+          "gain_pct_ci95": [
+            -4.687225508244398,
+            19.07044281897904
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.19719825707702093,
+      "baseline_MAE": 0.25865684649569914,
+      "difference": 0.06145858941867821,
+      "gain_pct": 23.760666014189624,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.030300651283221198,
+            0.09235917453351218
+          ],
+          "gain_pct_ci95": [
+            14.21354585713692,
+            31.108058475300112
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.029331160356884316,
+            0.09495386750512698
+          ],
+          "gain_pct_ci95": [
+            13.751160465188946,
+            31.22224420954226
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.1780999844992652,
+      "baseline_MAE": 0.2534417909274307,
+      "difference": 0.07534180642816549,
+      "gain_pct": 29.72745976599357,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.006519221342401487,
+            0.15554213730180405
+          ],
+          "gain_pct_ci95": [
+            3.5018848329944556,
+            47.21918682958336
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.0017011658096211949,
+            0.14710135405879404
+          ],
+          "gain_pct_ci95": [
+            0.9057262046995337,
+            47.45239871674177
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.1780999844992652,
+      "baseline_MAE": 0.24827518524419662,
+      "difference": 0.07017520074493142,
+      "gain_pct": 28.265088464603917,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.04360746897290138,
+            0.09835294947517977
+          ],
+          "gain_pct_ci95": [
+            20.94094026404727,
+            34.601104817335234
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.04638418377275198,
+            0.09746417350939043
+          ],
+          "gain_pct_ci95": [
+            21.52568234706024,
+            34.02490264121461
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 6.588009805416435,
+      "baseline_MAE": 11.345982142857148,
+      "difference": 4.757972337440712,
+      "gain_pct": 41.93530606282585,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            2.738957662626985,
+            6.8684772217927685
+          ],
+          "gain_pct_ci95": [
+            27.52609001590437,
+            54.621999442853365
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            3.3596094880561465,
+            6.180847735329123
+          ],
+          "gain_pct_ci95": [
+            33.43271450848513,
+            49.72029313336911
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 6.588009805416435,
+      "baseline_MAE": 8.511755952380952,
+      "difference": 1.9237461469645165,
+      "gain_pct": 22.60104915750547,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.853411636496062,
+            3.4293119338594966
+          ],
+          "gain_pct_ci95": [
+            10.909982622256658,
+            34.359275190846354
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.9783375843284953,
+            3.1145964904560373
+          ],
+          "gain_pct_ci95": [
+            13.695983999255118,
+            31.041992071933386
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 7.18542927359304,
+      "baseline_MAE": 12.42470238095238,
+      "difference": 5.239273107359341,
+      "gain_pct": 42.16819805190166,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.8227207061246262,
+            9.11390245972526
+          ],
+          "gain_pct_ci95": [
+            17.537325036621162,
+            64.59742997084747
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            2.8658819182672373,
+            7.953560182632545
+          ],
+          "gain_pct_ci95": [
+            25.908464163899005,
+            54.980269891782555
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 7.18542927359304,
+      "baseline_MAE": 10.82584325396824,
+      "difference": 3.6404139803751994,
+      "gain_pct": 33.62707084310311,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.7101132961149637,
+            5.897336435603612
+          ],
+          "gain_pct_ci95": [
+            23.31801176424575,
+            41.588799115230856
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.975716137251569,
+            5.694110275660719
+          ],
+          "gain_pct_ci95": [
+            24.282612815283695,
+            40.65948930519845
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 6.4564678512733344,
+      "baseline_MAE": 8.638456632653062,
+      "difference": 2.1819887813797276,
+      "gain_pct": 25.259011813891462,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.2078010059754554,
+            3.2252329073444166
+          ],
+          "gain_pct_ci95": [
+            15.972857522624741,
+            34.1138604865279
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.1875965628318323,
+            3.2044777703623053
+          ],
+          "gain_pct_ci95": [
+            15.718622333609076,
+            33.23408840361346
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 6.4564678512733344,
+      "baseline_MAE": 7.806384637188202,
+      "difference": 1.3499167859148677,
+      "gain_pct": 17.292470825535666,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.3377991387714308,
+            2.5647714751782975
+          ],
+          "gain_pct_ci95": [
+            5.054792612161586,
+            29.180521956297373
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.2833813432325285,
+            2.547475127318259
+          ],
+          "gain_pct_ci95": [
+            4.302261265765284,
+            27.979224824393732
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 4.946711133775257,
+      "baseline_MAE": 8.882936507936513,
+      "difference": 3.936225374161256,
+      "gain_pct": 44.312208813430246,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            2.3474887802108944,
+            5.475238321130235
+          ],
+          "gain_pct_ci95": [
+            32.80172189404356,
+            52.05158056240092
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            2.3410374335542645,
+            5.428931234668166
+          ],
+          "gain_pct_ci95": [
+            32.923191603523264,
+            51.815935185706046
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 4.946711133775257,
+      "baseline_MAE": 5.711408730158732,
+      "difference": 0.764697596383475,
+      "gain_pct": 13.388948900567,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.37142288476512225,
+            1.1847484363468768
+          ],
+          "gain_pct_ci95": [
+            6.882720713598327,
+            19.864998692191715
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.3559933342649799,
+            1.1728934152069463
+          ],
+          "gain_pct_ci95": [
+            6.683624245431783,
+            19.883652137260082
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.44218934449006153,
+      "baseline_MAE": 0.0,
+      "difference": -0.44218934449006153,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4421893444900617,
+            -0.4421893444900609
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.44218934449006164,
+            -0.4421893444900609
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.44218934449006153,
+      "baseline_MAE": 0.0,
+      "difference": -0.44218934449006153,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4421893444900617,
+            -0.4421893444900609
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.44218934449006164,
+            -0.4421893444900609
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.425371699035168,
+      "baseline_MAE": 0.0,
+      "difference": -0.425371699035168,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.42537169903516736
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.4253716990351674
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.425371699035168,
+      "baseline_MAE": 0.0,
+      "difference": -0.425371699035168,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.42537169903516736
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.4253716990351674
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1795.1501301071041,
+      "baseline_MAE": 1874.87376621842,
+      "difference": 79.72363611131595,
+      "gain_pct": 4.252213538200856,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -8.354525946691938,
+            164.61717458353954
+          ],
+          "gain_pct_ci95": [
+            -0.6490230327267403,
+            6.6909185401958
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -7.71126910520465,
+            166.4894800822109
+          ],
+          "gain_pct_ci95": [
+            -0.6563469547036138,
+            6.582666323056097
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1795.1501301071041,
+      "baseline_MAE": 1740.8519915188826,
+      "difference": -54.29813858822149,
+      "gain_pct": -3.1190554310620566,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -137.4253539553114,
+            35.45642241094989
+          ],
+          "gain_pct_ci95": [
+            -9.858573074507268,
+            1.7099494572363663
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -139.5282823534627,
+            34.3931952209439
+          ],
+          "gain_pct_ci95": [
+            -10.47334810327877,
+            1.6588305114007975
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1070.4499721980412,
+      "baseline_MAE": 1621.2916502556234,
+      "difference": 550.8416780575822,
+      "gain_pct": 33.97548355786159,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            226.05398975872205,
+            970.714295603495
+          ],
+          "gain_pct_ci95": [
+            20.112885373219108,
+            43.05204540647714
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            231.98884124166887,
+            938.7761334672914
+          ],
+          "gain_pct_ci95": [
+            21.41921184401052,
+            41.59789356396769
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1070.4499721980412,
+      "baseline_MAE": 1277.7689394170648,
+      "difference": 207.31896721902353,
+      "gain_pct": 16.22507488040875,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            107.27994630613205,
+            346.41797425202907
+          ],
+          "gain_pct_ci95": [
+            9.554582567694396,
+            23.1829697557311
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            117.41920118693248,
+            322.1420456307331
+          ],
+          "gain_pct_ci95": [
+            10.661435810330962,
+            21.68696975208622
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1305.5618400805854,
+      "baseline_MAE": 1377.5477564370942,
+      "difference": 71.98591635650882,
+      "gain_pct": 5.225656680149804,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -55.159803143847746,
+            192.26280429737207
+          ],
+          "gain_pct_ci95": [
+            -4.914904866553517,
+            13.218275384348136
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -55.203211522412445,
+            186.3929268457346
+          ],
+          "gain_pct_ci95": [
+            -4.908808496583682,
+            12.42319319908951
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1305.5618400805854,
+      "baseline_MAE": 1331.4651410041174,
+      "difference": 25.903300923532015,
+      "gain_pct": 1.945473458208391,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -63.91615294521767,
+            122.04339562022503
+          ],
+          "gain_pct_ci95": [
+            -5.3615444912874235,
+            8.802776285236813
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -65.89032997047504,
+            127.28521578987336
+          ],
+          "gain_pct_ci95": [
+            -5.931771500269665,
+            8.993843980352597
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 890.8667879429719,
+      "baseline_MAE": 1264.5363460482304,
+      "difference": 373.6695581052585,
+      "gain_pct": 29.54992628507702,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            144.29690133590398,
+            646.0573243479057
+          ],
+          "gain_pct_ci95": [
+            14.93231946048887,
+            40.13918890619337
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            168.4745158337297,
+            594.9412045420255
+          ],
+          "gain_pct_ci95": [
+            16.834406367881176,
+            37.776579290618145
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 890.8667879429719,
+      "baseline_MAE": 1028.4235940819622,
+      "difference": 137.55680613899028,
+      "gain_pct": 13.375500808281481,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -12.984917618547883,
+            310.86618946153243
+          ],
+          "gain_pct_ci95": [
+            -1.4794172093424607,
+            27.22693402697928
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -12.375837580738704,
+            306.5900325211991
+          ],
+          "gain_pct_ci95": [
+            -1.4083185424705722,
+            27.278859620607747
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1059.4800592954748,
+      "baseline_MAE": 1195.0442239407032,
+      "difference": 135.5641646452284,
+      "gain_pct": 11.343861752513263,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            26.961401018359165,
+            248.257495735931
+          ],
+          "gain_pct_ci95": [
+            2.843228347815717,
+            18.36459858891049
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            51.085974550131894,
+            204.30981275633926
+          ],
+          "gain_pct_ci95": [
+            5.579959029925419,
+            15.816408235619265
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1059.4800592954748,
+      "baseline_MAE": 1022.0827875937534,
+      "difference": -37.397271701721365,
+      "gain_pct": -3.6589278437771267,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -84.30300400232642,
+            6.334710850373509
+          ],
+          "gain_pct_ci95": [
+            -11.035465861113213,
+            0.5421801996415871
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -79.00830918884178,
+            4.405605986391263
+          ],
+          "gain_pct_ci95": [
+            -10.751677004679703,
+            0.3602260073676682
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 555.4612544568084,
+      "baseline_MAE": 1036.5814112254143,
+      "difference": 481.12015676860585,
+      "gain_pct": 46.414121607664235,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            213.56576041515586,
+            807.4870849291714
+          ],
+          "gain_pct_ci95": [
+            28.770660718955337,
+            58.93551091506113
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            281.0920249329048,
+            711.8274809766724
+          ],
+          "gain_pct_ci95": [
+            34.83691257819207,
+            56.20940512506853
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 555.4612544568084,
+      "baseline_MAE": 632.7086201140376,
+      "difference": 77.24736565722912,
+      "gain_pct": 12.208995294438418,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -4.805661988478934,
+            177.83353526862385
+          ],
+          "gain_pct_ci95": [
+            -0.9368402994564327,
+            24.350692279610403
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            16.885673962391326,
+            142.02107790913433
+          ],
+          "gain_pct_ci95": [
+            3.184723708057913,
+            20.628297615283063
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.15844034819868869,
+      "baseline_MAE": 0.18360573064702382,
+      "difference": 0.025165382448335133,
+      "gain_pct": 13.706207513051316,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.011088743083018283,
+            0.04568562177404868
+          ],
+          "gain_pct_ci95": [
+            6.569002279867802,
+            22.057117540326313
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.011489937761225897,
+            0.04277734541853181
+          ],
+          "gain_pct_ci95": [
+            6.8887932787287225,
+            20.85328257054866
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.15844034819868869,
+      "baseline_MAE": 0.18581183241803428,
+      "difference": 0.0273714842193456,
+      "gain_pct": 14.730754152279168,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.013136024742341402,
+            0.04270889280686256
+          ],
+          "gain_pct_ci95": [
+            7.806066478657202,
+            21.108083982755883
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.012192540009883398,
+            0.043751823909266005
+          ],
+          "gain_pct_ci95": [
+            7.398559912784186,
+            20.894980835546264
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.11719204946041564,
+      "baseline_MAE": 0.17987848095029738,
+      "difference": 0.06268643148988173,
+      "gain_pct": 34.849322252839556,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.027575700977522575,
+            0.10559719279128132
+          ],
+          "gain_pct_ci95": [
+            18.364876495224056,
+            49.84278950602536
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.0366547824980201,
+            0.0934833615492118
+          ],
+          "gain_pct_ci95": [
+            23.15606795309465,
+            45.48044888785014
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.11719204946041564,
+      "baseline_MAE": 0.18209074853492055,
+      "difference": 0.0648986990745049,
+      "gain_pct": 35.64085468189446,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.02462206248810109,
+            0.11243358120346897
+          ],
+          "gain_pct_ci95": [
+            18.14725090973158,
+            49.77961452077523
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.02519056725112889,
+            0.1100188930450631
+          ],
+          "gain_pct_ci95": [
+            18.671979970620292,
+            48.070351101434674
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 239,
+      "calendar_origin_hours": 239,
+      "chronos_MAE": 0.4038993480611986,
+      "baseline_MAE": 0.4196328792256092,
+      "difference": 0.01573353116441062,
+      "gain_pct": 3.7493561499387984,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.00824705376851005,
+            0.02333054969923255
+          ],
+          "gain_pct_ci95": [
+            2.011547972007986,
+            5.427939961154904
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            null,
+            null
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 0,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "insufficient_calendar_span"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 239,
+      "calendar_origin_hours": 239,
+      "chronos_MAE": 0.4038993480611986,
+      "baseline_MAE": 0.4273569494255164,
+      "difference": 0.023457601364317793,
+      "gain_pct": 5.488994948099279,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.006303605069131972,
+            0.05330531710581143
+          ],
+          "gain_pct_ci95": [
+            -1.6057709292801359,
+            11.543460624405775
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            null,
+            null
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 0,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "insufficient_calendar_span"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 239,
+      "calendar_origin_hours": 239,
+      "chronos_MAE": 0.3985394328051809,
+      "baseline_MAE": 0.4545446187819619,
+      "difference": 0.056005185976781,
+      "gain_pct": 12.321163569564952,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.036203337683068645,
+            0.07557945970516079
+          ],
+          "gain_pct_ci95": [
+            9.09994818939082,
+            14.908399896876679
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            null,
+            null
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 0,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "insufficient_calendar_span"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 239,
+      "calendar_origin_hours": 239,
+      "chronos_MAE": 0.3985394328051809,
+      "baseline_MAE": 0.489819505172013,
+      "difference": 0.09128007236683211,
+      "gain_pct": 18.635450692143575,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.060598569050377186,
+            0.12151332698710766
+          ],
+          "gain_pct_ci95": [
+            13.040582026710018,
+            24.112749945121784
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            null,
+            null
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 0,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "insufficient_calendar_span"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 13.123152588263919,
+      "baseline_MAE": 18.453854875283444,
+      "difference": 5.330702287019525,
+      "gain_pct": 28.886659849911965,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.84030058375563,
+            10.658429756422061
+          ],
+          "gain_pct_ci95": [
+            11.142143537340646,
+            52.190591983772684
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.851791274854719,
+            10.15683052544473
+          ],
+          "gain_pct_ci95": [
+            12.10424017251155,
+            51.49528125047973
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 13.123152588263919,
+      "baseline_MAE": 14.590184240362808,
+      "difference": 1.467031652098889,
+      "gain_pct": 10.054922048485448,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.3806478317260808,
+            2.4388768950965583
+          ],
+          "gain_pct_ci95": [
+            1.8303998322670956,
+            24.050362867279265
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.6933800109184448,
+            2.242229712761981
+          ],
+          "gain_pct_ci95": [
+            3.645090887064657,
+            21.8841217049288
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 8.367774927521504,
+      "baseline_MAE": 18.764632936507937,
+      "difference": 10.396858008986433,
+      "gain_pct": 55.406668727095656,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.9581326074638075,
+            23.30371931466555
+          ],
+          "gain_pct_ci95": [
+            18.58381522468484,
+            75.52568699146595
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.7472590567408182,
+            22.357633014039877
+          ],
+          "gain_pct_ci95": [
+            16.531851438496307,
+            74.82550589565408
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 8.367774927521504,
+      "baseline_MAE": 10.41579365079366,
+      "difference": 2.048018723272156,
+      "gain_pct": 19.66262765887361,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            1.0881658909741965,
+            3.108793684374711
+          ],
+          "gain_pct_ci95": [
+            12.779035154979596,
+            26.375728858620935
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            1.08744036364082,
+            3.1464320314748675
+          ],
+          "gain_pct_ci95": [
+            14.113000508160322,
+            24.729452664747008
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 9.071414209547491,
+      "baseline_MAE": 10.775793650793641,
+      "difference": 1.7043794412461502,
+      "gain_pct": 15.816741638520726,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.8961934990272006,
+            4.70189433108854
+          ],
+          "gain_pct_ci95": [
+            -8.317731581414495,
+            38.84205107501015
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.6088550711502704,
+            4.466635253510516
+          ],
+          "gain_pct_ci95": [
+            -5.877253382364444,
+            38.759733752229465
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 9.071414209547491,
+      "baseline_MAE": 10.303635204081631,
+      "difference": 1.2322209945341402,
+      "gain_pct": 11.959089875833474,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.18136377355585034,
+            2.6086454442275917
+          ],
+          "gain_pct_ci95": [
+            1.7278793276295192,
+            24.487891532867824
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.3002765141855212,
+            2.35544715872211
+          ],
+          "gain_pct_ci95": [
+            2.906523057814027,
+            22.831111568303523
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 6.766353158723741,
+      "baseline_MAE": 10.06388888888889,
+      "difference": 3.2975357301651487,
+      "gain_pct": 32.766018847901,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.22141051671808648,
+            6.811686618905217
+          ],
+          "gain_pct_ci95": [
+            2.4281153145007046,
+            55.84080624469516
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.31108383275213447,
+            6.6823361560560395
+          ],
+          "gain_pct_ci95": [
+            3.6477503538472056,
+            55.122420101371354
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 6.766353158723741,
+      "baseline_MAE": 8.360376984126978,
+      "difference": 1.5940238254032364,
+      "gain_pct": 19.06641086197013,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.5437527803958374,
+            3.439912516264689
+          ],
+          "gain_pct_ci95": [
+            10.031628502322722,
+            24.512666542617048
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.569473668868577,
+            3.2742598574596697
+          ],
+          "gain_pct_ci95": [
+            10.515242286487114,
+            23.65854905656305
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.44218934449006153,
+      "baseline_MAE": 0.0,
+      "difference": -0.44218934449006153,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.44218934449006164,
+            -0.4421893444900609
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.44218934449006164,
+            -0.442189344490061
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.44218934449006153,
+      "baseline_MAE": 0.0,
+      "difference": -0.44218934449006153,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.44218934449006164,
+            -0.4421893444900609
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.44218934449006164,
+            -0.442189344490061
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.4253716990351679,
+      "baseline_MAE": 0.0,
+      "difference": -0.4253716990351679,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.4253716990351674
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.42537169903516736
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.4253716990351679,
+      "baseline_MAE": 0.0,
+      "difference": -0.4253716990351679,
+      "gain_pct": null,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.4253716990351674
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4253716990351682,
+            -0.42537169903516736
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 5000,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1645.1553117306944,
+      "baseline_MAE": 1999.9103521306583,
+      "difference": 354.75504039996395,
+      "gain_pct": 17.73854713147598,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            76.39621164626972,
+            711.9660169778588
+          ],
+          "gain_pct_ci95": [
+            5.430086543031829,
+            27.51272912157223
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            88.03734130121205,
+            703.6162648951381
+          ],
+          "gain_pct_ci95": [
+            6.891730341927548,
+            24.892797001324915
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1645.1553117306944,
+      "baseline_MAE": 1765.2466160426773,
+      "difference": 120.09130431198287,
+      "gain_pct": 6.803089337239632,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -23.401086349768782,
+            319.1006448060458
+          ],
+          "gain_pct_ci95": [
+            -1.8607692531495617,
+            14.109854837741329
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -22.14090364870805,
+            312.9255656611949
+          ],
+          "gain_pct_ci95": [
+            -2.0574030928717972,
+            12.658360446868636
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1059.4001494698873,
+      "baseline_MAE": 1961.858982484127,
+      "difference": 902.4588330142396,
+      "gain_pct": 46.00018865125243,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            351.704410588519,
+            1515.7788873398852
+          ],
+          "gain_pct_ci95": [
+            32.57706029603862,
+            53.542783778621256
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            336.0552393815971,
+            1540.8909080809497
+          ],
+          "gain_pct_ci95": [
+            31.700779820328226,
+            52.53451293188843
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1059.4001494698873,
+      "baseline_MAE": 1388.1636348234128,
+      "difference": 328.76348535352554,
+      "gain_pct": 23.683337980204854,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -10.633655971307045,
+            769.7701224520345
+          ],
+          "gain_pct_ci95": [
+            -1.510571382729237,
+            36.24957783524331
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -14.981991709507701,
+            757.9381759295302
+          ],
+          "gain_pct_ci95": [
+            -2.0734904822148286,
+            34.96268721567425
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1685.95706909591,
+      "baseline_MAE": 2213.9884610226027,
+      "difference": 528.0313919266928,
+      "gain_pct": 23.849780666101772,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            227.85125136237744,
+            899.7865317841594
+          ],
+          "gain_pct_ci95": [
+            14.539525334681388,
+            30.929872009944074
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            211.94120554383326,
+            891.448616721538
+          ],
+          "gain_pct_ci95": [
+            14.437728539995351,
+            29.953803609218586
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1685.95706909591,
+      "baseline_MAE": 1968.7973724727408,
+      "difference": 282.8403033768309,
+      "gain_pct": 14.366145918896333,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            98.6150670644747,
+            521.6462937975998
+          ],
+          "gain_pct_ci95": [
+            7.204985840756479,
+            20.271523981108317
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            88.99891105282343,
+            508.08616140594995
+          ],
+          "gain_pct_ci95": [
+            6.777713655450457,
+            19.427292709236447
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 893.564743337561,
+      "baseline_MAE": 2259.3334582023795,
+      "difference": 1365.7687148648183,
+      "gain_pct": 60.450072560403775,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            742.7723170313047,
+            2122.256745655497
+          ],
+          "gain_pct_ci95": [
+            46.66655771525947,
+            68.28072957075851
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            704.5756522589401,
+            2150.3664200524977
+          ],
+          "gain_pct_ci95": [
+            45.950073656664806,
+            68.96748222079458
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 893.564743337561,
+      "baseline_MAE": 1425.4572985099223,
+      "difference": 531.8925551723613,
+      "gain_pct": 37.31381892171489,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            223.9014878668663,
+            979.1713289248783
+          ],
+          "gain_pct_ci95": [
+            21.556743643838022,
+            49.61668508482063
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            217.48118101938525,
+            974.7006757368868
+          ],
+          "gain_pct_ci95": [
+            21.460552326437348,
+            48.78798256145898
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1654.5620941899433,
+      "baseline_MAE": 2498.295177792053,
+      "difference": 843.7330836021097,
+      "gain_pct": 33.77235368751683,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            263.01421892511615,
+            1604.260414121293
+          ],
+          "gain_pct_ci95": [
+            18.75252251103077,
+            44.13131204019344
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            278.7227187747628,
+            1579.6181573324707
+          ],
+          "gain_pct_ci95": [
+            21.049059986259564,
+            41.97044395225543
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "daily",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1654.5620941899433,
+      "baseline_MAE": 1663.6255692280004,
+      "difference": 9.06347503805705,
+      "gain_pct": 0.5448025809234758,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -108.87692603521425,
+            130.89144525890248
+          ],
+          "gain_pct_ci95": [
+            -7.114380235245809,
+            9.825731961636109
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -87.73913244825141,
+            109.86605292710465
+          ],
+          "gain_pct_ci95": [
+            -4.822591874514542,
+            9.688136946873179
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 746.8122256445754,
+      "baseline_MAE": 2599.929702163938,
+      "difference": 1853.1174765193628,
+      "gain_pct": 71.27567622220712,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            651.1206041467342,
+            3338.118246987647
+          ],
+          "gain_pct_ci95": [
+            49.914835895305295,
+            79.9405771690342
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            639.4228912975962,
+            3324.183106152458
+          ],
+          "gain_pct_ci95": [
+            49.75915297200453,
+            79.5998649569944
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 746.8122256445754,
+      "baseline_MAE": 920.6829168282767,
+      "difference": 173.8706911837013,
+      "gain_pct": 18.884969842025555,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            67.22945743461244,
+            291.95937187904656
+          ],
+          "gain_pct_ci95": [
+            9.031955263421457,
+            26.672969852528052
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            91.6057946139568,
+            264.9921403693718
+          ],
+          "gain_pct_ci95": [
+            12.097596950732344,
+            24.782581594814005
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.1942355837796408,
+      "baseline_MAE": 0.23211515655918377,
+      "difference": 0.03787957277954296,
+      "gain_pct": 16.319301738438863,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.018140769524746837,
+            0.059045356730034686
+          ],
+          "gain_pct_ci95": [
+            8.669289926859754,
+            22.614694955334375
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.020517945865382806,
+            0.05723098742065637
+          ],
+          "gain_pct_ci95": [
+            9.763411032667278,
+            21.939965601383495
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.1942355837796408,
+      "baseline_MAE": 0.22928190753533154,
+      "difference": 0.03504632375569072,
+      "gain_pct": 15.285254790673008,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.0038604981051396613,
+            0.06742390822328802
+          ],
+          "gain_pct_ci95": [
+            1.8624787665660303,
+            26.9250942920379
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.01594052545671348,
+            0.054895620818566124
+          ],
+          "gain_pct_ci95": [
+            7.440304231853218,
+            22.54861795147207
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.13176936114506618,
+      "baseline_MAE": 0.21947977991785717,
+      "difference": 0.08771041877279098,
+      "gain_pct": 39.96286983958961,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.06446672640991188,
+            0.111414491597768
+          ],
+          "gain_pct_ci95": [
+            32.77401400446153,
+            45.89947597005693
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.07184245711735704,
+            0.10292351722383637
+          ],
+          "gain_pct_ci95": [
+            35.32081654601888,
+            43.98079535209569
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.13176936114506618,
+      "baseline_MAE": 0.16495502063546644,
+      "difference": 0.033185659490400254,
+      "gain_pct": 20.118005115914073,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.022450977777065423,
+            0.04599826592913134
+          ],
+          "gain_pct_ci95": [
+            14.587266997056208,
+            25.574541340007972
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.024381826360695982,
+            0.043774298737975025
+          ],
+          "gain_pct_ci95": [
+            15.945478059348305,
+            24.393088065522665
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 244,
+      "calendar_origin_hours": 748,
+      "chronos_MAE": 0.46138416811378347,
+      "baseline_MAE": 0.5447840090749414,
+      "difference": 0.08339984096115793,
+      "gain_pct": 15.308790194259414,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.03102538291002756,
+            0.15008194540042524
+          ],
+          "gain_pct_ci95": [
+            6.343384186817664,
+            21.71130125021416
+          ],
+          "valid_replicates": 4874,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.031196439644149032,
+            0.1500665311105555
+          ],
+          "gain_pct_ci95": [
+            6.345347328244864,
+            22.014078219186807
+          ],
+          "valid_replicates": 4845,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 244,
+      "calendar_origin_hours": 748,
+      "chronos_MAE": 0.46138416811378347,
+      "baseline_MAE": 0.49365425042284683,
+      "difference": 0.032270082309063364,
+      "gain_pct": 6.536980544869597,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.01654914700331101,
+            0.06264290583428055
+          ],
+          "gain_pct_ci95": [
+            3.519112264164422,
+            10.53285278046766
+          ],
+          "valid_replicates": 4874,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.01643657692126138,
+            0.0626741216224852
+          ],
+          "gain_pct_ci95": [
+            3.4604535321038687,
+            10.53670966702511
+          ],
+          "valid_replicates": 4845,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 244,
+      "calendar_origin_hours": 748,
+      "chronos_MAE": 0.4598211252120348,
+      "baseline_MAE": 0.5644464025500906,
+      "difference": 0.10462527733805582,
+      "gain_pct": 18.53591002890147,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.029728949024418395,
+            0.1394173685922058
+          ],
+          "gain_pct_ci95": [
+            -5.29257568596336,
+            23.759090742639362
+          ],
+          "valid_replicates": 4866,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.016383999764539782,
+            0.13888848895239317
+          ],
+          "gain_pct_ci95": [
+            -3.6582006387778465,
+            22.509505419825558
+          ],
+          "valid_replicates": 4877,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 244,
+      "calendar_origin_hours": 748,
+      "chronos_MAE": 0.4598211252120348,
+      "baseline_MAE": 0.4902154599271404,
+      "difference": 0.03039433471510561,
+      "gain_pct": 6.200199136849549,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.018752334925626987,
+            0.052802164382229844
+          ],
+          "gain_pct_ci95": [
+            4.110947603797532,
+            8.725768713044506
+          ],
+          "valid_replicates": 4866,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.019184819081809325,
+            0.05629910722046081
+          ],
+          "gain_pct_ci95": [
+            4.210978325924264,
+            8.848637519701693
+          ],
+          "valid_replicates": 4877,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": false,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "limited_data"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 2.2895691139323624,
+      "baseline_MAE": 2.8229520975056634,
+      "difference": 0.533382983573301,
+      "gain_pct": 18.894510609818482,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.39784607384379306,
+            0.6953441274573281
+          ],
+          "gain_pct_ci95": [
+            13.958258613143158,
+            24.675621778357836
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.41033403805222973,
+            0.6555591764371228
+          ],
+          "gain_pct_ci95": [
+            14.814577549121891,
+            23.027724521912386
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 2.2895691139323624,
+      "baseline_MAE": 2.573366638321993,
+      "difference": 0.2837975243896307,
+      "gain_pct": 11.028258475235598,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.15895353372236093,
+            0.40083850336630794
+          ],
+          "gain_pct_ci95": [
+            6.685415339199267,
+            15.31639045611204
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.16502790203431983,
+            0.3857629758410133
+          ],
+          "gain_pct_ci95": [
+            7.0012253531447515,
+            14.517444716120915
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1.9861112766795697,
+      "baseline_MAE": 2.690525793650794,
+      "difference": 0.7044145169712244,
+      "gain_pct": 26.18129581338817,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.5471208162073571,
+            0.8930057106882604
+          ],
+          "gain_pct_ci95": [
+            20.491032956846702,
+            32.836083624362125
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.5614815942937221,
+            0.8685326487204372
+          ],
+          "gain_pct_ci95": [
+            21.3167320061501,
+            31.20156126363823
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 1.9861112766795697,
+      "baseline_MAE": 2.2884424603174622,
+      "difference": 0.3023311836378926,
+      "gain_pct": 13.21122068308206,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.13534025681716813,
+            0.47574014232236517
+          ],
+          "gain_pct_ci95": [
+            6.812419779583577,
+            18.54968709711916
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.13643714797437909,
+            0.47986783568643887
+          ],
+          "gain_pct_ci95": [
+            6.773789667756107,
+            18.439975504677847
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.5831301192848057,
+      "baseline_MAE": 4.207440476190475,
+      "difference": 0.6243103569056689,
+      "gain_pct": 14.838245732496624,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.4158115226476268,
+            0.8814978932185465
+          ],
+          "gain_pct_ci95": [
+            9.80986146527621,
+            21.011541093979407
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.4050268358911185,
+            0.87997092201866
+          ],
+          "gain_pct_ci95": [
+            9.812688782345845,
+            20.54416927282429
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.5831301192848057,
+      "baseline_MAE": 4.081189767573702,
+      "difference": 0.49805964828889593,
+      "gain_pct": 12.203785578561721,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.197255262236204,
+            0.7727215602852003
+          ],
+          "gain_pct_ci95": [
+            4.5300868037320985,
+            19.29005828533203
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.25424725075967275,
+            0.7387748259665388
+          ],
+          "gain_pct_ci95": [
+            5.945362287440366,
+            18.34160335964622
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.186702201101518,
+      "baseline_MAE": 4.176140873015871,
+      "difference": 0.9894386719143533,
+      "gain_pct": 23.692655540133,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.650823220960677,
+            1.3509214264248999
+          ],
+          "gain_pct_ci95": [
+            16.820953204458135,
+            31.144210451373716
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.6585458140808474,
+            1.3574206202749197
+          ],
+          "gain_pct_ci95": [
+            17.20901202156614,
+            30.033921134556522
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 3.186702201101518,
+      "baseline_MAE": 3.9879861111111095,
+      "difference": 0.8012839100095914,
+      "gain_pct": 20.092444850223977,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.43660596520370637,
+            1.1708586060111488
+          ],
+          "gain_pct_ci95": [
+            11.05747632270151,
+            28.96658194857811
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.5217516090605029,
+            1.070656305526928
+          ],
+          "gain_pct_ci95": [
+            12.889567600972455,
+            26.997512430938936
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.642683641376004,
+      "baseline_MAE": 0.21152210884353703,
+      "difference": -0.4311615325324669,
+      "gain_pct": -203.83757276710836,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4421893444900614,
+            -0.4134208303042896
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 387,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4421893444900614,
+            -0.41607144238558375
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 469,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.642683641376004,
+      "baseline_MAE": 0.21152210884353703,
+      "difference": -0.4311615325324669,
+      "gain_pct": -203.83757276710836,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4421893444900614,
+            -0.4134208303042896
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 387,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4421893444900614,
+            -0.41607144238558375
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 469,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.5361151854433712,
+      "baseline_MAE": 0.11636904761904762,
+      "difference": -0.4197461378243236,
+      "gain_pct": -360.7025634500581,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4253716990351681,
+            -0.408495015402635
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1357,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4253716990351681,
+            -0.4087478883138726
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1270,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.5361151854433712,
+      "baseline_MAE": 0.11636904761904762,
+      "difference": -0.4197461378243236,
+      "gain_pct": -360.7025634500581,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -0.4253716990351681,
+            -0.408495015402635
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1357,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -0.4253716990351681,
+            -0.4087478883138726
+          ],
+          "gain_pct_ci95": null,
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 1270,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "baseline"
+        }
+      ],
+      "assessment": "baseline_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 706.6219468929653,
+      "baseline_MAE": 813.9552996875121,
+      "difference": 107.33335279454684,
+      "gain_pct": 13.186639712985892,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -2.903937470080194,
+            247.11888027836108
+          ],
+          "gain_pct_ci95": [
+            -0.39270392952519745,
+            26.508751569864664
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -4.880553888134858,
+            243.54901594311133
+          ],
+          "gain_pct_ci95": [
+            -0.6921429587932758,
+            26.083332618109907
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 706.6219468929653,
+      "baseline_MAE": 865.8477735065642,
+      "difference": 159.22582661359888,
+      "gain_pct": 18.389586655487513,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            74.84626802099893,
+            244.06348844078514
+          ],
+          "gain_pct_ci95": [
+            8.81768328583921,
+            26.842879113303827
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            81.66854223941962,
+            228.21477100254455
+          ],
+          "gain_pct_ci95": [
+            9.416655423546604,
+            26.841760493658484
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 619.1435322761348,
+      "baseline_MAE": 833.5761561145003,
+      "difference": 214.43262383836554,
+      "gain_pct": 25.724419090618877,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            71.57114439544839,
+            408.52943840756717
+          ],
+          "gain_pct_ci95": [
+            10.157107106701302,
+            41.842798394820605
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            77.86641460984762,
+            381.22381521274093
+          ],
+          "gain_pct_ci95": [
+            11.636664535739625,
+            39.05939404590642
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 619.1435322761348,
+      "baseline_MAE": 819.01486079165,
+      "difference": 199.8713285155152,
+      "gain_pct": 24.403870806730165,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            93.81715191297913,
+            283.08149693411497
+          ],
+          "gain_pct_ci95": [
+            11.63693711141208,
+            35.5426805857531
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            94.86809014258792,
+            278.37430514221217
+          ],
+          "gain_pct_ci95": [
+            11.354499649271917,
+            36.078440582561434
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 788.3641220812342,
+      "baseline_MAE": 974.6431148800774,
+      "difference": 186.2789927988432,
+      "gain_pct": 19.112533598697144,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            78.70782052961766,
+            332.38006952209196
+          ],
+          "gain_pct_ci95": [
+            9.65881066792897,
+            30.183676330715276
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            77.98030469564749,
+            312.25670604913734
+          ],
+          "gain_pct_ci95": [
+            9.7523974858871,
+            28.72343492826926
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 788.3641220812342,
+      "baseline_MAE": 938.3310078562918,
+      "difference": 149.96688577505756,
+      "gain_pct": 15.982300970493501,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            95.73321503394992,
+            220.23030460999456
+          ],
+          "gain_pct_ci95": [
+            10.660948318202173,
+            22.283464698683176
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            96.6166337754682,
+            213.55783882488834
+          ],
+          "gain_pct_ci95": [
+            10.651871373637835,
+            21.505085507288886
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 658.8992057663638,
+      "baseline_MAE": 1000.1503191770012,
+      "difference": 341.25111341063734,
+      "gain_pct": 34.11998245338205,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            128.30444847839496,
+            566.3719928083918
+          ],
+          "gain_pct_ci95": [
+            16.98774851013447,
+            47.587178129424345
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            122.66701581210052,
+            545.5373271189029
+          ],
+          "gain_pct_ci95": [
+            16.655803204696372,
+            44.99270398161447
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 658.8992057663638,
+      "baseline_MAE": 853.4766069825575,
+      "difference": 194.57740121619372,
+      "gain_pct": 22.798211412509197,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            57.831082251598495,
+            310.4423510742444
+          ],
+          "gain_pct_ci95": [
+            8.277300967891291,
+            32.26581162331291
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            63.34571425773655,
+            303.7473589164807
+          ],
+          "gain_pct_ci95": [
+            9.235576722800262,
+            31.290908405169585
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 681.0536766029236,
+      "baseline_MAE": 921.0498622720548,
+      "difference": 239.99618566913125,
+      "gain_pct": 26.056807074169285,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            85.75011459474656,
+            455.61304090803765
+          ],
+          "gain_pct_ci95": [
+            12.505967261494005,
+            33.67887065485312
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            99.94868010778806,
+            405.9050786792398
+          ],
+          "gain_pct_ci95": [
+            15.739489004896063,
+            32.71432349566183
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 681.0536766029236,
+      "baseline_MAE": 607.3703140037231,
+      "difference": -73.68336259920045,
+      "gain_pct": -12.13153835482792,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            -241.30592748504836,
+            57.824051775901786
+          ],
+          "gain_pct_ci95": [
+            -31.923796689113107,
+            11.906337839857843
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            -237.55152321768853,
+            60.538391869420956
+          ],
+          "gain_pct_ci95": [
+            -31.60646656722869,
+            12.41948210351539
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "unclear"
+        }
+      ],
+      "assessment": "unclear_or_block_sensitive"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 460.14947185009436,
+      "baseline_MAE": 1168.2975827617533,
+      "difference": 708.1481109116589,
+      "gain_pct": 60.61367594698422,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            197.06159915403737,
+            1493.1793493403222
+          ],
+          "gain_pct_ci95": [
+            32.454771741761014,
+            73.68626010261633
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            198.4123749376831,
+            1401.878829560543
+          ],
+          "gain_pct_ci95": [
+            33.44166167104457,
+            71.79159960178238
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 460.14947185009436,
+      "baseline_MAE": 561.9214648310115,
+      "difference": 101.7719929809171,
+      "gain_pct": 18.111426480482173,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            29.29893327009978,
+            200.70568941500812
+          ],
+          "gain_pct_ci95": [
+            6.191678284264914,
+            30.73096405728041
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            36.03119654490772,
+            182.50575074828802
+          ],
+          "gain_pct_ci95": [
+            7.976201399292208,
+            27.16580260915723
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.2786450474086294,
+      "baseline_MAE": 0.3255045158964284,
+      "difference": 0.04685946848779904,
+      "gain_pct": 14.395950347647146,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.0045988469639119236,
+            0.09644417428957802
+          ],
+          "gain_pct_ci95": [
+            1.3572609171702514,
+            30.000029028409294
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.0034174993451861996,
+            0.0980999331606032
+          ],
+          "gain_pct_ci95": [
+            0.9665628943066582,
+            31.31997377073443
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "comparator": "selected",
+      "baseline_rule": "blend",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.2786450474086294,
+      "baseline_MAE": 0.3170606415694948,
+      "difference": 0.03841559416086543,
+      "gain_pct": 12.11616616010831,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.003307011240521482,
+            0.0785094156529375
+          ],
+          "gain_pct_ci95": [
+            0.9818782355049988,
+            25.824235627016876
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.0018168439650199102,
+            0.07980774213899865
+          ],
+          "gain_pct_ci95": [
+            0.5035976021386841,
+            27.013051308207157
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "weekly",
+      "baseline_rule": "weekly",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.18478810521128272,
+      "baseline_MAE": 0.2891231725361604,
+      "difference": 0.10433506732487766,
+      "gain_pct": 36.086719168740636,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.05306449272169778,
+            0.16936924861480554
+          ],
+          "gain_pct_ci95": [
+            20.932117950328003,
+            52.261487071576276
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.05399130609081804,
+            0.16635927052219435
+          ],
+          "gain_pct_ci95": [
+            20.52554233410108,
+            51.174039998944465
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "comparator": "selected",
+      "baseline_rule": "hybrid",
+      "test_origins": 840,
+      "calendar_origin_hours": 840,
+      "chronos_MAE": 0.18478810521128272,
+      "baseline_MAE": 0.25526918919062475,
+      "difference": 0.07048108397934202,
+      "gain_pct": 27.610493927141988,
+      "intervals": [
+        {
+          "block_hours": 168,
+          "difference_ci95": [
+            0.03967540449522295,
+            0.10681625790261502
+          ],
+          "gain_pct_ci95": [
+            16.552172770917526,
+            40.338060770669436
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        },
+        {
+          "block_hours": 336,
+          "difference_ci95": [
+            0.041469719891502714,
+            0.10345957428151657
+          ],
+          "gain_pct_ci95": [
+            17.293397936753276,
+            39.34400165446456
+          ],
+          "valid_replicates": 5000,
+          "zero_baseline_replicates": 0,
+          "at_least_two_blocks_of_valid_origins": true,
+          "interval_direction": "chronos"
+        }
+      ],
+      "assessment": "chronos_supported_both_lengths"
+    }
+  ]
+}

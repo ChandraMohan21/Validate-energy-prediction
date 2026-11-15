@@ -207,6 +207,27 @@ saved pilot origins and retains every prediction. Results of the first run, whic
 context, are in [reports/chronos_colab/results/README.md](reports/chronos_colab/results/README.md).
 Rebuild the portable inputs with `python src/prepare_chronos_colab.py`.
 
+## Trained-model follow-up
+
+Run `python src/trained_comparison.py` for the frozen expanded-date comparison with
+Ridge and LightGBM. Settings are selected using validation MAE; final models are
+refitted only on mature pre-test targets. The report and saved predictions are in
+`reports/trained_comparison/`. Q1 is excluded from this comparison because its
+frozen split provides no earlier training observations with the required context.
+Training uses daily origins to limit duplicated rows; evaluation keeps the original
+hourly Chronos cases. These compact trained setups are not an exhaustive model search.
+Run `python src/trained_uncertainty.py` for paired one-week/two-week circular-block
+bootstrap checks of Chronos against these fitted models. The exploratory intervals
+and limitations are recorded in `reports/trained_uncertainty/`.
+
+The origin-hour audit found that v1's daily training origins were all midnight.
+`python src/trained_comparison_v2.py` runs a separate follow-up using all eligible
+hourly fitting/refit origins while keeping features, grids and test cases fixed.
+Its outputs are in `reports/trained_comparison_v2/`; v1 outputs remain intact.
+Run `python src/verify_trained_v2.py` after completion to recalculate every score
+and check hour coverage, fitting boundaries and original-output hashes. V1
+uncertainty intervals must not be substituted for v2 intervals.
+
 ## Practical implication
 
 For an operator forecasting these networks a week ahead, a zero-shot foundation model was the most accurate option tested. It needs no training, no feature engineering and no weather feed. The seasonal naive is the strongest cheap fallback and beat every model trained here. Training a bespoke tree ensemble does not pay at this horizon on these series.

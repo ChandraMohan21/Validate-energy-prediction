@@ -1,0 +1,34 @@
+{
+  "script_sha256": "05e9716eb7b4e2c8cc75d9653aa7923859a36b702f2a0fea53a0d1a9963a4346",
+  "feature_script_sha256": "c20eece0cb705232851251f8d3e96b06dae52d35aeca051b6e0b8a612a50626c",
+  "frozen_inputs_sha256": "a64b6240507cb5e4ac8349e8265ab87e50c598d225400f15bbbc4e298cd74b58",
+  "bolt_archive_sha256": "017d8f2ac6a63c3e6ecc1bf615ca2c8e563c0d7b2d5d5c36dcb29907cadae917",
+  "chronos2_archive_sha256": "da71800edaf0aee103eead94b7356be17a981cf709c4543ece4ffd5c5a2bc1ae",
+  "packages": {
+    "numpy": "1.26.3",
+    "pandas": "2.2.0",
+    "scikit-learn": "1.4.0",
+    "lightgbm": "4.6.0"
+  },
+  "settings": {
+    "lookback_days": [
+      28,
+      84
+    ],
+    "ridge_alphas": [
+      1.0,
+      100.0,
+      1000.0
+    ],
+    "lightgbm_leaves": [
+      15,
+      31
+    ],
+    "max_fit_origins": 720,
+    "q1_inner_validation_origins": 168,
+    "features_removed": [
+      "dayofyear_sin",
+      "dayofyear_cos"
+    ]
+  }
+}

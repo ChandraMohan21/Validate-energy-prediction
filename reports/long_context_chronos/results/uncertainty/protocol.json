@@ -1,0 +1,27 @@
+{
+  "method": "Paired circular block bootstrap, percentile intervals",
+  "repetitions": 5000,
+  "seed": 20261019,
+  "block_hours": [
+    168,
+    336
+  ],
+  "primary_block_hours": 168,
+  "loss": "Mean absolute error over horizon per forecast origin",
+  "difference": "baseline MAE minus Chronos MAE; positive favors Chronos",
+  "calendar_gaps": "Retain invalid origins as missing hourly positions; resample common missingness mask",
+  "selection": "Conditional on original validation-selected rule and weight; not refitted within bootstrap",
+  "interpretation": "Exploratory per-comparison 95% intervals; no multiplicity correction or population-generalization claim",
+  "sensitivity": "Report both lengths without selecting the more favorable interval",
+  "sparse_guard": "Flag intervals with fewer than two blocks worth of valid origins; do not call those supported",
+  "limitations": [
+    "Only about five 168-hour blocks or 2.5 336-hour blocks per complete window",
+    "Circular wrapping joins end and start; assumes approximately stationary paired loss process within each window",
+    "Missingness-mask resampling is exploratory, not proof gaps are ignorable",
+    "Does not quantify pretraining overlap, model/selection uncertainty or future-year performance",
+    "Q4 repeats original pilot; windows and related meters are not independent replications"
+  ],
+  "reference": "https://bashtage.github.io/arch/bootstrap/timeseries-bootstraps.html",
+  "results_zip_sha256": "017d8f2ac6a63c3e6ecc1bf615ca2c8e563c0d7b2d5d5c36dcb29907cadae917",
+  "inputs_zip_sha256": "a64b6240507cb5e4ac8349e8265ab87e50c598d225400f15bbbc4e298cd74b58"
+}

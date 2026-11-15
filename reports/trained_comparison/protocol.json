@@ -1,0 +1,45 @@
+{
+  "created_date": "2026-10-20",
+  "study_status": "Follow-up after observing Chronos results",
+  "models": {
+    "ridge": [
+      1.0,
+      100.0
+    ],
+    "lightgbm": [
+      15,
+      31
+    ]
+  },
+  "ridge_grid_parameter": "alpha",
+  "lightgbm_grid_parameter": "num_leaves",
+  "training_origin_stride_hours": 24,
+  "minimum_training_origins": 7,
+  "test_and_validation_origins": "Exact frozen hourly origins from expanded Chronos cases",
+  "history_hours": 336,
+  "horizons_hours": [
+    24,
+    168
+  ],
+  "training_boundary": "All targets through 168h end by train_cutoff, before validation origins",
+  "refit_boundary": "After tuning, refit on all eligible daily origins with targets through 168h ending by validation_cutoff, before first test origin",
+  "target": "Residual from target-aligned weekly naive; add weekly prediction back at inference",
+  "features": "Origin load lags and 24/168/336h statistics, daily/weekly/prior-week target-aligned loads, differences, horizon, cyclic hour/weekday/year and weekend",
+  "selection": "Validation MAE only; Ridge scaler fitted only on training; newly fitted on refit data",
+  "training_budget": "Daily training origins reduce duplicated labels and compute; evaluation remains hourly; no weather inputs",
+  "fixed_lightgbm": {
+    "n_estimators": 200,
+    "learning_rate": 0.05,
+    "min_child_samples": 30,
+    "objective": "regression_l1",
+    "reg_lambda": 1.0,
+    "random_state": 42
+  },
+  "missing_data": "No filling; require complete 336h history and 168h future during training; report excluded cases",
+  "caveats": [
+    "Q1 has no earlier fitting data under frozen split; do not move its boundaries",
+    "Later windows may train on earlier test-period observations once those observations are historical",
+    "Not an exhaustive model search or proof about all trained models",
+    "Trained-model uncertainty not calculated by this script"
+  ]
+}

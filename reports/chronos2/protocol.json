@@ -1,0 +1,45 @@
+{
+  "prepared_date": "2026-10-21",
+  "status": "Planned before Chronos-2 inference; earlier baseline and Chronos-Bolt results inspected. Exploratory follow-up, not an independent confirmation or a preregistration.",
+  "question": "Does seasonal baseline choice also change the margin and uncertainty for Chronos-2, and how does Chronos-2 compare with Chronos-Bolt at matched history?",
+  "model_id": "amazon/chronos-2",
+  "model_revision": "29ec3766d36d6f73f0696f85560a422f50e8498c",
+  "packages": {
+    "torch": "2.11.0",
+    "chronos-forecasting": "2.2.2",
+    "transformers": "4.57.6",
+    "numpy": "2.1.3",
+    "pandas": "2.2.3"
+  },
+  "cases": 60,
+  "horizons_hours": [
+    24,
+    168
+  ],
+  "context_hours": 2048,
+  "history": "Same origin-inclusive up-to-2048-hour history as Bolt; Q1 shorter; NaN gaps retained; latest 336 hours complete. No interpolation or future observations.",
+  "inference": "Zero-shot, target-only, float32, median (0.5 quantile); each origin a separate univariate task; cross_learning=False; context_length=2048; native horizon prediction.",
+  "comparators": [
+    "daily",
+    "weekly",
+    "hybrid",
+    "blend",
+    "selected",
+    "chronos_bolt_2048"
+  ],
+  "selection": "Frozen validation-MAE baseline rule and blend weight. No test-based reselection or tuning.",
+  "metrics": "Reuse baseline_pilot.score for MAE, RMSE, MAPE; MAE primary. Per-case percentage gain undefined when comparator MAE is zero; no pooled raw-unit errors.",
+  "uncertainty": "Reuse chronos_uncertainty.calendar_losses and paired_interval: origin-level horizon MAE, paired circular blocks, 5000 resamples, 168 and 336 calendar hours, 95% intervals, seed 20261019 plus first eight SHA256 hex digits of window/dataset/series/horizon plus block.",
+  "clear": "Both block lengths favour the same method, with at least two blocks of valid origins at each length; otherwise unclear/block-sensitive or limited_data.",
+  "meaningful": "Clear and at least 5% lower MAE; 2% and 10% sensitivity, as in the Bolt comparison.",
+  "reporting": "Report all cases including Portugal T3 zero-error baselines; Q1 separately because history is shorter. Count weakened and strengthened clear wins vs weekly/selected for each model. Include paired Chronos-2 vs Bolt intervals, with positive favouring Chronos-2.",
+  "limits": "No multiplicity correction. Short windows, related meters, Q4 repeats pilot, household sparse, cases already inspected, pretraining overlap not ruled out. Two models from the same family do not establish cross-family generality.",
+  "sources": [
+    "https://huggingface.co/amazon/chronos-2/tree/29ec3766d36d6f73f0696f85560a422f50e8498c",
+    "https://github.com/amazon-science/chronos-forecasting/blob/v2.2.2/src/chronos/chronos2/pipeline.py"
+  ],
+  "frozen_inputs_sha256": "a64b6240507cb5e4ac8349e8265ab87e50c598d225400f15bbbc4e298cd74b58",
+  "bolt_results_sha256": "017d8f2ac6a63c3e6ecc1bf615ca2c8e563c0d7b2d5d5c36dcb29907cadae917",
+  "runner_sha256": "3852ba6615eb5581425ae17efb2b9e2143aecc9bf14f317ed65d41757d7fcc93",
+  "history_helper_sha256": "3b8cb2d7bffdf9f524f3c65449143ab353b2aaf5d7ea97d25fded98c6f2eaddb"
+}

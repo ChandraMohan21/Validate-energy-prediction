@@ -1,0 +1,22 @@
+[
+  {
+    "dataset": "household",
+    "series": "sceaux_household",
+    "window": "Q1",
+    "reason": "No complete validation or test origins after applying the prespecified missing-data rule",
+    "horizons_hours": [
+      24,
+      168
+    ]
+  },
+  {
+    "dataset": "household",
+    "series": "sceaux_household",
+    "window": "Q2",
+    "reason": "No complete validation or test origins after applying the prespecified missing-data rule",
+    "horizons_hours": [
+      24,
+      168
+    ]
+  }
+]

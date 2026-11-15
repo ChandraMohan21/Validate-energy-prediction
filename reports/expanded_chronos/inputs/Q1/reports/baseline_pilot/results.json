@@ -1,0 +1,1354 @@
+{
+  "metadata": {
+    "protocol": {
+      "protocol_version": 1,
+      "created_date": "2026-10-19",
+      "purpose": "Feasibility pilot of simple seasonal references, not a novelty or significance claim",
+      "primary_horizon_hours": 168,
+      "horizons_hours": [
+        24,
+        168
+      ],
+      "history_hours": 336,
+      "selection_metric": "MAE",
+      "origin_stride_hours": 1,
+      "validation_calendar_days": 42,
+      "test_calendar_days": 42,
+      "embargo_hours": 168,
+      "blend_daily_weights": [
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95,
+        1.0
+      ],
+      "selection_tie_order": [
+        "daily",
+        "weekly",
+        "hybrid",
+        "blend"
+      ],
+      "years": {
+        "tetouan": 2017,
+        "portugal": 2014,
+        "household": 2009,
+        "victoria": 2014
+      },
+      "portugal_series_selection": "First three records in the published archive, before inspecting errors",
+      "missing_data_policy": "Require all source samples in an hourly bin; skip origins with missing values in the previous 336 hours or next 168 hours. No interpolation.",
+      "hybrid_policy": "Weekly for target Saturday/Sunday/Monday, daily otherwise. When a daily lookup is after the origin, recursively use the earlier hybrid prediction.",
+      "aggregation_policy": "Report per-series errors and relative error; do not average raw MAE across different units or count related meters as independent datasets.",
+      "sources": {
+        "household": {
+          "title": "UCI Individual Household Electric Power Consumption",
+          "page": "https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption",
+          "url": "https://archive.ics.uci.edu/static/public/235/individual+household+electric+power+consumption.zip",
+          "filename": "household.zip",
+          "unit": "kW",
+          "license": "CC BY 4.0, UCI publisher"
+        },
+        "portugal": {
+          "title": "Monash Electricity Hourly Dataset, version 3, derived from UCI ElectricityLoadDiagrams20112014",
+          "page": "https://zenodo.org/records/4656140",
+          "url": "https://zenodo.org/records/4656140/files/electricity_hourly_dataset.zip?download=1",
+          "filename": "electricity_hourly.zip",
+          "md5": "18096614662b02640d265ad2a6a416bd",
+          "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+          "license": "Original UCI CC BY 4.0; retain Monash attribution and version"
+        },
+        "victoria": {
+          "title": "Monash Elecdemand Dataset, version 2, from fpp2/AEMO",
+          "page": "https://zenodo.org/records/4656069",
+          "url": "https://zenodo.org/records/4656069/files/elecdemand_dataset.zip?download=1",
+          "filename": "elecdemand.zip",
+          "md5": "e5422d937e3d3d2885ed8d7a11f1e600",
+          "unit": "GW",
+          "license": "Public Monash/fpp2 redistribution; preserve source attribution; Zenodo license field not stated in fetched page",
+          "unit_source": "https://pkg.robjhyndman.com/fpp2/reference/elecdemand.html"
+        }
+      }
+    },
+    "protocol_sha256": "607b2df613ac3c8eeb55b19e2025440c08864363fef41aa96bbf22e57875396a",
+    "window": "Q1",
+    "cutoff_month": 3,
+    "source": "Original pilot processed files",
+    "created_utc": "2026-10-19T16:53:05.245374+00:00",
+    "status": "Baselines computed; Chronos inference pending",
+    "exclusions": [
+      {
+        "dataset": "household",
+        "series": "sceaux_household",
+        "window": "Q1",
+        "reason": "No complete validation or test origins after applying the prespecified missing-data rule",
+        "horizons_hours": [
+          24,
+          168
+        ]
+      }
+    ]
+  },
+  "results": [
+    {
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "unit": "kW",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.5,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 1241.8698625335433,
+          "RMSE": 1969.008161168928,
+          "MAPE_pct": 4.161887038605698,
+          "WAPE_pct": 3.9779548353722225,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1279.3913132893947,
+          "RMSE": 1816.2754221632488,
+          "MAPE_pct": 4.185453398700578,
+          "WAPE_pct": 4.098143464605817,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 1077.7183956685099,
+          "RMSE": 1687.0056360091987,
+          "MAPE_pct": 3.577958799639897,
+          "WAPE_pct": 3.4521452146950264,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 1046.19657062216,
+          "RMSE": 1505.9147796077455,
+          "MAPE_pct": 3.4646631686838583,
+          "WAPE_pct": 3.3511745734500007,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 1137.372278331597,
+          "RMSE": 1661.0459495594855,
+          "MAPE_pct": 3.6532628719558633,
+          "WAPE_pct": 3.649250515508615,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1015.4765766692296,
+          "RMSE": 1490.159660870844,
+          "MAPE_pct": 3.1947185339273294,
+          "WAPE_pct": 3.2581490612141653,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 839.3402105759756,
+          "RMSE": 1254.8058913501793,
+          "MAPE_pct": 2.6550100466600566,
+          "WAPE_pct": 2.693016837569248,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 881.1494596946097,
+          "RMSE": 1203.6026740732698,
+          "MAPE_pct": 2.7953422601092135,
+          "WAPE_pct": 2.8271615031338166,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2017-01-06 23:00:00",
+        "validation_cutoff": "2017-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2017-01-15 00:00:00",
+      "validation_origin_last": "2017-02-10 23:00:00",
+      "test_origin_first": "2017-02-18 00:00:00",
+      "test_origin_last": "2017-03-24 23:00:00",
+      "validation_target_last": "2017-02-11 23:00:00",
+      "test_target_first": "2017-02-18 01:00:00",
+      "test_target_last": "2017-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": 13.22798773116105,
+      "processed_sha256": "f97e94ddd7b2fd8b5385a6fa37cdee4ab61f711ad99e96a6ef4c0444343e177c",
+      "prediction_file": "reports/baseline_pilot/predictions/tetouan_zone_1_h24.npz"
+    },
+    {
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "unit": "kW",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.35,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 1440.6549884976057,
+          "RMSE": 2140.2883511349805,
+          "MAPE_pct": 4.742297599820859,
+          "WAPE_pct": 4.619219121705561,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1302.1884472633285,
+          "RMSE": 1822.7173202744386,
+          "MAPE_pct": 4.193646543956532,
+          "WAPE_pct": 4.1752493301229,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 1350.290028630922,
+          "RMSE": 1882.1674751186072,
+          "MAPE_pct": 4.391637342213339,
+          "WAPE_pct": 4.329479000801497,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 1181.5145011213358,
+          "RMSE": 1631.3419405008706,
+          "MAPE_pct": 3.823212311684777,
+          "WAPE_pct": 3.7883285170474053,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 1297.9412786314956,
+          "RMSE": 1831.69576444492,
+          "MAPE_pct": 4.206126310979048,
+          "WAPE_pct": 4.169032169402003,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1011.7506899315712,
+          "RMSE": 1453.032545432738,
+          "MAPE_pct": 3.204136864139355,
+          "WAPE_pct": 3.249778124158843,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 959.0352241905711,
+          "RMSE": 1381.351119825641,
+          "MAPE_pct": 3.081736659086478,
+          "WAPE_pct": 3.080454229374512,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 970.4511400655073,
+          "RMSE": 1347.3104944391846,
+          "MAPE_pct": 3.0929598466414814,
+          "WAPE_pct": 3.117122545044368,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2017-01-06 23:00:00",
+        "validation_cutoff": "2017-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2017-01-15 00:00:00",
+      "validation_origin_last": "2017-02-10 23:00:00",
+      "test_origin_first": "2017-02-18 00:00:00",
+      "test_origin_last": "2017-03-24 23:00:00",
+      "validation_target_last": "2017-02-17 23:00:00",
+      "test_target_first": "2017-02-18 01:00:00",
+      "test_target_last": "2017-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": 4.081988801891223,
+      "processed_sha256": "f97e94ddd7b2fd8b5385a6fa37cdee4ab61f711ad99e96a6ef4c0444343e177c",
+      "prediction_file": "reports/baseline_pilot/predictions/tetouan_zone_1_h168.npz"
+    },
+    {
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "unit": "kW",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.45,
+      "selected_on_validation": "hybrid",
+      "validation": {
+        "daily": {
+          "MAE": 1059.6773096619297,
+          "RMSE": 1734.740342378441,
+          "MAPE_pct": 5.821325880312735,
+          "WAPE_pct": 5.547745852123864,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1031.3849332178497,
+          "RMSE": 1467.6098423903902,
+          "MAPE_pct": 5.451596989066656,
+          "WAPE_pct": 5.399626313625445,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 776.6408527188785,
+          "RMSE": 1280.0586333978815,
+          "MAPE_pct": 4.230851408034465,
+          "WAPE_pct": 4.065960486249988,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 829.2977750537906,
+          "RMSE": 1280.5177586699738,
+          "MAPE_pct": 4.490718836021684,
+          "WAPE_pct": 4.341636128075626,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 1143.7972767905421,
+          "RMSE": 1626.7998170410176,
+          "MAPE_pct": 6.25792582773899,
+          "WAPE_pct": 6.123847187248199,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 781.6628083967923,
+          "RMSE": 1113.9607077190599,
+          "MAPE_pct": 4.170451637464715,
+          "WAPE_pct": 4.184992994570493,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 677.99175504957,
+          "RMSE": 1040.2214799487947,
+          "MAPE_pct": 3.5763314555467085,
+          "WAPE_pct": 3.629942111584603,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 802.224245864428,
+          "RMSE": 1081.2663964796554,
+          "MAPE_pct": 4.352058829550732,
+          "WAPE_pct": 4.295078150005793,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2017-01-06 23:00:00",
+        "validation_cutoff": "2017-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2017-01-15 00:00:00",
+      "validation_origin_last": "2017-02-10 23:00:00",
+      "test_origin_first": "2017-02-18 00:00:00",
+      "test_origin_last": "2017-03-24 23:00:00",
+      "validation_target_last": "2017-02-11 23:00:00",
+      "test_target_first": "2017-02-18 01:00:00",
+      "test_target_last": "2017-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": 13.262886788723382,
+      "processed_sha256": "3720178b45f68965cb5ac4c29550a3ed1c403d695e4d279a665da35b2a158597",
+      "prediction_file": "reports/baseline_pilot/predictions/tetouan_zone_2_h24.npz"
+    },
+    {
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "unit": "kW",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.3,
+      "selected_on_validation": "hybrid",
+      "validation": {
+        "daily": {
+          "MAE": 1289.8879771344446,
+          "RMSE": 1944.0497567397797,
+          "MAPE_pct": 7.084492107606135,
+          "WAPE_pct": 6.788831482164818,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1025.8204096481925,
+          "RMSE": 1438.1308518786527,
+          "MAPE_pct": 5.418203341907599,
+          "WAPE_pct": 5.399012949588096,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 916.2626769486774,
+          "RMSE": 1344.139953119427,
+          "MAPE_pct": 4.910951735775517,
+          "WAPE_pct": 4.822397772107808,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 931.3624171544099,
+          "RMSE": 1355.9273155949006,
+          "MAPE_pct": 4.982868058122078,
+          "WAPE_pct": 4.901869473137937,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 1357.1821616263733,
+          "RMSE": 1885.4736730763793,
+          "MAPE_pct": 7.5848972379126565,
+          "WAPE_pct": 7.318686963723896,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 810.9754678834917,
+          "RMSE": 1153.9499904407476,
+          "MAPE_pct": 4.361343290921784,
+          "WAPE_pct": 4.3732343030402685,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 716.4544813399473,
+          "RMSE": 1049.6364799891933,
+          "MAPE_pct": 3.8525649072591763,
+          "WAPE_pct": 3.863524161267125,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 848.2751709169725,
+          "RMSE": 1159.7333075675651,
+          "MAPE_pct": 4.647339484901866,
+          "WAPE_pct": 4.574375209589451,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2017-01-06 23:00:00",
+        "validation_cutoff": "2017-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2017-01-15 00:00:00",
+      "validation_origin_last": "2017-02-10 23:00:00",
+      "test_origin_first": "2017-02-18 00:00:00",
+      "test_origin_last": "2017-03-24 23:00:00",
+      "validation_target_last": "2017-02-17 23:00:00",
+      "test_target_first": "2017-02-18 01:00:00",
+      "test_target_last": "2017-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": 11.655221432311402,
+      "processed_sha256": "3720178b45f68965cb5ac4c29550a3ed1c403d695e4d279a665da35b2a158597",
+      "prediction_file": "reports/baseline_pilot/predictions/tetouan_zone_2_h168.npz"
+    },
+    {
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "unit": "kW",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.65,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 482.5592493366019,
+          "RMSE": 686.4858443574849,
+          "MAPE_pct": 2.7555115230254628,
+          "WAPE_pct": 2.7333285906225275,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 583.033055774252,
+          "RMSE": 818.7484788546359,
+          "MAPE_pct": 3.3367986504207052,
+          "WAPE_pct": 3.302435758544907,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 463.0160572480173,
+          "RMSE": 676.6746773407507,
+          "MAPE_pct": 2.6160910355415607,
+          "WAPE_pct": 2.6226313741435305,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 428.0049178138021,
+          "RMSE": 609.0569182521955,
+          "MAPE_pct": 2.4568314016459243,
+          "WAPE_pct": 2.424320081722192,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 555.408629792667,
+          "RMSE": 770.9397416568407,
+          "MAPE_pct": 3.2957487825826894,
+          "WAPE_pct": 3.248183024734811,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 638.2285428596726,
+          "RMSE": 866.6467897989241,
+          "MAPE_pct": 3.8610636101732885,
+          "WAPE_pct": 3.732536744328046,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 549.5030965928075,
+          "RMSE": 761.8858819832197,
+          "MAPE_pct": 3.3247687928205467,
+          "WAPE_pct": 3.213645835964532,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 492.8648621375633,
+          "RMSE": 669.040525710329,
+          "MAPE_pct": 2.9380432380694814,
+          "WAPE_pct": 2.8824098020967277,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2017-01-06 23:00:00",
+        "validation_cutoff": "2017-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2017-01-15 00:00:00",
+      "validation_origin_last": "2017-02-10 23:00:00",
+      "test_origin_first": "2017-02-18 00:00:00",
+      "test_origin_last": "2017-03-24 23:00:00",
+      "validation_target_last": "2017-02-11 23:00:00",
+      "test_target_first": "2017-02-18 01:00:00",
+      "test_target_last": "2017-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": 22.776117168120834,
+      "processed_sha256": "f3959a184f482dc63adbf40614993290aca6ab660675b4d8e4fa56de794749da",
+      "prediction_file": "reports/baseline_pilot/predictions/tetouan_zone_3_h24.npz"
+    },
+    {
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "unit": "kW",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.55,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 551.4651583372328,
+          "RMSE": 756.348905784034,
+          "MAPE_pct": 3.173091380068619,
+          "WAPE_pct": 3.1311137213114675,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 579.9251411961054,
+          "RMSE": 799.4618912730973,
+          "MAPE_pct": 3.3511205483931925,
+          "WAPE_pct": 3.292704062043768,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 533.8499196757069,
+          "RMSE": 751.2181426691941,
+          "MAPE_pct": 3.0465712402356884,
+          "WAPE_pct": 3.03109776446737,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 502.24272636892755,
+          "RMSE": 688.0907074777124,
+          "MAPE_pct": 2.905503106940616,
+          "WAPE_pct": 2.8516381646018036,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 634.7601987575574,
+          "RMSE": 861.2912578823104,
+          "MAPE_pct": 3.8286249820579243,
+          "WAPE_pct": 3.72809236924548,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 636.9070249142492,
+          "RMSE": 862.3781126571845,
+          "MAPE_pct": 3.8633406248220092,
+          "WAPE_pct": 3.7407011721107595,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 614.914269685061,
+          "RMSE": 828.3288971252803,
+          "MAPE_pct": 3.7715791447336806,
+          "WAPE_pct": 3.6115326717714114,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 572.3287727110493,
+          "RMSE": 760.1848338016774,
+          "MAPE_pct": 3.4617177590071457,
+          "WAPE_pct": 3.361418271687581,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2017-01-06 23:00:00",
+        "validation_cutoff": "2017-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2017-01-15 00:00:00",
+      "validation_origin_last": "2017-02-10 23:00:00",
+      "test_origin_first": "2017-02-18 00:00:00",
+      "test_origin_last": "2017-03-24 23:00:00",
+      "validation_target_last": "2017-02-17 23:00:00",
+      "test_target_first": "2017-02-18 01:00:00",
+      "test_target_last": "2017-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": 10.13935310446521,
+      "processed_sha256": "f3959a184f482dc63adbf40614993290aca6ab660675b4d8e4fa56de794749da",
+      "prediction_file": "reports/baseline_pilot/predictions/tetouan_zone_3_h168.npz"
+    },
+    {
+      "dataset": "portugal",
+      "series": "T1",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.7,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 3.125,
+          "RMSE": 6.166259996600777,
+          "MAPE_pct": 30.06626170594446,
+          "WAPE_pct": 27.388459652741382,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 3.782857510288066,
+          "RMSE": 7.488069214126934,
+          "MAPE_pct": 34.746572617453936,
+          "WAPE_pct": 33.15412489363021,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 3.1512345679012346,
+          "RMSE": 5.816344308163944,
+          "MAPE_pct": 28.789363067333053,
+          "WAPE_pct": 27.618387462171807,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 2.9805877057613173,
+          "RMSE": 5.533061579951092,
+          "MAPE_pct": 28.665175294039784,
+          "WAPE_pct": 26.122785958624267,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 4.329811507936508,
+          "RMSE": 10.79050370641219,
+          "MAPE_pct": null,
+          "WAPE_pct": 36.70411827531978,
+          "zero_target_rows": 24
+        },
+        "weekly": {
+          "MAE": 4.464087301587302,
+          "RMSE": 10.485472754668189,
+          "MAPE_pct": null,
+          "WAPE_pct": 37.84238367154715,
+          "zero_target_rows": 24
+        },
+        "hybrid": {
+          "MAE": 4.281001984126984,
+          "RMSE": 10.5330757390142,
+          "MAPE_pct": null,
+          "WAPE_pct": 36.29035649109824,
+          "zero_target_rows": 24
+        },
+        "blend": {
+          "MAE": 4.008913690476191,
+          "RMSE": 9.974827170599665,
+          "MAPE_pct": null,
+          "WAPE_pct": 33.98384478887217,
+          "zero_target_rows": 24
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-11 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": 10.196342059647101,
+      "processed_sha256": "34f26a5d13d598a775e880b4bb724b073bb69801fd8e3e0b7ccc83c5b079ac49",
+      "prediction_file": "reports/baseline_pilot/predictions/portugal_T1_h24.npz"
+    },
+    {
+      "dataset": "portugal",
+      "series": "T1",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.5,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 3.4950947971781305,
+          "RMSE": 6.559605230644067,
+          "MAPE_pct": 33.77724846313991,
+          "WAPE_pct": 30.644074021276644,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 3.4513980746619635,
+          "RMSE": 6.619167066062171,
+          "MAPE_pct": 32.317656548017105,
+          "WAPE_pct": 30.260952624868825,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 3.597075249853028,
+          "RMSE": 6.9847507537705775,
+          "MAPE_pct": 33.43619819317161,
+          "WAPE_pct": 31.538211869273212,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 3.115846377131099,
+          "RMSE": 5.794885220607708,
+          "MAPE_pct": 30.05521727860024,
+          "WAPE_pct": 27.31892339424456,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 4.94015731292517,
+          "RMSE": 11.395826415573271,
+          "MAPE_pct": null,
+          "WAPE_pct": 41.71498425714173,
+          "zero_target_rows": 215
+        },
+        "weekly": {
+          "MAE": 4.500240929705216,
+          "RMSE": 10.552917754310972,
+          "MAPE_pct": null,
+          "WAPE_pct": 38.00030396700881,
+          "zero_target_rows": 215
+        },
+        "hybrid": {
+          "MAE": 5.077487244897959,
+          "RMSE": 11.932886124425364,
+          "MAPE_pct": null,
+          "WAPE_pct": 42.874606428543224,
+          "zero_target_rows": 215
+        },
+        "blend": {
+          "MAE": 4.347913123582766,
+          "RMSE": 10.204326490472052,
+          "MAPE_pct": null,
+          "WAPE_pct": 36.7140388479411,
+          "zero_target_rows": 215
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-17 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": 3.3848811319625804,
+      "processed_sha256": "34f26a5d13d598a775e880b4bb724b073bb69801fd8e3e0b7ccc83c5b079ac49",
+      "prediction_file": "reports/baseline_pilot/predictions/portugal_T1_h168.npz"
+    },
+    {
+      "dataset": "portugal",
+      "series": "T2",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.1,
+      "selected_on_validation": "blend",
+      "validation": {
+        "daily": {
+          "MAE": 9.310956790123457,
+          "RMSE": 20.90423121561875,
+          "MAPE_pct": 16.109893655321837,
+          "WAPE_pct": 8.208043206671459,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 6.458912037037037,
+          "RMSE": 16.041037345359754,
+          "MAPE_pct": 13.643913527516457,
+          "WAPE_pct": 5.693832574148099,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 7.596450617283951,
+          "RMSE": 18.657425788061893,
+          "MAPE_pct": 14.55192860378711,
+          "WAPE_pct": 6.696625952571518,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 6.066081532921811,
+          "RMSE": 15.818215431236622,
+          "MAPE_pct": 13.27293656475465,
+          "WAPE_pct": 5.347534140662023,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 5.001240079365079,
+          "RMSE": 8.299428049714086,
+          "MAPE_pct": 5.142819953208791,
+          "WAPE_pct": 5.235728517934414,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 6.493055555555555,
+          "RMSE": 9.049346639574296,
+          "MAPE_pct": 6.873976997142564,
+          "WAPE_pct": 6.797489342897246,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 5.11671626984127,
+          "RMSE": 7.54262687915127,
+          "MAPE_pct": 5.370352756489792,
+          "WAPE_pct": 5.356618931916575,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 6.026959325396826,
+          "RMSE": 8.376431203226167,
+          "MAPE_pct": 6.400059355764552,
+          "WAPE_pct": 6.3095396972858335,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-11 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": 7.1783804430863185,
+      "processed_sha256": "a4a85df59f3f7820b9c87323497998a62bf007098ad6038ed7c1c33d4fe43b74",
+      "prediction_file": "reports/baseline_pilot/predictions/portugal_T2_h24.npz"
+    },
+    {
+      "dataset": "portugal",
+      "series": "T2",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.1,
+      "selected_on_validation": "hybrid",
+      "validation": {
+        "daily": {
+          "MAE": 10.842693636096413,
+          "RMSE": 21.944516232887732,
+          "MAPE_pct": 17.553096985914333,
+          "WAPE_pct": 9.637204713496663,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 8.140680114638448,
+          "RMSE": 18.98383849412951,
+          "MAPE_pct": 15.276715500073609,
+          "WAPE_pct": 7.23560061779141,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 7.546039094650205,
+          "RMSE": 16.971631736625824,
+          "MAPE_pct": 14.672611941348373,
+          "WAPE_pct": 6.707071690109532,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 7.776278659611993,
+          "RMSE": 18.46767675407028,
+          "MAPE_pct": 14.93404432626972,
+          "WAPE_pct": 6.911713257523772,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 6.271704931972789,
+          "RMSE": 9.919124130994485,
+          "MAPE_pct": null,
+          "WAPE_pct": 6.573935954218357,
+          "zero_target_rows": 47
+        },
+        "weekly": {
+          "MAE": 5.788619614512472,
+          "RMSE": 8.43911433704099,
+          "MAPE_pct": null,
+          "WAPE_pct": 6.067570943132223,
+          "zero_target_rows": 47
+        },
+        "hybrid": {
+          "MAE": 6.286309523809524,
+          "RMSE": 8.74650318854403,
+          "MAPE_pct": null,
+          "WAPE_pct": 6.58924433565747,
+          "zero_target_rows": 47
+        },
+        "blend": {
+          "MAE": 5.5618275226757365,
+          "RMSE": 8.047836724831493,
+          "MAPE_pct": null,
+          "WAPE_pct": 5.829849828566182,
+          "zero_target_rows": 47
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-17 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": -8.597730416579964,
+      "processed_sha256": "a4a85df59f3f7820b9c87323497998a62bf007098ad6038ed7c1c33d4fe43b74",
+      "prediction_file": "reports/baseline_pilot/predictions/portugal_T2_h168.npz"
+    },
+    {
+      "dataset": "portugal",
+      "series": "T3",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.0,
+      "selected_on_validation": "weekly",
+      "validation": {
+        "daily": {
+          "MAE": 0.7428626543209876,
+          "RMSE": 1.7101390637266756,
+          "MAPE_pct": 9.1057443820754,
+          "WAPE_pct": 9.25343008866569,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 0.0,
+          "RMSE": 0.0,
+          "MAPE_pct": 0.0,
+          "WAPE_pct": 0.0,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.29224537037037035,
+          "RMSE": 0.8562812578776862,
+          "MAPE_pct": 4.057978362087158,
+          "WAPE_pct": 3.640339284427037,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.0,
+          "RMSE": 0.0,
+          "MAPE_pct": 0.0,
+          "WAPE_pct": 0.0,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 0.7261904761904762,
+          "RMSE": 1.6832508230603465,
+          "MAPE_pct": 8.906695156695156,
+          "WAPE_pct": 9.050445103857568,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 0.0,
+          "RMSE": 0.0,
+          "MAPE_pct": 0.0,
+          "WAPE_pct": 0.0,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.2916666666666667,
+          "RMSE": 0.8486684247915055,
+          "MAPE_pct": 4.039206494563638,
+          "WAPE_pct": 3.635014836795252,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.0,
+          "RMSE": 0.0,
+          "MAPE_pct": 0.0,
+          "WAPE_pct": 0.0,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-11 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": null,
+      "processed_sha256": "fd0a1a197d1c64d0ffc0a4d3c7041ad7ea69c5476a9908c1d275a1af516d47e5",
+      "prediction_file": "reports/baseline_pilot/predictions/portugal_T3_h24.npz"
+    },
+    {
+      "dataset": "portugal",
+      "series": "T3",
+      "unit": "Monash archive units; original source reports kW; hourly scaling not independently recalibrated",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.0,
+      "selected_on_validation": "weekly",
+      "validation": {
+        "daily": {
+          "MAE": 0.6311912110523221,
+          "RMSE": 1.4900340103990233,
+          "MAPE_pct": 7.780611936462354,
+          "WAPE_pct": 7.866478001245558,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 0.0,
+          "RMSE": 0.0,
+          "MAPE_pct": 0.0,
+          "WAPE_pct": 0.0,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.2801109641387419,
+          "RMSE": 0.7785804626004253,
+          "MAPE_pct": 3.764695891018642,
+          "WAPE_pct": 3.4909971791771985,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.0,
+          "RMSE": 0.0,
+          "MAPE_pct": 0.0,
+          "WAPE_pct": 0.0,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 0.6311791383219955,
+          "RMSE": 1.501624215123981,
+          "MAPE_pct": null,
+          "WAPE_pct": 7.874115983026875,
+          "zero_target_rows": 93
+        },
+        "weekly": {
+          "MAE": 0.007936507936507936,
+          "RMSE": 0.32576440717118227,
+          "MAPE_pct": null,
+          "WAPE_pct": 0.09900990099009901,
+          "zero_target_rows": 93
+        },
+        "hybrid": {
+          "MAE": 0.2868480725623583,
+          "RMSE": 0.8425342400034739,
+          "MAPE_pct": null,
+          "WAPE_pct": 3.5785007072135784,
+          "zero_target_rows": 93
+        },
+        "blend": {
+          "MAE": 0.007936507936507936,
+          "RMSE": 0.32576440717118227,
+          "MAPE_pct": null,
+          "WAPE_pct": 0.09900990099009901,
+          "zero_target_rows": 93
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-17 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": 0.0,
+      "processed_sha256": "fd0a1a197d1c64d0ffc0a4d3c7041ad7ea69c5476a9908c1d275a1af516d47e5",
+      "prediction_file": "reports/baseline_pilot/predictions/portugal_T3_h168.npz"
+    },
+    {
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "unit": "GW",
+      "horizon_hours": 24,
+      "blend_daily_weight": 0.85,
+      "selected_on_validation": "hybrid",
+      "validation": {
+        "daily": {
+          "MAE": 0.7462119685302855,
+          "RMSE": 1.0692109573472286,
+          "MAPE_pct": 14.425398655679796,
+          "WAPE_pct": 14.416848346471372,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1.1554519534753729,
+          "RMSE": 1.5944984839867395,
+          "MAPE_pct": 21.071626975627307,
+          "WAPE_pct": 22.32338301635331,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.703247049652199,
+          "RMSE": 1.015097667560095,
+          "MAPE_pct": 13.08200798115109,
+          "WAPE_pct": 13.58676420710303,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.7286457810193094,
+          "RMSE": 1.0025768403866158,
+          "MAPE_pct": 13.921303037608126,
+          "WAPE_pct": 14.077468824228903,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 0.3744521887120536,
+          "RMSE": 0.5372969482725958,
+          "MAPE_pct": 8.229950988361951,
+          "WAPE_pct": 8.471206942328667,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 0.2534417909274305,
+          "RMSE": 0.3826698843653481,
+          "MAPE_pct": 5.60889746605686,
+          "WAPE_pct": 5.733596767494471,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.24827518524419645,
+          "RMSE": 0.3772587281944644,
+          "MAPE_pct": 5.411528243410111,
+          "WAPE_pct": 5.616712991003199,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.336158156981622,
+          "RMSE": 0.47667723407373996,
+          "MAPE_pct": 7.380446663626096,
+          "WAPE_pct": 7.6048836112770735,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-11 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-25 23:00:00",
+      "test_distinct_target_hours": 863,
+      "test_forecast_rows": 20160,
+      "selected_MAE_gain_vs_weekly_pct": 2.0385768520367886,
+      "processed_sha256": "7965011ebd70a018e7b8d921a38bffa33f7e2a7db6828437b9b01838ca4f67e2",
+      "prediction_file": "reports/baseline_pilot/predictions/victoria_regional_demand_h24.npz"
+    },
+    {
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "unit": "GW",
+      "horizon_hours": 168,
+      "blend_daily_weight": 0.65,
+      "selected_on_validation": "hybrid",
+      "validation": {
+        "daily": {
+          "MAE": 0.9861743743737141,
+          "RMSE": 1.3838748371913119,
+          "MAPE_pct": 19.473946223193547,
+          "WAPE_pct": 19.528800471852996,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 1.0562502256659134,
+          "RMSE": 1.4765011724662234,
+          "MAPE_pct": 20.141515912563268,
+          "WAPE_pct": 20.916483373925654,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.8028607948035991,
+          "RMSE": 1.082412633857333,
+          "MAPE_pct": 15.251454621614558,
+          "WAPE_pct": 15.898717991278104,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.9070513287987766,
+          "RMSE": 1.2269300515762458,
+          "MAPE_pct": 17.71284973431776,
+          "WAPE_pct": 17.961959748842347,
+          "zero_target_rows": 0
+        }
+      },
+      "test": {
+        "daily": {
+          "MAE": 0.46547201500231716,
+          "RMSE": 0.6627228254201876,
+          "MAPE_pct": 10.431620585261046,
+          "WAPE_pct": 10.537235576873584,
+          "zero_target_rows": 0
+        },
+        "weekly": {
+          "MAE": 0.21736305961552577,
+          "RMSE": 0.33103216237271194,
+          "MAPE_pct": 4.795993019153151,
+          "WAPE_pct": 4.920608954047237,
+          "zero_target_rows": 0
+        },
+        "hybrid": {
+          "MAE": 0.2586568464956987,
+          "RMSE": 0.3767201094894301,
+          "MAPE_pct": 5.680691436096009,
+          "WAPE_pct": 5.855407064768089,
+          "zero_target_rows": 0
+        },
+        "blend": {
+          "MAE": 0.337898704593908,
+          "RMSE": 0.47424853353614976,
+          "MAPE_pct": 7.559422171057073,
+          "WAPE_pct": 7.649263836857519,
+          "zero_target_rows": 0
+        }
+      },
+      "split": {
+        "train_cutoff": "2014-01-06 23:00:00",
+        "validation_cutoff": "2014-02-17 23:00:00",
+        "candidate_origins": 1656,
+        "eligible_origins": 1656,
+        "origins_removed_for_gaps": 0,
+        "validation_origins": 648,
+        "test_origins": 840
+      },
+      "validation_origin_first": "2014-01-15 00:00:00",
+      "validation_origin_last": "2014-02-10 23:00:00",
+      "test_origin_first": "2014-02-18 00:00:00",
+      "test_origin_last": "2014-03-24 23:00:00",
+      "validation_target_last": "2014-02-17 23:00:00",
+      "test_target_first": "2014-02-18 01:00:00",
+      "test_target_last": "2014-03-31 23:00:00",
+      "test_distinct_target_hours": 1007,
+      "test_forecast_rows": 141120,
+      "selected_MAE_gain_vs_weekly_pct": -18.997610243991716,
+      "processed_sha256": "7965011ebd70a018e7b8d921a38bffa33f7e2a7db6828437b9b01838ca4f67e2",
+      "prediction_file": "reports/baseline_pilot/predictions/victoria_regional_demand_h168.npz"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "purpose": "Quarterly follow-up with frozen earlier-validation selection",
+  "files": {
+    "data/processed/baseline_pilot/household_sceaux_household_2009.csv": "24265ad29da0a9551d45606bd05a313565008c35f72f83a4156cc05c9f37d025",
+    "data/processed/baseline_pilot/portugal_T1_2014.csv": "d1caf1a4bb1a11d645e08e8ee0198b623fb7bca1d73f2ccee4c6e86aceb175b3",
+    "data/processed/baseline_pilot/portugal_T2_2014.csv": "a6b9f45afb668a25544859b385c61a1dd3cea27f260bcc9b41934d8d33f84344",
+    "data/processed/baseline_pilot/portugal_T3_2014.csv": "3b78d0f0b05c543e90b34e527223a861e09cd7a2a97b1494724f5450022a4b13",
+    "data/processed/baseline_pilot/tetouan_zone_1_2017.csv": "1df2d73cc344eb16e3eaf519117d1ba0b5354b29a58a26f9e7f210060d0d7f8e",
+    "data/processed/baseline_pilot/tetouan_zone_2_2017.csv": "a888ab6ebee953ccd0c3ae2dba076b464f1030e6447293ab2c33573be12fd5b7",
+    "data/processed/baseline_pilot/tetouan_zone_3_2017.csv": "75762b3a89fdde4ce2688d671c444197b195c382f8a67ebbd612cd510a5e90b9",
+    "data/processed/baseline_pilot/victoria_regional_demand_2014.csv": "a8c159a8ca89d236f1830c0c50ed094ddde667a1949a687c75d19a51ca7a837c",
+    "reports/baseline_pilot/predictions/household_sceaux_household_h168.npz": "cf3f4e7fbbc6259f2a4aa7bb720816b76591aa6f5bc63def76718a20e832013a",
+    "reports/baseline_pilot/predictions/household_sceaux_household_h24.npz": "7953580dfba1557ca7e9d4b11f25f411571d901bc774b613b73611e31f974835",
+    "reports/baseline_pilot/predictions/portugal_T1_h168.npz": "19b15a02c51e6755c46207d032c353a2f1170398c26361ff3daea68a3c83a9c5",
+    "reports/baseline_pilot/predictions/portugal_T1_h24.npz": "d7ff17925ed4c90b66845d71b2a045b9cdbdbcbda2ec33b7a74cc2361c071cd3",
+    "reports/baseline_pilot/predictions/portugal_T2_h168.npz": "994ea6e688707b57488557b2ab6731f104e357968bcbdd1486a9975fd5a9fb50",
+    "reports/baseline_pilot/predictions/portugal_T2_h24.npz": "715f2757ab49365ee97ecafd0bc3d8c726b600d1ae9668dcdc063f1cfb2a1850",
+    "reports/baseline_pilot/predictions/portugal_T3_h168.npz": "bd994a0be2fbefe732ee161e6e012ded5e24b57b4cede69b34c44fca1c0d41e3",
+    "reports/baseline_pilot/predictions/portugal_T3_h24.npz": "ddc16acc95e3014aad8eca6f57c42c5c37dbe0e264e80b9de911a9b67e58c38c",
+    "reports/baseline_pilot/predictions/tetouan_zone_1_h168.npz": "07df2f4aeadbf0b9a2022f62b4dd2cef1b47f6c33f8a80b45ac57bedcf6c0f8e",
+    "reports/baseline_pilot/predictions/tetouan_zone_1_h24.npz": "39c233ea36d883fc725e91fa18f5ae570340b6ddb925c95f890b250111fbefb8",
+    "reports/baseline_pilot/predictions/tetouan_zone_2_h168.npz": "be5dfb0c8ef7b1d7041d61dcb042063fcca524c9bac2cb362ea02938c556fb1e",
+    "reports/baseline_pilot/predictions/tetouan_zone_2_h24.npz": "78cd844423a22c3465fab03d2541357ae22ce084d8c6e50d5be4eeb6ea756a93",
+    "reports/baseline_pilot/predictions/tetouan_zone_3_h168.npz": "22f071c58e1cd6a0a594aa1c1e5cf0671099e8a91897c21992ec604a7eadcaba",
+    "reports/baseline_pilot/predictions/tetouan_zone_3_h24.npz": "939b2408ed40c6d9f4c1cdc1342db6ebf53b1c55dda0a41c4570777532b240f5",
+    "reports/baseline_pilot/predictions/victoria_regional_demand_h168.npz": "cee75ca3f2e4a82125146ae504b7c5baa9028aa330f5a6971c519fb23dca1c77",
+    "reports/baseline_pilot/predictions/victoria_regional_demand_h24.npz": "54961d00afe030d29ecb857b368468089da6225f5dea360536349874d382bc81",
+    "reports/baseline_pilot/protocol.json": "607b2df613ac3c8eeb55b19e2025440c08864363fef41aa96bbf22e57875396a",
+    "reports/baseline_pilot/results.json": "571e1522e39cb4021575da2a53940a5efe6a5f12900ce7a38cff10612ed52db8",
+    "src/baseline_pilot.py": "95a1a1692cf5862e76a6a8b55a06eb1a3cda2ee739913c8bb8ab79f2bac637ea",
+    "src/chronos_pilot.py": "d05547c7b6ff5e4f319786d1485071b74edd7747b9eb8de3ec7975d259eba8b5"
+  }
+}

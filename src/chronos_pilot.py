@@ -103,6 +103,7 @@ def main():
     parser.add_argument("--output", type=Path)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--check-only", action="store_true")
+    parser.add_argument("--model-revision", help="Optional fixed Hugging Face commit for repeatable follow-up runs")
     args = parser.parse_args()
     if args.batch_size < 1:
         parser.error("batch-size must be positive")
@@ -117,7 +118,7 @@ def main():
     from huggingface_hub import HfApi
     if not torch.cuda.is_available():
         raise RuntimeError("Select a GPU runtime in Colab before running inference")
-    revision = HfApi().model_info(MODEL_ID).sha
+    revision = args.model_revision or HfApi().model_info(MODEL_ID).sha
     # float32 avoids unsupported bfloat16 on Colab T4; small batches limit long-horizon expansion.
     pipeline = BaseChronosPipeline.from_pretrained(
         MODEL_ID, revision=revision, device_map="cuda", torch_dtype=torch.float32)

@@ -1,0 +1,2201 @@
+{
+  "identity": {
+    "protocol_sha256": "49c6ab5044f0c0412c262c10794262d415a9baa772f768d8721572eb890e6b05",
+    "script_sha256": "c20eece0cb705232851251f8d3e96b06dae52d35aeca051b6e0b8a612a50626c",
+    "chronos_zip_sha256": "17288f277fc8326dba2c02fad171d66669a60f850149969a5b14db2ef0747c67",
+    "inputs_zip_sha256": "a64b6240507cb5e4ac8349e8265ab87e50c598d225400f15bbbc4e298cd74b58",
+    "versions": {
+      "numpy": "1.26.3",
+      "pandas": "2.2.0",
+      "scikit-learn": "1.4.0",
+      "lightgbm": "4.6.0"
+    }
+  },
+  "protocol": {
+    "created_date": "2026-10-20",
+    "study_status": "Follow-up after observing Chronos results",
+    "models": {
+      "ridge": [
+        1.0,
+        100.0
+      ],
+      "lightgbm": [
+        15,
+        31
+      ]
+    },
+    "ridge_grid_parameter": "alpha",
+    "lightgbm_grid_parameter": "num_leaves",
+    "training_origin_stride_hours": 24,
+    "minimum_training_origins": 7,
+    "test_and_validation_origins": "Exact frozen hourly origins from expanded Chronos cases",
+    "history_hours": 336,
+    "horizons_hours": [
+      24,
+      168
+    ],
+    "training_boundary": "All targets through 168h end by train_cutoff, before validation origins",
+    "refit_boundary": "After tuning, refit on all eligible daily origins with targets through 168h ending by validation_cutoff, before first test origin",
+    "target": "Residual from target-aligned weekly naive; add weekly prediction back at inference",
+    "features": "Origin load lags and 24/168/336h statistics, daily/weekly/prior-week target-aligned loads, differences, horizon, cyclic hour/weekday/year and weekend",
+    "selection": "Validation MAE only; Ridge scaler fitted only on training; newly fitted on refit data",
+    "training_budget": "Daily training origins reduce duplicated labels and compute; evaluation remains hourly; no weather inputs",
+    "fixed_lightgbm": {
+      "n_estimators": 200,
+      "learning_rate": 0.05,
+      "min_child_samples": 30,
+      "objective": "regression_l1",
+      "reg_lambda": 1.0,
+      "random_state": 42
+    },
+    "missing_data": "No filling; require complete 336h history and 168h future during training; report excluded cases",
+    "caveats": [
+      "Q1 has no earlier fitting data under frozen split; do not move its boundaries",
+      "Later windows may train on earlier test-period observations once those observations are historical",
+      "Not an exhaustive model search or proof about all trained models",
+      "Trained-model uncertainty not calculated by this script"
+    ]
+  },
+  "complete": true,
+  "completed_cases": 46,
+  "exclusions": [
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    },
+    {
+      "window": "Q1",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "training_origins": 0,
+      "reason": "Insufficient earlier training origins under frozen split"
+    }
+  ],
+  "cases": [
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 3158.3360702725377,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 4550.074995819536
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 3158.3360702725377
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1151.443338166838,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1165.2162367557996
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1151.443338166838
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2017-04-07 00:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 00:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1967.3904734784378,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 2053.638049834073
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1967.3904734784378
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1101.5779752937492,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1132.9428242989088
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1101.5779752937492
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2017-04-07 00:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 00:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 1648.9510101410667,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1648.9510101410667
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 2401.6826541712185
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1370.5367038904615,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1370.5367038904615
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1387.586039783478
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2017-04-07 00:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 00:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 1714.7581510159307,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1714.7581510159307
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1763.7418828485927
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1241.460177921208,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1253.2068035740926
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1241.460177921208
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2017-04-07 00:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 00:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1053.369615118738,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1216.1741992439881
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1053.369615118738
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 497.98086736615755,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 502.5329497503108
+            },
+            {
+              "config": 31,
+              "validation_MAE": 497.98086736615755
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2017-04-07 00:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 00:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1398.9783900794787,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1501.5874442903585
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1398.9783900794787
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1579.7624225388843,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1579.7624225388843
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1594.3910805875628
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2017-04-07 00:00:00",
+      "validation_first_origin": "2017-04-08 00:00:00",
+      "refit_last_target": "2017-05-19 00:00:00",
+      "test_first_origin": "2017-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 11.023209991491845,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 12.613382892969579
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 11.023209991491845
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 10.540794157772588,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 10.54812412447385
+            },
+            {
+              "config": 31,
+              "validation_MAE": 10.540794157772588
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 13.42084970598489,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 13.42084970598489
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 13.49823360378833
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 11.356858165783695,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 11.421077926002967
+            },
+            {
+              "config": 31,
+              "validation_MAE": 11.356858165783695
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 8.271822836079103,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 12.677483551596671
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 8.271822836079103
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 8.127904180202531,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 8.127904180202531
+            },
+            {
+              "config": 31,
+              "validation_MAE": 8.180895865231058
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 8.76502493938068,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 10.32115695842876
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 8.76502493938068
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 9.292207500447235,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 10.171901749923547
+            },
+            {
+              "config": 31,
+              "validation_MAE": 9.292207500447235
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.15974081803513202,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.27459836381514324
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.15974081803513202
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.13431486933429307,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.14879169288722505
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.13431486933429307
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.6447431733926727,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.9151819458710784
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.6447431733926727
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.30364852906695833,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.3111419630399443
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.30364852906695833
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q2",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.39624677806404807,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.7398807304358527
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.39624677806404807
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.2684142302217325,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.2684142302217325
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.2755172489037463
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 76,
+      "refit_origins": 118,
+      "train_last_target": "2014-04-07 00:00:00",
+      "validation_first_origin": "2014-04-08 00:00:00",
+      "refit_last_target": "2014-05-19 00:00:00",
+      "test_first_origin": "2014-05-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 2581.921554943745,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 2784.5042601235223
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 2581.921554943745
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1530.9940826854902,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1530.9940826854902
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1661.5626015775301
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2017-07-08 00:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 00:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 3104.6215903032257,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 3320.649189181288
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 3104.6215903032257
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 2592.5087159898135,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 2592.5087159898135
+            },
+            {
+              "config": 31,
+              "validation_MAE": 3010.8438150044176
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2017-07-08 00:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 00:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 1527.036746281397,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1527.036746281397
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1620.1228393046122
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1421.9352350910833,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1421.9352350910833
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1512.6787258673796
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2017-07-08 00:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 00:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 2791.494872677573,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 3102.7335569267416
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 2791.494872677573
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1387.8647776054765,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1387.8647776054765
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1436.4265911883124
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2017-07-08 00:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 00:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1050.826404184771,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1056.9871786799615
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1050.826404184771
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1382.0405988318964,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1382.0405988318964
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1398.7903311625737
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2017-07-08 00:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 00:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 2602.4757044505245,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 3079.3930501126197
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 2602.4757044505245
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 1851.6881655922928,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 2016.2737989559348
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1851.6881655922928
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2017-07-08 00:00:00",
+      "validation_first_origin": "2017-07-09 00:00:00",
+      "refit_last_target": "2017-08-19 00:00:00",
+      "test_first_origin": "2017-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 13.586548195798498,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 13.586548195798498
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 14.144379425613927
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 15.312190301489444,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 15.594761253463433
+            },
+            {
+              "config": 31,
+              "validation_MAE": 15.312190301489444
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 20.989023437231623,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 20.989023437231623
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 21.134689443286952
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 21.890274718832064,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 21.890274718832064
+            },
+            {
+              "config": 31,
+              "validation_MAE": 23.72165937769685
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 6.91783714822664,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 7.045227197874123
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 6.91783714822664
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 6.595409700987396,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 6.595409700987396
+            },
+            {
+              "config": 31,
+              "validation_MAE": 7.066886396341147
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 6.172341230213082,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 6.207183106383733
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 6.172341230213082
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 7.264277837303568,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 7.554097435867401
+            },
+            {
+              "config": 31,
+              "validation_MAE": 7.264277837303568
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.036480144725320206,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.03881434214820464
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.036480144725320206
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 0.027419736588926633,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.027419736588926633
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.02765853865617205
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.3481341358297849,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1.3346092353748307
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.3481341358297849
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.2548645888174905,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.26803207888757175
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.2548645888174905
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.6953137897659044,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1.0662188574125344
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.6953137897659044
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.2323614610211397,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.2323614610211397
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.2434061497503454
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 168,
+      "refit_origins": 210,
+      "train_last_target": "2014-07-08 00:00:00",
+      "validation_first_origin": "2014-07-09 00:00:00",
+      "refit_last_target": "2014-08-19 00:00:00",
+      "test_first_origin": "2014-08-20 00:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.3487339490306451,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.7868739953694227
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.3487339490306451
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.3848667963021839,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.3848667963021839
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.3848667963021839
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 15,
+      "refit_origins": 30,
+      "train_last_target": "2009-07-08 00:00:00",
+      "validation_first_origin": "2009-07-24 22:00:00",
+      "refit_last_target": "2009-08-13 00:00:00",
+      "test_first_origin": "2009-08-27 19:00:00"
+    },
+    {
+      "window": "Q3",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.3700582815224019,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.7607061062734956
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.3700582815224019
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.290195236166767,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.290195236166767
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.30809398426543383
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 15,
+      "refit_origins": 30,
+      "train_last_target": "2009-07-08 00:00:00",
+      "validation_first_origin": "2009-07-24 22:00:00",
+      "refit_last_target": "2009-08-13 00:00:00",
+      "test_first_origin": "2009-08-27 19:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1154.348824437351,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1416.1368306920217
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1154.348824437351
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1179.1796469296103,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1179.1796469296103
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1198.8789565643024
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 259,
+      "refit_origins": 301,
+      "train_last_target": "2017-10-07 00:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 00:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_1",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1560.271385556379,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1618.759123608126
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1560.271385556379
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1518.4675499361442,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1518.4675499361442
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1609.0082465354008
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 259,
+      "refit_origins": 301,
+      "train_last_target": "2017-10-07 00:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 00:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 1645.3325595853173,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 2076.049700476527
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1645.3325595853173
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 967.3281480270534,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 974.3852604104834
+            },
+            {
+              "config": 31,
+              "validation_MAE": 967.3281480270534
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 259,
+      "refit_origins": 301,
+      "train_last_target": "2017-10-07 00:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 00:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_2",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 3082.5278154687785,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 3311.8304242592894
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 3082.5278154687785
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 1818.429124300859,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 1818.429124300859
+            },
+            {
+              "config": 31,
+              "validation_MAE": 1923.78159906275
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 259,
+      "refit_origins": 301,
+      "train_last_target": "2017-10-07 00:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 00:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 734.6340877310563,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 822.0529331748105
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 734.6340877310563
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 660.942805494038,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 660.942805494038
+            },
+            {
+              "config": 31,
+              "validation_MAE": 691.2305009895548
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 259,
+      "refit_origins": 301,
+      "train_last_target": "2017-10-07 00:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 00:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "tetouan",
+      "series": "zone_3",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 1.0,
+          "validation_MAE": 1533.993377896763,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 1533.993377896763
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 1608.8968322435219
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 871.3150841124083,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 938.1620335746975
+            },
+            {
+              "config": 31,
+              "validation_MAE": 871.3150841124083
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 259,
+      "refit_origins": 301,
+      "train_last_target": "2017-10-07 00:00:00",
+      "validation_first_origin": "2017-10-08 00:00:00",
+      "refit_last_target": "2017-11-18 00:00:00",
+      "test_first_origin": "2017-11-19 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 3.2315723359222845,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 3.367495528643189
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 3.2315723359222845
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 2.735944024370894,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 2.735944024370894
+            },
+            {
+              "config": 31,
+              "validation_MAE": 3.2303407037297878
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T1",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 5.495721395160539,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 5.645091817758691
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 5.495721395160539
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 28.50378350300938,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 28.50378350300938
+            },
+            {
+              "config": 31,
+              "validation_MAE": 29.884046498433122
+            }
+          ]
+        }
+      },
+      "selected_trained": "ridge",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 4.810431610032953,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 4.980370430214088
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 4.810431610032953
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 3.998272684118309,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 3.998272684118309
+            },
+            {
+              "config": 31,
+              "validation_MAE": 4.107174491574236
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T2",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 7.452052298248341,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 7.939810337228948
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 7.452052298248341
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 4.287776314125759,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 4.3537569464022186
+            },
+            {
+              "config": 31,
+              "validation_MAE": 4.287776314125759
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.03065939959218519,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.03387694449108067
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.03065939959218519
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "portugal",
+      "series": "T3",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.025332397315691167,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.026215628000997172
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.025332397315691167
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.0,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.0
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.0
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.3541510308390867,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.41234804729926927
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.3541510308390867
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.19904181766255707,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.20219876319671146
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.19904181766255707
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "victoria",
+      "series": "regional_demand",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.2772261902400604,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.28396670551275033
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.2772261902400604
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.20693316919430207,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.22026341650748701
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.20693316919430207
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 260,
+      "refit_origins": 302,
+      "train_last_target": "2014-10-08 00:00:00",
+      "validation_first_origin": "2014-10-09 00:00:00",
+      "refit_last_target": "2014-11-19 00:00:00",
+      "test_first_origin": "2014-11-20 00:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 24,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.5840990971025071,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.7459344699156237
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.5840990971025071
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 15,
+          "validation_MAE": 0.5260202519078466,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.5260202519078466
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.5303162418375796
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 40,
+      "refit_origins": 48,
+      "train_last_target": "2009-09-13 00:00:00",
+      "validation_first_origin": "2009-10-25 17:00:00",
+      "refit_last_target": "2009-11-09 00:00:00",
+      "test_first_origin": "2009-11-23 20:00:00"
+    },
+    {
+      "window": "Q4",
+      "dataset": "household",
+      "series": "sceaux_household",
+      "horizon_hours": 168,
+      "fingerprint": "2b10aa253e81b7a8ebd9f411fa7d907cf9d3ab1ceb2efa3b07d71d352d35492d",
+      "choices": {
+        "ridge": {
+          "chosen_config": 100.0,
+          "validation_MAE": 0.624561543943974,
+          "trials": [
+            {
+              "config": 1.0,
+              "validation_MAE": 0.6498430052342504
+            },
+            {
+              "config": 100.0,
+              "validation_MAE": 0.624561543943974
+            }
+          ]
+        },
+        "lightgbm": {
+          "chosen_config": 31,
+          "validation_MAE": 0.5731086594897907,
+          "trials": [
+            {
+              "config": 15,
+              "validation_MAE": 0.5743657634139052
+            },
+            {
+              "config": 31,
+              "validation_MAE": 0.5731086594897907
+            }
+          ]
+        }
+      },
+      "selected_trained": "lightgbm",
+      "train_origins": 40,
+      "refit_origins": 48,
+      "train_last_target": "2009-09-13 00:00:00",
+      "validation_first_origin": "2009-10-25 17:00:00",
+      "refit_last_target": "2009-11-09 00:00:00",
+      "test_first_origin": "2009-11-23 20:00:00"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "status": "Follow-up after inspecting the original pilot, not preregistration",
+  "windows": {
+    "Q1": 3,
+    "Q2": 6,
+    "Q3": 9,
+    "Q4": 12
+  },
+  "window_endpoint": "Last available hourly observation through calendar quarter end",
+  "years": {
+    "tetouan": 2017,
+    "portugal": 2014,
+    "household": 2009,
+    "victoria": 2014
+  },
+  "validation_days": 42,
+  "test_days": 42,
+  "embargo_hours": 168,
+  "horizons": [
+    24,
+    168
+  ],
+  "context_hours": 336,
+  "selection": "Choose baseline and blend weights separately on preceding validation MAE only",
+  "model_id": "amazon/chronos-bolt-base",
+  "model_revision": "5d9f166d69f47aef3401367a7b842e78fe97b121",
+  "repeated_evidence": "Q4 repeats the original test period and is not independent new evidence",
+  "missing_window_policy": "Exclude and report any series/window with no complete validation or test origins; do not change gap rules"
+}

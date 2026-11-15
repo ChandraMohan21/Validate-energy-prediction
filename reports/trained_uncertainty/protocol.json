@@ -1,0 +1,33 @@
+{
+  "created_date": "2026-10-20",
+  "method": "Paired circular block bootstrap percentile intervals",
+  "repetitions": 5000,
+  "block_hours": [
+    168,
+    336
+  ],
+  "primary_block_hours": 168,
+  "seed": 20261020,
+  "comparators": [
+    "ridge",
+    "lightgbm",
+    "selected_trained"
+  ],
+  "loss": "Mean absolute error per forecast origin, averaged across all horizon steps",
+  "positive_difference": "Trained MAE minus Chronos MAE; positive favors Chronos",
+  "missingness": "Preserve calendar gaps, resample the same blocks and missingness mask for both models",
+  "selection": "Conditional on fitted models and validation-selected settings/family; do not retrain or reselect in bootstrap",
+  "assessment": "Support only if both block lengths give same nonzero direction and at least two blocks of valid origins exist; otherwise unclear or limited data",
+  "limitations": [
+    "Exploratory per-comparison 95% intervals without multiplicity correction",
+    "Few long blocks per short window; circular wrap and within-window approximate stationarity assumed",
+    "Intervals do not capture training/selection uncertainty, pretraining contamination or new-year generalization",
+    "Q1 unavailable for trained comparison; sparse household windows flagged; Q4 repeats pilot",
+    "Not an exhaustive search of Ridge or LightGBM configurations"
+  ],
+  "trained_results_sha256": "5d55ca17bc4958485f9291cdb9c2f58fcd46526e89844a2383806ff87c84d460",
+  "trained_scores_sha256": "71062f592f60a14c08afc3336708f0b4ce713b43825cef5f9106a179986e490e",
+  "script_sha256": "1aa0af668320b0cc2950d21a1fc62bd50a81f14041ad282162bc393379ef959d",
+  "bootstrap_module_sha256": "b984a43bf83db7dbc3a066569045262df2c34c8ece40812b0dfec4b0299e6261",
+  "reference": "https://bashtage.github.io/arch/bootstrap/timeseries-bootstraps.html"
+}
